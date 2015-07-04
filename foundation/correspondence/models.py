@@ -24,7 +24,7 @@ class Contact(models.Model):
         verbose_name = _("Contact")
         verbose_name_plural = _("Contacts")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -49,7 +49,7 @@ class Letter(models.Model):
         verbose_name = _("Letter")
         verbose_name_plural = _("Letters")
 
-    def __unicode__(self):
+    def __str__(self):
         return _("Letter #%s") % (str(self.pk))
 
     def get_absolute_url(self):
@@ -67,5 +67,5 @@ class Attachment(models.Model):
         verbose_name = _("Attachment")
         verbose_name_plural = _("Attachments")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.filename()
