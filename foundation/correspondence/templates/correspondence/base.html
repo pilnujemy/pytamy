@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n %}
+
+{% block title %}{% trans 'Correspondence'%} - {{block.super}}{% endblock %}
+
+
 {% block breadcrumbs %}
 <ol class="breadcrumb">
     <li><a href="{% url 'correspondence:letter_list' %}">{% trans 'Correspondence' %}</a></li>
