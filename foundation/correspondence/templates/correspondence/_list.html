@@ -1,0 +1,19 @@
+{% extends 'correspondence/base.html' %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags i18n %}
+
+{% block content %}
+
+{% block button %}
+{% endblock %}
+{% if filter.form %}
+{% crispy filter.form %}
+{% endif %}
+
+{% if object_list %}
+    {% render_table table %}
+{% else %}
+    {% trans 'There is no rows. So sorry!'%} 
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'correspondence/_form.html' %}
+{% load crispy_forms_tags i18n %}
+{% block javascript %}
+{{block.super}}
+<script src="https://cdn.rawgit.com/elo80ka/django-dynamic-formset/1d57afed15f32c4a24dcaee83da5ba83c4b0b99c/src/jquery.formset.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.form-container').formset();
+});
+</script>
+
+{% endblock %}
+{% block content %}
+<a href="{% url 'correspondence:contact_create' %}" class="btn btn-info">{% trans 'Add contact'%}</a>
+{{block.super}}
+{% endblock %}
+
+{% block extra_form %}
+{{inlines.0.management_form }}
+{% for form in inlines.0 %}
+<div class="form-container">
+    {% crispy form %}
+</div>
+{% endfor %}
+{% endblock %}

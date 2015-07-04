@@ -1,0 +1,19 @@
+{% extends 'correspondence/base.html' %}
+{% load i18n %}
+{% block breadcrumbs_row %}
+<li><a href="{{object.get_absolute_url}}">{{object}}</a></li>
+<li class="active">{%trans 'Delete confirmation '%}</li>
+{% endblock %}
+
+{% block content %}
+<h2>{{object}}</h2>
+<form method="post">
+ <div class="form-actions">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> {% blocktrans %}Delete {{object}}{% endblocktrans %}</button>  
+    <a class="btn btn-primary" href="{{object.get_absolute_url}}">{% trans 'Cancel'%}</a>  
+  </div>  
+</form>
+
+
+{% endblock %}

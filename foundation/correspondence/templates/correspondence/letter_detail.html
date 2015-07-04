@@ -1,0 +1,59 @@
+{% extends 'correspondence/_detail.html' %}
+{% load i18n %}
+{% block breadcrumbs_row %}
+        <li class="active">{{object}}</li>
+{% endblock %}
+{% block content %}
+{{block.super}}
+<a href="{% url 'correspondence:letter_update' pk=object.pk%}" class="btn btn-info">{% trans 'Update'%}</a>
+<a href="{% url 'correspondence:letter_delete' pk=object.pk%}" class="btn btn-warning">{% trans 'Delete'%}</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% trans "ID"%}</td>
+            <td>{{object.id}}</td>
+        </tr>
+        <tr>
+            <td>{% trans "Outgoing"%}</td>
+            <td>{{object.outgoing}}</td>
+        </tr>
+        <tr>
+            <td>{% trans "Contact"%}</td>
+            <td><a href="{{object.contact.get_absolute_url}}">{{object.contact}}</a></td>
+        </tr>
+        <tr>
+            <td>{% trans "Transfer on"%}</td>
+            <td>{{object.transfer_on}}</td>
+        </tr>
+        <tr>
+            <td>{% trans "Description"%}</td>
+            <td>{{object.description}}</td>
+        </tr>
+        <tr>
+            <td>{% trans "Created"%}</td>
+            <td>{{object.created_by}} {{object.created_on}}</td>
+        </tr>
+        {% if object.modified_by %}
+        <tr>
+            <td>{% trans "Modified"%}</td>
+            <td>{{object.modified_by}} {{object.modified_on}}</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+<h3>{% trans 'Attachment' %}</h3>
+<ul>
+{% for attachment in object.attachment_set.all %}
+    <li><a href="{{attachment.file.url}}">{{attachment.filename}}</a></li>
+{% empty %}
+<li>No rows.</li>
+{% endfor %}
+</ul>
+{% endblock %}

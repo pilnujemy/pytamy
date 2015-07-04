@@ -1,0 +1,16 @@
+{% extends 'correspondence/base.html' %}
+{% load crispy_forms_tags i18n %}
+{% block breadcrumbs_row %}
+        {% if object %}
+            <li><a href="{{object.get_absolute_url}}">{{object}}</a></li>
+            <li class="active">{% trans 'Update' %}</li>
+        {% else %}
+            <li class="active">{% trans 'Create' %}</li>
+        {% endif %}
+{% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+{% crispy form %}
+{% block extra_form %}{% endblock %}
+</form>
+{% endblock %}
