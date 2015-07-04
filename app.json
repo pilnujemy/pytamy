@@ -1,0 +1,31 @@
+{
+  "name": "foundation",
+  "scripts": {
+    "postdeploy": "python foundation/manage.py migrate"
+  },
+  "env": {
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-python",
+    "DJANGO_SECRET_KEY": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "1"
+    },
+    "DJANGO_AWS_ACCESS_KEY_ID": {
+      "value": ""
+    },
+    "DJANGO_AWS_SECRET_ACCESS_KEY": {
+      "value": ""
+    },
+    "DJANGO_AWS_STORAGE_BUCKET_NAME": {
+      "value": ""
+    }
+  },
+  "addons": [
+    "heroku-postgresql:dev",
+    "sendgrid:starter",
+    "memcachier:dev"
+  ]
+}
