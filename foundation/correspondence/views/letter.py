@@ -1,18 +1,37 @@
-from django.views.generic import DeleteView, DetailView
+from django.views.generic import DeleteView, DetailView, UpdateView, CreateView
+from django.forms.models import BaseInlineFormSet
+from django.forms.models import inlineformset_factory
 from braces.views import LoginRequiredMixin, UserFormKwargsMixin, SelectRelatedMixin
 from ..models import Letter, Attachment
 from ..forms import LetterForm
 from ..filters import LetterFilter
 from ..tables import LetterTable
 from .mixins import (PagedFilteredTableView, InitialFormMixin, CreateFormMessagesMixin,
-    UpdateFormMessagesMixin, DeletedMessageMixin)
+    UpdateFormMessagesMixin, DeletedMessageMixin, CreateFormsetView, UpdateFormsetView)
+from ..forms import AttachmentForm
 
-from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSet
+from crispy_forms.helper import FormHelper
 from django.core.urlresolvers import reverse
 
 
-class ItemInline(InlineFormSet):
-    model = Attachment
+class FormsetHelper(FormHelper):
+    form_tag = False
+    form_method = 'post'
+
+
+class TableInlineHelper(FormsetHelper):
+    template = 'bootstrap/table_inline_formset.html'
+
+
+def formset_attachment_factory(form_formset=None, *args, **kwargs):
+    if form_formset is None:
+        class BaseAttachmentFormSet(BaseInlineFormSet):
+            helper = TableInlineHelper()
+        form_formset = BaseAttachmentFormSet
+    return inlineformset_factory(Letter, Attachment, form=AttachmentForm, formset=form_formset,
+        *args, **kwargs)
+
+AttachmentFormSet = formset_attachment_factory()
 
 
 class LetterDetailView(SelectRelatedMixin, DetailView):
@@ -28,10 +47,10 @@ class LetterListView(SelectRelatedMixin, PagedFilteredTableView):
 
 
 class LetterCreateView(LoginRequiredMixin, CreateFormMessagesMixin, UserFormKwargsMixin,
-        InitialFormMixin, CreateWithInlinesView):
+        InitialFormMixin, CreateFormsetView, CreateView):
     model = Letter
     form_class = LetterForm
-    inlines = [ItemInline]
+    formset_class = {'attachment_form': AttachmentFormSet}
 
 
 class LetterDeleteView(DeletedMessageMixin, DeleteView):
@@ -45,7 +64,7 @@ class LetterDeleteView(DeletedMessageMixin, DeleteView):
 
 
 class LetterUpdateView(LoginRequiredMixin, UpdateFormMessagesMixin, UserFormKwargsMixin,
-        UpdateWithInlinesView):
+        UpdateFormsetView, UpdateView):
     model = Letter
     form_class = LetterForm
-    inlines = [ItemInline]
+    formset_class = {'attachment_form': AttachmentFormSet}

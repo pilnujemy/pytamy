@@ -63,3 +63,40 @@ class InitialFormMixin(object):
         initial = super(InitialFormMixin, self).get_initial(*args, **kwargs)
         initial.update(self.request.GET.dict())
         return initial
+
+
+class BaseFormSetView(object):
+    formset_class = {}
+
+    def form_valid(self, form, *args, **kwargs):
+        context = self.get_context_data()
+        if all(context[key].is_valid() for key in self.formset_class.keys()):
+            form.save()
+            [context[key].save() for key in self.formset_class.keys()]
+            return super(BaseFormSetView, self).form_valid(form=form, *args, **kwargs)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+
+class CreateFormsetView(object):
+    def get_context_data(self, **kwargs):
+        context = super(CreateFormsetView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            for key, value in self.formset_class.items():
+                context[key] = value(self.request.POST)
+        else:
+            for key, value in self.formset_class.items():
+                context[key] = value()
+        return context
+
+
+class UpdateFormsetView(BaseFormSetView):
+    def get_context_data(self, **kwargs):
+        context = super(UpdateFormsetView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            for key, value in self.formset_class.items():
+                context[key] = value(self.request.POST, instance=self.object)
+        else:
+            for key, value in self.formset_class.items():
+                context[key] = value(instance=self.object)
+        return context

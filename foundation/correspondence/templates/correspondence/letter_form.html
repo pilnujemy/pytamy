@@ -16,10 +16,6 @@ $(function() {
 {% endblock %}
 
 {% block extra_form %}
-{{inlines.0.management_form }}
-{% for form in inlines.0 %}
-<div class="form-container">
-    {% crispy form %}
-</div>
-{% endfor %}
+{% crispy attachment_form %}
+{{ form.management_form }}
 {% endblock %}
