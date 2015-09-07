@@ -55,3 +55,4 @@ node_modules/
 # virtual environments
 .env
 foundation/media/
+bower_components/

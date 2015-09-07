@@ -1,0 +1,21 @@
+{
+  "name": "foundation",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ad-m/foundation-manager",
+  "authors": [
+    "Adam Dobrawy <naczelnik@jawnosc.tk>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "~4.4.0",
+    "jquery": "~2.1.4",
+    "bootstrap-sass": "~3.3.5"
+  }
+}
