@@ -1,6 +1,6 @@
 from django_filters import FilterSet, DateRangeFilter
 from .models import Letter, Contact
-from atom.ext.django_filters import AutocompleteChoiceFilter, CrispyFilterMixin
+from atom.ext.django_filters.filters import AutocompleteChoiceFilter, CrispyFilterMixin
 
 
 class ContactFilter(CrispyFilterMixin, FilterSet):
