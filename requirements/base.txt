@@ -36,4 +36,4 @@ django-autocomplete-light==2.2.3
 django-extra-views==0.7.1
 
 # Your custom requirements go here
-
+git+https://github.com/ad-m/django-atom.git@v0.5.0#egg=django-atom
