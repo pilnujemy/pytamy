@@ -1,0 +1,42 @@
+{% extends 'correspondence/base.html' %}
+{% load i18n crispy_forms_tags %}
+
+{% block breadcrumbs_row %}
+<li class="active">{% trans 'Contacts'%}</li>
+{% endblock %}
+
+{% block button %}
+<a href="{% url 'correspondence:contact_create' %}" class="btn btn-info"><i class="fa fa-plus"></i> {% trans 'Add contact'%}</a>
+{% endblock %}
+
+{% block content %}
+<div class="well">
+    {% crispy filter.form %}
+</div>
+{% if object_list %}
+<table class="table table-striped">
+    <tr>
+        <th>{% trans 'Name' %}</th>
+        <th>{% trans 'Comment' %}</th>
+        <th>{% trans 'City' %}</th>
+        <th>{% trans 'Actions' %}</th>
+    </tr>
+    {% for object in object_list %}
+    <tr>
+        <td><a href="{{object.get_absolute_url}}">{{object.name}}</a></td>
+        <td>{{object.city}}</td>
+        <td>{{object.comment}}</td>
+        <td>
+            <div class="btn-group" role="group">
+                {% include 'correspondence/_list_meta.html' with record=object %}
+                <a class="btn btn-default btn-sm" href="{% url 'correspondence:letter_create'%}?contact_id={{ object.pk }}"><i class="fa fa-plus"></i> {% trans 'Add letter'%}
+                </a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+{% trans 'There is no rows. So sorry!'%} 
+{% endif %}
+{% endblock %}

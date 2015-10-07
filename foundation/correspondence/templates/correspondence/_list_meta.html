@@ -1,0 +1,3 @@
+{% load i18n %}
+<span rel="tooltip" class="btn btn-default btn-sm" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" data-html="true" data-title="<p>{% blocktrans with user=record.created_by time=record.created_on %}Created by {{user}} at {{time}}{% endblocktrans %}</p>
+<p>{% blocktrans with user=record.modified_by time=record.modified_on %}Modiifed by {{user}} at {{time}}{% endblocktrans %}</p>"><i class="fa fa-list-alt"></i> {% trans 'Meta' %}</span>

@@ -5,11 +5,10 @@ from braces.views import LoginRequiredMixin, UserFormKwargsMixin, SelectRelatedM
 from ..models import Letter, Attachment
 from ..forms import LetterForm
 from ..filters import LetterFilter
-from ..tables import LetterTable
-from .mixins import (PagedFilteredTableView, InitialFormMixin, CreateFormMessagesMixin,
+from .mixins import (InitialFormMixin, CreateFormMessagesMixin,
     UpdateFormMessagesMixin, DeletedMessageMixin, CreateFormsetView, UpdateFormsetView)
 from ..forms import AttachmentForm
-
+from django_filters.views import FilterView
 from crispy_forms.helper import FormHelper
 from django.core.urlresolvers import reverse
 
@@ -29,7 +28,7 @@ def formset_attachment_factory(form_formset=None, *args, **kwargs):
             helper = TableInlineHelper()
         form_formset = BaseAttachmentFormSet
     return inlineformset_factory(Letter, Attachment, form=AttachmentForm, formset=form_formset,
-        *args, **kwargs)
+                                 *args, **kwargs)
 
 AttachmentFormSet = formset_attachment_factory()
 
@@ -39,15 +38,14 @@ class LetterDetailView(SelectRelatedMixin, DetailView):
     select_related = ["created_by", "modified_by", "contact"]
 
 
-class LetterListView(SelectRelatedMixin, PagedFilteredTableView):
+class LetterListView(SelectRelatedMixin, FilterView):
     model = Letter
-    table_class = LetterTable
-    filter_class = LetterFilter
+    filterset_class = LetterFilter
     select_related = ["created_by", "modified_by", "contact", ]
 
 
 class LetterCreateView(LoginRequiredMixin, CreateFormMessagesMixin, UserFormKwargsMixin,
-        InitialFormMixin, CreateFormsetView, CreateView):
+                       InitialFormMixin, CreateFormsetView, CreateView):
     model = Letter
     form_class = LetterForm
     formset_class = {'attachment_form': AttachmentFormSet}
@@ -64,7 +62,7 @@ class LetterDeleteView(DeletedMessageMixin, DeleteView):
 
 
 class LetterUpdateView(LoginRequiredMixin, UpdateFormMessagesMixin, UserFormKwargsMixin,
-        UpdateFormsetView, UpdateView):
+                       UpdateFormsetView, UpdateView):
     model = Letter
     form_class = LetterForm
     formset_class = {'attachment_form': AttachmentFormSet}

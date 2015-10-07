@@ -10105,3 +10105,6 @@ return jQuery;
   }
 
 }(jQuery);
+
+/* Project specific Javascript goes here. */
+ $('[rel="tooltip"]').tooltip();

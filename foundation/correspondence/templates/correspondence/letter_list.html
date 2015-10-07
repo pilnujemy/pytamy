@@ -1,9 +1,0 @@
-{% extends 'correspondence/_list.html' %}
-{% load i18n %}
-{% block breadcrumbs_row %}
-        <li class="active">{% trans 'Index'%}</li>
-{% endblock %}
-{% block button %}
-<a href="{% url 'correspondence:letter_create' %}" class="btn btn-info">{% trans 'Add letter'%}</a>
-<a href="{% url 'correspondence:contact_list' %}" class="btn btn-info">{% trans 'Contacts index' %}</a>
-{% endblock %}

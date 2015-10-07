@@ -1,0 +1,41 @@
+{% extends 'correspondence/base.html' %}
+{% load i18n humanize correspondence_tags %}
+{% block breadcrumbs_row %}
+        <li class="active">{% trans 'Index'%}</li>
+{% endblock %}
+{% block button %}
+<a href="{% url 'correspondence:letter_create' %}" class="btn btn-primary">{% trans 'Add letter'%}</a>
+<a href="{% url 'correspondence:contact_list' %}" class="btn btn-default">{% trans 'Contacts index' %}</a>
+{% endblock %}
+
+{% load crispy_forms_tags i18n %}
+
+{% block content %}
+<div class="well">
+{% crispy filter.form %}
+</div>
+{% if object_list %}
+    <table class="table table-striped">
+    <tr>
+        <th><a href="{% sort_link request 'pk' %}">{% trans 'ID' %}</a></th>
+        <th>{% trans 'Outgoing' %}</th>
+        <th>{% trans 'Description' %}</th>
+        <th>{% trans 'Contact' %}</th>
+        <th>{% trans 'Transfer on' %}</th>
+        <th>{% trans 'Actions' %}</th>
+    </tr>
+    {% for object in object_list %}
+    <tr>
+        <td><a href="{{object.get_absolute_url}}">{{object.pk}}</a></td>
+        <td>{{outgoing|yesno:'✘,✔'}}</td>
+        <td>{{object.description}}</td>
+        <td><a href="{{object.contact.get_absolute_url}}">{{object.contact}}</a></td>
+        <td><span rel="tooltip" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" data-title="{{object.transfer_on}}">{{object.transfer_on | naturalday}}</span></td>
+        <td>{% include 'correspondence/_list_meta.html' with record=object %}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    {% trans 'There is no rows. So sorry!'%} 
+{% endif %}
+{% endblock %}
