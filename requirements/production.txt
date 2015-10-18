@@ -12,6 +12,3 @@ gunicorn==19.3.0
 # ------------------------------------------------
 boto==2.38.0
 django-storages-redux==1.2.3
-
-# For the persistence stores
-psycopg2==2.6.1

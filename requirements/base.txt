@@ -9,8 +9,9 @@ django-braces==1.8.0
 django-crispy-forms==1.4.0
 django-floppyforms==1.4.1
 
-# Models
+# Models and persistent storage
 django-model-utils==2.2
+mysqlclient==1.3.6
 
 # Images
 Pillow==2.8.2
@@ -36,3 +37,4 @@ django-extra-views==0.7.1
 git+https://github.com/ad-m/django-atom.git@master#egg=django-atom
 git+https://github.com/ad-m/django-teryt-tree.git@master#egg=django-teryt-tree
 django-states==1.6.5
+
