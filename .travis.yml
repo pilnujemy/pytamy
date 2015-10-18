@@ -26,6 +26,7 @@ matrix:
     - env: TOX_ENV=py27-dj19
     - env: TOX_ENV=py27-djmaster
     - env: TOX_ENV=py34-dj18
+    - env: TOX_ENV=py34-dj19
     - env: TOX_ENV=py34-djmaster
     - env: TOX_ENV=pypy-dj18
     - env: TOX_ENV=pypy-dj19
