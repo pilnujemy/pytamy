@@ -1,7 +1,7 @@
 # Pro-tip: Try not to put anything here. There should be no dependency in
 #	production that isn't in development.
 django==1.8.2
--r local.txt
+-r base.txt
 
 # WSGI Handler
 # ------------------------------------------------
