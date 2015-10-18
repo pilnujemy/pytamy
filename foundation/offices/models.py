@@ -43,7 +43,10 @@ class OfficeStateMachine(StateMachine):
 
 class OfficeQuerySet(QuerySet):
     def for_user(self, user):
-        return self
+        if user.is_staff:
+            return self
+        return self.filter(models.Q(state='accepted') |
+                           models.Q(models.Q(state='created') & models.Q(created_by=user)))
 
 
 class Office(TimeStampedModel):
@@ -74,7 +77,8 @@ class Office(TimeStampedModel):
 class Email(models.Model):
     office = models.ForeignKey(Office, verbose_name=_("Office"))
     email = models.EmailField(verbose_name=_("Address"))
-    default = models.BooleanField(default=True, verbose_name=_("Default"),
+    default = models.BooleanField(default=True,
+                                  verbose_name=_("Default"),
                                   help_text=_("Use this e-mail as primary for office"))
 
     class Meta:
