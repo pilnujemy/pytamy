@@ -1,4 +1,4 @@
-from .common import *  # noqa
+from .local import *  # noqa
 
 
 class DisableMigrations(object):

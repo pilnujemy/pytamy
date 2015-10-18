@@ -9,7 +9,9 @@ class JST(JednostkaAdministracyjna):
             return reverse('teryt:details_w', kwargs={'slug': self.slug})
         if self.level == 1:
             return reverse('teryt:details_p', kwargs={'slug': self.slug})
-        return reverse('teryt:details_g', kwargs={'slug': self.slug})
+        if self.level == 2:
+            return reverse('teryt:details_g', kwargs={'slug': self.slug})
+        return reverse('teryt:details', kwargs={'slug': self.slug})
 
     class Meta:
         proxy = True
