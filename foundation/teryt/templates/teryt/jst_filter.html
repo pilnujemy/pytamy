@@ -1,0 +1,7 @@
+{% extends 'teryt/base.html' %}
+
+{% block teryt_content %}
+{% for object in object_list %}
+<h2><a href="{{object.get_absolute_url}}">{{object}}</a></h2>
+{% endfor %}
+{% endblock %}

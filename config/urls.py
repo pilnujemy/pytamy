@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^autocomplete/', include('autocomplete_light.urls')),
     # Your stuff: custom urls includes go here
     url(r'^correspondence/', include("foundation.correspondence.urls", namespace="correspondence")),
-
+    url(r'^kraj/', include("foundation.teryt.urls", namespace="teryt"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
