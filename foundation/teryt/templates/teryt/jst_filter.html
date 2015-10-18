@@ -1,7 +1,11 @@
 {% extends 'teryt/base.html' %}
-
+{% load crispy_forms_tags %}
+{% load bootstrap_pagination %}
 {% block teryt_content %}
+{% crispy filter.form %}
+
 {% for object in object_list %}
 <h2><a href="{{object.get_absolute_url}}">{{object}}</a></h2>
 {% endfor %}
+{% bootstrap_paginate page_obj range=10 %}
 {% endblock %}

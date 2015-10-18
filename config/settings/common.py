@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = (
     'django_tables2',
     'django_states',
     'teryt_tree',
+    'bootstrap_pagination',
 )
 
 # Apps specific for this project go here.
@@ -159,8 +160,6 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'allauth.account.context_processors.account',
-                'allauth.socialaccount.context_processors.socialaccount',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
