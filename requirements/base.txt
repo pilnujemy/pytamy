@@ -37,3 +37,5 @@ django-extra-views==0.7.1
 
 # Your custom requirements go here
 git+https://github.com/ad-m/django-atom.git@v0.5.0#egg=django-atom
+git+https://github.com/ad-m/django-teryt-tree.git@master#egg=django-teryt-tree
+django-states==1.6.5
