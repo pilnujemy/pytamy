@@ -41,7 +41,6 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'django_tables2',
-    'autofixture',
     'django_states',
     'teryt_tree',
 )
