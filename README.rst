@@ -1,10 +1,21 @@
+.. image:: https://travis-ci.org/pilnujemy/pytamy.svg
+    :target: https://travis-ci.org/pilnujemy/pytamy
+
+.. image:: https://coveralls.io/repos/pilnujemy/pytamy/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/pilnujemy/pytamy?branch=master 
+
+.. image:: https://img.shields.io/requires/github/pytamy/pilnujemy.svg
+    :target: https://requires.io/github/pilnujemy/pytamy/requirements/?branch=master
+
+.. image:: https://img.shields.io/github/issues/badges/shields.svg
+    :target: http://github.com/pilnujemy/pytamy/issues
+
+.. image:: https://img.shields.io/github/license/pilnujemy/pytamy.svg
+
 foundation
 ==============================
 
 A management of Pilnujemy.info foundation
-
-
-LICENSE: BSD
 
 Settings
 ------------
