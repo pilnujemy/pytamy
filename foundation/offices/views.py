@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.utils.translation import ugettext_lazy as _
 from braces.views import (SelectRelatedMixin, LoginRequiredMixin, FormValidMessageMixin,
@@ -7,13 +8,13 @@ from django_filters.views import FilterView
 from atom.views import DeleteMessageMixin
 from .models import Office
 from .forms import OfficeForm
-from .forms import OfficeFilter
+from .filters import OfficeFilter
 
 
 class OfficeListView(SelectRelatedMixin, FilterView):
     filterset_class = OfficeFilter
     model = Office
-    # select_related = ['',]
+    select_related = ['jst', ]
     paginate_by = 25
 
     def get_queryset(self, *args, **kwargs):
@@ -23,7 +24,7 @@ class OfficeListView(SelectRelatedMixin, FilterView):
 
 class OfficeDetailView(SelectRelatedMixin, DetailView):
     model = Office
-    # select_related = ['', ]
+    select_related = ['jst', ]
 
 
 class OfficeCreateView(LoginRequiredMixin, UserFormKwargsMixin, CreateView):

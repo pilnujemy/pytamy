@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from test_plus.test import TestCase
 from .factories import JSTFactory
+from foundation.offices.tests.factories import OfficeFactory
 
 
 class JSTListViewTestCase(TestCase):
@@ -25,5 +26,11 @@ class JSTDetailViewTestCase(TestCase):
         self.object = JSTFactory()
 
     def test_display_object(self):
-        resp = self.assertGoodView('teryt:list')
-        self.assertContains(resp, self.object)
+        resp = self.client.get(self.object.get_absolute_url())
+        self.assertContains(resp, self.object.name)
+
+    def test_display_office(self):
+        obj = OfficeFactory(jst=self.object)
+        resp = self.client.get(self.object.get_absolute_url())
+        self.assertContains(resp, obj.name)
+        self.assertContains(resp, obj.get_absolute_url())

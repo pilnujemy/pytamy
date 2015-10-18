@@ -1,4 +1,5 @@
-from feder.users import models
+from __future__ import absolute_import
+from .. import models
 import factory
 
 

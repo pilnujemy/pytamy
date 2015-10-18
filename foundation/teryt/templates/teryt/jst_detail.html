@@ -1,0 +1,13 @@
+{% extends 'teryt/base.html' %}
+{% load i18n %}
+{% block teryt_content %}
+<h2><a href="{{object.get_absolute_url}}">{{object}}</a></h2>
+
+<h3>{% trans 'Offices' %}</h3>
+<ul>
+    {% for object in object.office_set.all %}
+    <li><a href="{{object.get_absolute_url}}">{{object}}</a></li>
+    {% endfor %}
+
+</ul>
+{% endblock %}

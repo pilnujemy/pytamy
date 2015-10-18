@@ -2,10 +2,11 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from foundation.teryt.models import JST
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from model_utils.models import TimeStampedModel
 from django.db.models.query import QuerySet
 from model_utils.managers import PassThroughManager
-
+from autoslug import AutoSlugField
 from django_states.fields import StateField
 from django_states.machine import StateMachine, StateDefinition, StateTransition
 
@@ -47,6 +48,7 @@ class OfficeQuerySet(QuerySet):
 
 class Office(TimeStampedModel):
     name = models.CharField(max_length=150, verbose_name=_("Name"))
+    slug = AutoSlugField(populate_from='name', unique=True)
     parent = models.ManyToManyField('self')
     jst = models.ForeignKey(JST)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -55,11 +57,14 @@ class Office(TimeStampedModel):
     objects = PassThroughManager.for_queryset_class(OfficeQuerySet)()
 
     def __unicode__(self):
-        if self.state is ' destroyed':
+        if self.state is 'destroyed':
             return _("{name} (destroyed)").format(name=self.name)
         if not self.verified:
             return _("{name} (unverified)").format(name=self.name)
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('offices:detail', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = _("Office")
