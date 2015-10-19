@@ -1,0 +1,42 @@
+from __future__ import absolute_import
+from test_plus.test import TestCase
+from .factories import OfficeFactory, EmailFactory
+from ..models import Office, Email
+from foundation.users.tests.factories import UserFactory
+from foundation.teryt.tests.factories import JSTFactory
+from ..forms import CreateOfficeForm
+
+
+class CreateOfficeFormTest(TestCase):
+    def setUp(self):
+        self.user = UserFactory()
+
+    def test_init(self):
+        CreateOfficeForm(user=UserFactory())
+
+    def test_init_without_user(self):
+        with self.assertRaises(ValueError):
+            CreateOfficeForm()
+
+    def test_valid_data(self):
+        jst = JSTFactory()
+        parent = OfficeFactory()
+        form = CreateOfficeForm({
+            'name': "Turanga Leela",
+            'email': "leela@example.com",
+            'jst': jst.pk,
+            'parent': [parent.pk],
+        }, user=self.user)
+        self.assertTrue(form.is_valid())
+        obj = form.save()
+        self.assertEqual(obj.name, "Turanga Leela")
+        self.assertEqual(obj.jst.pk, str(jst.pk))
+        self.assertEqual(parent in list(obj.parent.all()), True)
+        self.assertEqual(obj.created_by, self.user)
+        self.assertEqual(Email.objects.filter(office=obj).get().email, "leela@example.com")
+
+        email = form.save_email()
+        self.assertEqual(Email.objects.filter(office=obj).count(), 1)
+        self.assertEqual(email.office, obj)
+        self.assertEqual(email.created_by, obj.created_by)
+        self.assertEqual(email.email, "leela@example.com")

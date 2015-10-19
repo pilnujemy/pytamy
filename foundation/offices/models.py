@@ -37,10 +37,16 @@ class OfficeStateMachine(StateMachine):
             instance.verified = True
             instance.save()
 
+        def has_permission(transition, instance, user):
+            return user.has_permission('office.can_verify')
+
     class destroy(StateTransition):
         from_state = 'accepted'
         to_state = 'destroyed'
         description = _('Mark this office as destroyed')
+
+        def has_permission(transition, instance, user):
+            return user.has_permission('office.can_destroy')
 
 
 class OfficeQuerySet(QuerySet):
@@ -79,12 +85,19 @@ class Office(TimeStampedModel):
     class Meta:
         verbose_name = _("Office")
         verbose_name_plural = _("Offices")
+        permissions = (("can_verify", "Can verify offices"),
+                       ("can_destroy", "Can destroy offices"),
+                       )
 
 
 @python_2_unicode_compatible
-class Email(models.Model):
+class Email(TimeStampedModel):
     office = models.ForeignKey(Office, verbose_name=_("Office"))
     email = models.EmailField(verbose_name=_("Address"))
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="office_email")
+    valid = models.BooleanField(default=True,
+                                verbose_name=_("Is valid?"),
+                                help_text=_("Identify if email is valid (still)."))
     default = models.BooleanField(default=True,
                                   verbose_name=_("Default"),
                                   help_text=_("Use this e-mail as primary for office"))

@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django_filters.views import FilterView
 from atom.views import DeleteMessageMixin
 from .models import Office
-from .forms import OfficeForm
+from .forms import OfficeForm, CreateOfficeForm
 from .filters import OfficeFilter
 
 
@@ -29,7 +29,7 @@ class OfficeDetailView(SelectRelatedMixin, DetailView):
 
 class OfficeCreateView(LoginRequiredMixin, UserFormKwargsMixin, CreateView):
     model = Office
-    form_class = OfficeForm
+    form_class = CreateOfficeForm
 
     def get_form_valid_message(self):
         return _("{0} created!").format(self.object)
