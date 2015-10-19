@@ -58,13 +58,19 @@ class TestOfficeQuerySet(TestCase):
         self.assertEqual(Office.objects.area(stack).
                          filter(pk=OfficeFactory(jst=nedle).pk).exists(), result)
 
-    def test_area(self):
+    def test_area_self(self):
+        a = JSTFactory()
+        self._area_tester(a, a, True)
+
+    def test_area_contains(self):
         a = JSTFactory()
         a_child = JSTFactory(parent=a)
-        b = JSTFactory()
-        self._area_tester(a, a, True)
         self._area_tester(a, a_child, True)
         self._area_tester(a_child, a, False)
+
+    def test_area_indepenent(self):
+        a = JSTFactory()
+        b = JSTFactory()
         self._area_tester(b, a, False)
         self._area_tester(a, b, False)
 
