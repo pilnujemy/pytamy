@@ -58,7 +58,8 @@ class OfficeQuerySet(QuerySet):
 
     def area(self, jst):
         return self.filter(jst__tree_id=jst.tree_id,
-                           jst__lft__range=(jst.lft, jst.rght))
+                           jst__lft__gte=jst.lft,
+                           jst__lft__lte=jst.rght)
 
 
 @python_2_unicode_compatible
