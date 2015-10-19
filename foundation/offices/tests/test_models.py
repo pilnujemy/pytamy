@@ -54,16 +54,19 @@ class TestOfficeQuerySet(TestCase):
         self.assertTrue(Office.objects.for_user(user).
                         filter(pk=OfficeFactory(state='accepted').pk).exists())
 
+    def _area_tester(self, stack, nedle, result):
+        self.assertEqual(Office.objects.area(stack).
+                         filter(pk=OfficeFactory(jst=nedle).pk).exists(), result)
+
     def test_area(self):
         a = JSTFactory()
         a_child = JSTFactory(parent=a)
         b = JSTFactory()
-        self.assertTrue(Office.objects.area(a).
-                        filter(pk=OfficeFactory(jst=a).pk).exists())
-        self.assertTrue(Office.objects.area(a).
-                        filter(pk=OfficeFactory(jst=a_child).pk).exists())
-        self.assertFalse(Office.objects.area(a).
-                         filter(pk=OfficeFactory(jst=b).pk).exists())
+        self._area_tester(a, a, True)
+        self._area_tester(a, a_child, True)
+        self._area_tester(a_child, a, False)
+        self._area_tester(b, a, False)
+        self._area_tester(a, b, False)
 
 
 class EmailTest(TestCase):
