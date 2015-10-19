@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from test_plus.test import TestCase
-from .factories import OfficeFactory
+from .factories import OfficeFactory, EmailFactory
 
 
 class OfficeListViewTestCase(TestCase):
@@ -27,3 +27,9 @@ class OfficeDetailViewTestCase(TestCase):
     def test_display_object(self):
         resp = self.client.get(self.object.get_absolute_url())
         self.assertContains(resp, self.object.name)
+        self.assertContains(resp, self.object.jst)
+
+    def test_display_emails(self):
+        obj = EmailFactory(office=self.object)
+        resp = self.client.get(self.object.get_absolute_url())
+        resp = self.assertContains(resp, obj.email)

@@ -9,6 +9,8 @@ from model_utils.managers import PassThroughManager
 from autoslug import AutoSlugField
 from django_states.fields import StateField
 from django_states.machine import StateMachine, StateDefinition, StateTransition
+from django.utils.encoding import python_2_unicode_compatible
+from django.db.models.signals import post_save
 
 
 class OfficeStateMachine(StateMachine):
@@ -48,7 +50,12 @@ class OfficeQuerySet(QuerySet):
         return self.filter(models.Q(state='accepted') |
                            models.Q(models.Q(state='created') & models.Q(created_by=user)))
 
+    def area(self, jst):
+        return self.filter(jst__tree_id=jst.tree_id,
+                           jst__lft__range=(jst.lft, jst.rght))
 
+
+@python_2_unicode_compatible
 class Office(TimeStampedModel):
     name = models.CharField(max_length=150, verbose_name=_("Name"))
     slug = AutoSlugField(populate_from='name', unique=True)
@@ -59,7 +66,7 @@ class Office(TimeStampedModel):
     state = StateField(machine=OfficeStateMachine, default='created')
     objects = PassThroughManager.for_queryset_class(OfficeQuerySet)()
 
-    def __unicode__(self):
+    def __str__(self):
         if self.state is 'destroyed':
             return _("{name} (destroyed)").format(name=self.name)
         if not self.verified:
@@ -74,6 +81,7 @@ class Office(TimeStampedModel):
         verbose_name_plural = _("Offices")
 
 
+@python_2_unicode_compatible
 class Email(models.Model):
     office = models.ForeignKey(Office, verbose_name=_("Office"))
     email = models.EmailField(verbose_name=_("Address"))
@@ -84,3 +92,13 @@ class Email(models.Model):
     class Meta:
         verbose_name = _("E-mail address")
         verbose_name_plural = _("E-mail addresses")
+
+    def __str__(self):
+        return self.email
+
+
+def undefault_other(sender, instance, **kwargs):
+    if instance.default:
+        Email.objects.exclude(pk=instance.pk).filter(office=instance.office).update(default=False)
+
+post_save.connect(undefault_other, sender=Email, dispatch_uid="update_undefault_other")

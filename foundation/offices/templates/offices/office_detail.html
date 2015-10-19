@@ -1,4 +1,26 @@
 {% extends 'offices/base.html' %}
+{% load i18n %}
 {% block office_content %}
+<ol class="breadcrumb">
+  {% for jst in object.jst.get_ancestors %}
+  <li><a href="{{jst.get_absolute_url}}">{{jst}}</a></li>
+  {% endfor %}
+  <li><a href="{{object.jst.get_absolute_url}}">{{object.jst}}</a></li>
+  <li class="active">{{object}}</li>
+</ol>
+
 <h2><a href="{{object.get_absolute_url}}">{{object}}</a></h2>
+
+<h3>{% trans 'Emails' %}</h3>
+{% if object.email_set.all %}
+<ul>
+{% for object in object.email_set.all %}
+<li>{% if object.default %}<b>{% endif %}
+<a href="mailto:{{object.email}}">{{object}}</a>
+{% if object.default %}</b>{% endif %}
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+
 {% endblock %}

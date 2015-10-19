@@ -1,8 +1,9 @@
 from __future__ import absolute_import
 from test_plus.test import TestCase
-from .factories import OfficeFactory
-from ..models import Office
+from .factories import OfficeFactory, EmailFactory
+from ..models import Office, Email
 from foundation.users.tests.factories import UserFactory
+from foundation.teryt.tests.factories import JSTFactory
 
 
 class TestOffice(TestCase):
@@ -52,3 +53,33 @@ class TestOfficeQuerySet(TestCase):
                          filter(pk=OfficeFactory(state='created').pk).exists())
         self.assertTrue(Office.objects.for_user(user).
                         filter(pk=OfficeFactory(state='accepted').pk).exists())
+
+    def test_area(self):
+        a = JSTFactory()
+        a_child = JSTFactory(parent=a)
+        b = JSTFactory()
+        self.assertTrue(Office.objects.area(a).
+                        filter(pk=OfficeFactory(jst=a).pk).exists())
+        self.assertTrue(Office.objects.area(a).
+                        filter(pk=OfficeFactory(jst=a_child).pk).exists())
+        self.assertFalse(Office.objects.area(a).
+                         filter(pk=OfficeFactory(jst=b).pk).exists())
+
+
+class EmailTest(TestCase):
+    def setUp(self):
+        self.object = EmailFactory(email="smith@example.com")
+
+    def test__str__(self):
+        self.assertEqual(self.object.__str__(), "smith@example.com")
+
+    def test_undefault_other(self):
+        a = EmailFactory(office=self.object.office, default=True)
+        self.assertTrue(Email.objects.filter(pk=a.pk).get().default)
+        b = EmailFactory(office=self.object.office, default=True)
+        self.assertTrue(Email.objects.filter(pk=b.pk).get().default)
+        self.assertFalse(Email.objects.filter(pk=a.pk).get().default)
+        c = EmailFactory(office=self.object.office, default=True)
+        self.assertTrue(Email.objects.filter(pk=c.pk).get().default)
+        self.assertFalse(Email.objects.filter(pk=a.pk).get().default)
+        self.assertFalse(Email.objects.filter(pk=b.pk).get().default)
