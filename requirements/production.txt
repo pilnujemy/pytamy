@@ -1,6 +1,6 @@
 # Pro-tip: Try not to put anything here. There should be no dependency in
 #	production that isn't in development.
-django==1.8.2
+django==1.8.5
 -r base.txt
 
 # WSGI Handler
@@ -11,4 +11,4 @@ gunicorn==19.3.0
 # Static and Media Storage
 # ------------------------------------------------
 boto==2.38.0
-django-storages-redux==1.2.3
+django-storages-redux==1.3
