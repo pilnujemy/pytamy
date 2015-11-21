@@ -51,12 +51,15 @@ class Message(TimeStampedModel):
         to = letter.email.email
         # Construct MimeText instance
         context = dict(text=text,
-                       office=letter.email.email.office,
+                       office=letter.email.office,
                        case=letter.case,
                        letter=letter,
                        email=letter.case.receiving_email)
         msg = MessageTemplateEmail().make_email_object(to=to,
                                                        context=context)
+        msg.extra_headers.update({'Return-Receipt-To': letter.case.receiving_email,
+                           'Disposition-Notification-To': letter.case.receiving_email})
+        msg.from_email = letter.case.receiving_email
         # Save MimeText to file
         obj.eml.save('%s.eml' % uuid.uuid4(),
                      ContentFile(msg.message().as_string()),
