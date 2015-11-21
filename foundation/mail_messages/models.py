@@ -51,7 +51,7 @@ class Message(TimeStampedModel):
         to = letter.email.email
         # Construct MimeText instance
         context = dict(text=text,
-                       office=letter.sender_office,
+                       office=letter.email.email.office,
                        case=letter.case,
                        letter=letter,
                        email=letter.case.receiving_email)
