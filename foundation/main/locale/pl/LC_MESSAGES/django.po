@@ -1,0 +1,329 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-21 22:09+0100\n"
+"PO-Revision-Date: 2015-11-21 22:13+0100\n"
+"Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
+"Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: pl_PL\n"
+
+#: templates/account/email.html:7
+msgid "Account"
+msgstr "Konto"
+
+#: templates/account/email.html:13
+msgid "E-mail Addresses"
+msgstr "Adres e-mail"
+
+#: templates/account/email.html:15
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Poniższe adresy e-mail są przypisane do konta"
+
+#: templates/account/email.html:29
+msgid "Verified"
+msgstr "Zweryfikowany"
+
+#: templates/account/email.html:31
+msgid "Unverified"
+msgstr "Niezweryfikowany"
+
+#: templates/account/email.html:33
+msgid "Primary"
+msgstr "Podstawowy"
+
+#: templates/account/email.html:39
+msgid "Make Primary"
+msgstr "Ustaw podstawowym"
+
+#: templates/account/email.html:40
+msgid "Re-send Verification"
+msgstr "Wyślij ponownie kod weryfikacyjny"
+
+#: templates/account/email.html:41
+msgid "Remove"
+msgstr "Usuń"
+
+#: templates/account/email.html:48
+msgid "Warning:"
+msgstr "Ostrzeżenie"
+
+#: templates/account/email.html:48
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Nie masz obecnie ustawionego żadnego adresu e-mail. Naprawdę powiniene go "
+"ustawić, aby móć otrzymywać powiadomienia, zresetować hasło itd."
+
+#: templates/account/email.html:53
+msgid "Add E-mail Address"
+msgstr "Dodaj adres e-mail"
+
+#: templates/account/email.html:58
+msgid "Add E-mail"
+msgstr "Dodaj e-mail"
+
+#: templates/account/email.html:69
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Czy na pewno chcesz usunąć wybrany adres e-mail?"
+
+#: templates/account/email_confirm.html:7
+#: templates/account/email_confirm.html:14
+#: templates/account/email_confirmed.html:6
+#: templates/account/email_confirmed.html:13
+msgid "Confirm E-mail Address"
+msgstr "Potwierdź usuwanie adresu e-mail"
+
+#: templates/account/email_confirm.html:20
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: templates/account/email_confirm.html:24
+msgid "Confirm"
+msgstr ""
+
+#: templates/account/email_confirm.html:31
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: templates/account/email_confirmed.html:17
+#, python-format
+msgid ""
+"You have confirmed that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-"
+"mail address for user %(user_display)s."
+msgstr ""
+
+#: templates/account/login.html:8 templates/account/login.html.py:14
+#: templates/account/login.html:41
+msgid "Sign In"
+msgstr ""
+
+#: templates/account/login.html:17
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"      of your existing third party accounts. Or, <a href=\"%(signup_url)s"
+"\">sign up</a>\n"
+"      for a %(site_name)s account and sign in below:"
+msgstr ""
+
+#: templates/account/login.html:27
+msgid "or"
+msgstr ""
+
+#: templates/account/login.html:42
+msgid "Forgot Password?"
+msgstr ""
+
+#: templates/account/logout.html:6 templates/account/logout.html.py:13
+#: templates/account/logout.html:22
+msgid "Sign Out"
+msgstr ""
+
+#: templates/account/logout.html:15
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:11
+#: templates/account/password_change.html:16
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key.html:13
+#: templates/account/password_reset_from_key_done.html:5
+#: templates/account/password_reset_from_key_done.html:11
+msgid "Change Password"
+msgstr ""
+
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset.html:14
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:12
+msgid "Password Reset"
+msgstr ""
+
+#: templates/account/password_reset.html:19
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: templates/account/password_reset.html:24
+msgid "Reset My Password"
+msgstr ""
+
+#: templates/account/password_reset.html:27
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: templates/account/password_reset_done.html:18
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:13
+msgid "Bad Token"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:17
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:23
+msgid "change password"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:26
+#: templates/account/password_reset_from_key_done.html:12
+msgid "Your password is now changed."
+msgstr ""
+
+#: templates/account/password_set.html:6
+#: templates/account/password_set.html:12
+#: templates/account/password_set.html:17
+msgid "Set Password"
+msgstr ""
+
+#: templates/account/signup.html:7
+msgid "Signup"
+msgstr ""
+
+#: templates/account/signup.html:10 templates/account/signup.html.py:20
+#: templates/base.html:47
+msgid "Sign Up"
+msgstr ""
+
+#: templates/account/signup.html:12
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: templates/account/signup_closed.html:6
+#: templates/account/signup_closed.html:12
+msgid "Sign Up Closed"
+msgstr ""
+
+#: templates/account/signup_closed.html:14
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:11
+#: templates/account/verified_email_required.html:6
+#: templates/account/verified_email_required.html:12
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: templates/account/verification_sent.html:13
+#, python-format
+msgid ""
+"We have sent an e-mail to <a href=\"mailto:%(email)s\">%(email)s</a> for "
+"verification. Follow the link provided to finalize the signup process. "
+"Please contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:16
+msgid ""
+"This part of the site requires us to verify that\n"
+"        you are who you claim to be. For this purpose, we require that you\n"
+"        verify ownership of your e-mail address. "
+msgstr ""
+
+#: templates/account/verified_email_required.html:20
+msgid ""
+"We have sent an e-mail to you for\n"
+"        verification. Please click on the link inside this e-mail. Please\n"
+"        contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:24
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: templates/base.html:34
+msgid "Staff only"
+msgstr "Tylko dla zespołu"
+
+#: templates/base.html:36
+msgid "Correspondence"
+msgstr "Korespondencja"
+
+#: templates/base.html:38
+msgid "Admin panel"
+msgstr "Panel administracyjny"
+
+#: templates/base.html:43
+msgid "My Profile"
+msgstr "Mój profil"
+
+#: templates/base.html:44
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: templates/base.html:48
+msgid "Log In"
+msgstr "Zaloguj"
+
+#: templates/home.html:7
+msgid "Cases"
+msgstr "Sprawy"
+
+#: templates/home.html:8
+msgid ""
+"Letters are grouped in cases, so you can get to know easily the case study."
+msgstr ""
+"Pisma są grupowane w sprawach, abyś mógł/-a z łatwością zapoznać się z "
+"konkretnym przypadkiem."
+
+#: templates/home.html:9 templates/home.html.py:18 templates/home.html:29
+msgid "List"
+msgstr "Wykaz"
+
+#: templates/home.html:10 templates/home.html.py:20
+msgid "Create"
+msgstr "Utwórz"
+
+#: templates/home.html:16
+msgid "Offices"
+msgstr "Urzędy"
+
+#: templates/home.html:17
+msgid "If you are interested in cases of a given office - search for it."
+msgstr "Jeżeli jesteś zainteresowany sprawami danego urzędu - wyszukaj go."
+
+#: templates/home.html:27
+msgid "Regions"
+msgstr "Regiony"
+
+#: templates/home.html:28
+msgid ""
+"If you are interested in offices in a given region - search for your city."
+msgstr ""
+"Jeżeli jesteś zainteresowany/-a sprawami z danego regionu - wyszukaj "
+"miejscowość."
