@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = (
     'teryt_tree',
     'bootstrap_pagination',
     'taggit',
+    'djmail',
 )
 
 # Apps specific for this project go here.
