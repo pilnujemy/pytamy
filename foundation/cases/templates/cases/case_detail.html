@@ -2,10 +2,10 @@
 {% load i18n crispy_forms_tags %}
 {% block case_content %}
 <ol class="breadcrumb">
-  <li><a href="{{object.office.get_absolute_url}}">{{object.office}}</a></li>
-  <li class="active">{{object}}</li>
+  <li><i class="fa fa-university"></i> <a href="{{object.office.get_absolute_url}}">{{object.office}}</a></li>
+  <li class="active"><i class="fa fa-folder"></i> {{object}}</li>
 </ol>
-<h1>{{object}}</h1>
+<h1><i class="fa fa-folder"></i> {{object}}</h1>
 {% for letter in object.letter_set.all %}
 {% include 'letters/_letter_item.html' with letter=letter %}
 {% endfor %}
