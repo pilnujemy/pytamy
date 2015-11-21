@@ -7,6 +7,7 @@ from crispy_forms.layout import Submit
 from foundation.letters.models import Letter
 from .models import Case
 from foundation.offices.models import Email
+from ckeditor.widgets import CKEditorWidget
 
 
 class CaseForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
@@ -21,7 +22,7 @@ class CaseForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
 class NewCaseForm(HelperMixin, UserKwargModelFormMixin, forms.ModelForm):
     message = None
     letter = None
-    text = forms.CharField(widget=forms.Textarea(),
+    text = forms.CharField(widget=CKEditorWidget(),
                            label=_("Inquire"))
     email = forms.ModelChoiceField(queryset=Email.objects.all())
 

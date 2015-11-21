@@ -77,6 +77,8 @@
     {% block javascript %}
       <script src="{% static 'js/script.js' %}"></script>
       {% include 'autocomplete_light/static.html' %}
+      <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+      <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
     {% endblock javascript %}
   </body>
 </html>

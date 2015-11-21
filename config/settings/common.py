@@ -46,6 +46,7 @@ THIRD_PARTY_APPS = (
     'bootstrap_pagination',
     'taggit',
     'djmail',
+    'ckeditor',
 )
 
 # Apps specific for this project go here.
@@ -272,3 +273,23 @@ TAGGIT_CASE_INSENSITIVE = True
 EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 DJMAIL_REAL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 MAILBOX_RECEIVING_PROTOTYPE = 'sprawa-{id}@pytamy.pilnujemy.info'
+BLEACH_DEFAULT_WIDGET = 'ckeditor.widgets.CKEditorWidget'
+
+BLEACH_ALLOWED_TAGS = [
+    # bleach default
+    'a',
+    'abbr',
+    'acronym',
+    'b',
+    'blockquote',
+    'code',
+    'em',
+    'i',
+    'li',
+    'ol',
+    'strong',
+    'ul',
+    # extra
+    'br',
+    'p'
+]
