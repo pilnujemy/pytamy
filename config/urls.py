@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
+    url(r'^$', include('foundation.main.urls')),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
 
     # Django Admin
@@ -21,7 +21,9 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     url(r'^correspondence/', include("foundation.correspondence.urls", namespace="correspondence")),
     url(r'^kraj/', include("foundation.teryt.urls", namespace="teryt")),
-    url(r'^urzedy/', include("foundation.offices.urls", namespace="offices"))
+    url(r'^urzedy/', include("foundation.offices.urls", namespace="offices")),
+    url(r'^sprawy/', include("foundation.cases.urls", namespace="cases")),
+    url(r'^listy/', include("foundation.letters.urls", namespace="letters")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

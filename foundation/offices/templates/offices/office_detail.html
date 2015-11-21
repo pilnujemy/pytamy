@@ -16,7 +16,7 @@
 <ul>
 {% for object in object.email_set.all %}
 <li>{% if object.default %}<b>{% endif %}
-<a href="mailto:{{object.email}}">{{object}}</a>
+<a href="{{object.get_absolute_url}}">{{object}}</a>
 {% if object.default %}</b>{% endif %}
 </li>
 {% endfor %}

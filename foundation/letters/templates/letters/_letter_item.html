@@ -1,0 +1,16 @@
+{% load humanize i18n %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{letter.get_absolute_url}}">
+            {{letter}}
+        </a>
+    </div>
+    <div class="panel-body">
+        {{letter.content | safe}}
+    </div>
+    <div class="panel-footer">
+        {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime%}
+        Wrote <a href="{{author_url}}">{{author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>
+        {% endblocktrans %}
+    </div>
+</div>

@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = (
     'django_states',
     'teryt_tree',
     'bootstrap_pagination',
+    'taggit',
 )
 
 # Apps specific for this project go here.
@@ -53,6 +54,10 @@ LOCAL_APPS = (
     'foundation.offices',
     'foundation.teryt',
     'foundation.correspondence',
+    'foundation.cases',
+    'foundation.letters',
+    'foundation.mail_messages',
+
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -261,5 +266,8 @@ LOGGING = {
         },
     }
 }
-
+TAGGIT_CASE_INSENSITIVE = True
 # Your common stuff: Below this line define 3rd party library settings
+EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
+DJMAIL_REAL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+MAILBOX_RECEIVING_PROTOTYPE = 'sprawa-{id}@pytamy.pilnujemy.info'

@@ -17,10 +17,6 @@ class OfficeListView(SelectRelatedMixin, FilterView):
     select_related = ['jst', ]
     paginate_by = 25
 
-    def get_queryset(self, *args, **kwargs):
-        qs = super(OfficeListView, self).get_queryset(*args, **kwargs)
-        return qs
-
 
 class OfficeDetailView(SelectRelatedMixin, DetailView):
     model = Office
@@ -46,7 +42,7 @@ class OfficeUpdateView(LoginRequiredMixin, UserFormKwargsMixin,  FormValidMessag
 
 class OfficeDeleteView(LoginRequiredMixin, DeleteMessageMixin, DeleteView):
     model = Office
-    success_url = reverse_lazy('APP_NAME:list')
+    success_url = reverse_lazy('offices:list')
 
     def get_success_message(self):
         return _("{0} deleted!").format(self.object)

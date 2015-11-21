@@ -1,0 +1,23 @@
+{% extends 'letters/letter_base.html' %}
+{% load i18n humanize %}
+{% block letter_content %}
+<ol class="breadcrumb">
+  <li><a href="{{object.case.office.get_absolute_url}}">{{object.case.office}}</a></li>
+  <li><a href="{{object.case.get_absolute_url}}">{{object.case}}</a></li>
+  <li class="active">{{object}}</li>
+</ol>
+
+<h1>{{object}}</h1>
+<a href="{% url 'letters:reply' slug=object.slug%}" class="btn btn-primary">{% trans 'Reply'%}</a>
+{% include 'letters/_letter_item.html' with letter=object %}
+
+<h2>{% trans 'Messages' %}</h2>
+<ul>
+{% for msg in letter.message_set.all %}
+<li>
+<span title="{{msg.created}}">{{msg.created| naturaltime }}</span>
+{% if msg.eml %}<a href="{{msg.eml.url }}">{% trans 'Download '%}</a>{% endif %}
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

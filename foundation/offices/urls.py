@@ -12,4 +12,5 @@ urlpatterns = [
        name="update"),
    url(r'^urzad-(?P<slug>[\w-]+)/~delete$', views.OfficeDeleteView.as_view(),
        name="delete"),
+
 ]

@@ -3,7 +3,9 @@ from django import forms
 from .models import Office, Email
 from braces.forms import UserKwargModelFormMixin
 from django.utils.translation import ugettext as _
-from atom.ext.crispy_forms.main import SingleButtonMixin
+from atom.ext.crispy_forms.forms import SingleButtonMixin
+
+OFFICE_FORM_FIELD = ['name', 'jst', 'parent', 'krs', 'regon', 'tags', 'postcode']
 
 
 class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin, forms.ModelForm):
@@ -23,23 +25,23 @@ class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin, forms.ModelFo
         return self._email
 
     def save(self, commit=True, *args, **kwargs):
-        obj = super(CreateOfficeForm, self).save(commit=True, *args, **kwargs)
+        super(CreateOfficeForm, self).save(commit=True, *args, **kwargs)
         if self.cleaned_data['email']:
             self.save_email()
-        return obj
+        return self.instance
 
     class Meta:
         model = Office
-        fields = ['name', 'jst', 'parent']
+        fields = OFFICE_FORM_FIELD
 
 
 class OfficeForm(UserKwargModelFormMixin, forms.ModelForm):
     class Meta:
         model = Office
-        fields = ['name', 'jst', 'parent']
+        fields = OFFICE_FORM_FIELD
 
 
 class EmailForm(UserKwargModelFormMixin, forms.ModelForm):
     class Meta:
         model = Email
-        fields = ['email']
+        fields = ['email', 'default']

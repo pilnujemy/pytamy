@@ -2,7 +2,7 @@ from django import forms
 from braces.forms import UserKwargModelFormMixin
 import autocomplete_light
 from .models import Letter, Contact, Attachment
-from atom.ext.crispy_forms import SingleButtonMixin
+from atom.ext.crispy_forms.forms import SingleButtonMixin
 from atom.forms import AuthorMixin
 
 

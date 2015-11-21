@@ -39,3 +39,7 @@ git+https://github.com/ad-m/django-teryt-tree.git@master#egg=django-teryt-tree
 django-states==1.6.5
 django-bootstrap-pagination==1.5.1
 cached-property==1.2.0
+django_localflavor==1.1
+jsonfield==1.0.3
+django-bleach==0.3.0
+djmail==0.11.0

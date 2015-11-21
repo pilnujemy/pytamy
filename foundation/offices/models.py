@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from foundation.teryt.models import JST
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -7,54 +7,20 @@ from model_utils.models import TimeStampedModel
 from django.db.models.query import QuerySet
 from model_utils.managers import PassThroughManager
 from autoslug import AutoSlugField
-from django_states.fields import StateField
-from django_states.machine import StateMachine, StateDefinition, StateTransition
 from django.utils.encoding import python_2_unicode_compatible
 from django.db.models.signals import post_save
+from taggit.managers import TaggableManager
+from jsonfield import JSONField
+from cached_property import cached_property
 
-
-class OfficeStateMachine(StateMachine):
-    log_transitions = True
-
-    # possible states
-    class created(StateDefinition):
-        description = _('Office created')
-        initial = True
-
-    class accepted(StateDefinition):
-        description = _('Accepted')
-
-    class destroyed(StateDefinition):
-        description = _('Destroyed')
-
-    # state transitions
-    class accept(StateTransition):
-        from_state = 'created'
-        to_state = 'accepted'
-        description = _('Mark this office as accepted')
-
-        def handler(transition, instance, user):
-            instance.verified = True
-            instance.save()
-
-        def has_permission(transition, instance, user):
-            return user.has_permission('office.can_verify')
-
-    class destroy(StateTransition):
-        from_state = 'accepted'
-        to_state = 'destroyed'
-        description = _('Mark this office as destroyed')
-
-        def has_permission(transition, instance, user):
-            return user.has_permission('office.can_destroy')
+REGON_HELP_TEXT = _("Compatible with National Official Register of National Economy Entities")
 
 
 class OfficeQuerySet(QuerySet):
     def for_user(self, user):
-        if user.is_staff:
+        if user.has_perm('cases.delete_office'):
             return self
-        return self.filter(models.Q(state='accepted') |
-                           models.Q(models.Q(state='created') & models.Q(created_by=user)))
+        return self.filter(visible=True)
 
     def area(self, jst):
         return self.filter(jst__tree_id=jst.tree_id,
@@ -66,18 +32,38 @@ class OfficeQuerySet(QuerySet):
 class Office(TimeStampedModel):
     name = models.CharField(max_length=150, verbose_name=_("Name"))
     slug = AutoSlugField(populate_from='name', unique=True)
-    parent = models.ManyToManyField('self')
+    parent = models.ManyToManyField('self', blank=True)
     jst = models.ForeignKey(JST)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
-    verified = models.BooleanField(default=False, verbose_name=_("Verified"))
-    state = StateField(machine=OfficeStateMachine, default='created')
+    visible = models.BooleanField(default=True,
+                                  verbose_name=_("Verified"))
+    postcode = models.CharField(max_length=6,
+                                null=True,
+                                verbose_name=_("Post code"))
+    regon = models.CharField(max_length=10,
+                             db_index=True,
+                             null=True,
+                             blank=True,
+                             verbose_name=_("REGON"),
+                             help_text=REGON_HELP_TEXT,
+                             unique=True)
+    krs = models.CharField(max_length=9,
+                           db_index=True,
+                           null=True,
+                           blank=True,
+                           verbose_name=_("Registration number"),
+                           help_text=_("Compatible with Polish National Court Register"))
+    extra = JSONField(default='{}')
     objects = PassThroughManager.for_queryset_class(OfficeQuerySet)()
+    tags = TaggableManager()
+
+    @cached_property
+    def email(self):
+        return Email.objects.filter(office=self).order_by('default').first().email
 
     def __str__(self):
-        if self.state is 'destroyed':
-            return _("{name} (destroyed)").format(name=self.name)
-        if not self.verified:
-            return _("{name} (unverified)").format(name=self.name)
+        if not self.visible:
+            return _("{name} (hidden)").format(name=self.name)
         return self.name
 
     def get_absolute_url(self):
@@ -86,9 +72,6 @@ class Office(TimeStampedModel):
     class Meta:
         verbose_name = _("Office")
         verbose_name_plural = _("Offices")
-        permissions = (("can_verify", "Can verify offices"),
-                       ("can_destroy", "Can destroy offices"),
-                       )
 
 
 @python_2_unicode_compatible
@@ -109,6 +92,9 @@ class Email(TimeStampedModel):
 
     def __str__(self):
         return self.email
+
+    def get_absolute_url(self):
+        return "%s?email=%d" % (reverse('cases:create'), self.pk)
 
 
 def undefault_other(sender, instance, **kwargs):

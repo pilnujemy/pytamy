@@ -4,6 +4,14 @@ from .factories import OfficeFactory, EmailFactory
 from ..models import Office, Email
 from foundation.users.tests.factories import UserFactory
 from foundation.teryt.tests.factories import JSTFactory
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
+
+
+def assign_perm(user, model, codename):
+    content_type = ContentType.objects.get_for_model(model)
+    permission = Permission.objects.get(content_type=content_type, codename='is_member')
+    user.user_permissions.add(permission)
 
 
 class TestOffice(TestCase):
@@ -36,23 +44,20 @@ class TestOfficeQuerySet(TestCase):
     def setUp(self):
         self.object = OfficeFactory()
 
-    def test_for_user_staff(self):
-        user = UserFactory(is_staff=True)
+    def test_for_user_can_change(self):
+        user = UserFactory()
+        assign_perm(user, Office, 'change_office')
         self.assertTrue(Office.objects.for_user(user).
-                        filter(pk=OfficeFactory(state='accepted').pk).exists())
+                        filter(pk=OfficeFactory(visible=True).pk).exists())
         self.assertTrue(Office.objects.for_user(user).
-                        filter(pk=OfficeFactory(state='created').pk).exists())
-        self.assertTrue(Office.objects.for_user(user).
-                        filter(pk=OfficeFactory(state='accepted').pk).exists())
+                        filter(pk=OfficeFactory(visible=False).pk).exists())
 
-    def test_for_user_user(self):
-        user = UserFactory(is_staff=False)
+    def test_for_user_can_not_change(self):
+        user = UserFactory()
         self.assertTrue(Office.objects.for_user(user).
-                        filter(pk=OfficeFactory(created_by=user, state='created').pk).exists())
+                        filter(pk=OfficeFactory(visible=True).pk).exists())
         self.assertFalse(Office.objects.for_user(user).
-                         filter(pk=OfficeFactory(state='created').pk).exists())
-        self.assertTrue(Office.objects.for_user(user).
-                        filter(pk=OfficeFactory(state='accepted').pk).exists())
+                         filter(pk=OfficeFactory(visible=False).pk).exists())
 
     def _area_tester(self, stack, nedle, result):
         self.assertEqual(Office.objects.area(stack).
