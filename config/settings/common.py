@@ -291,5 +291,17 @@ BLEACH_ALLOWED_TAGS = [
     'ul',
     # extra
     'br',
-    'p'
+    'p',
+    'u'
 ]
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Blockquote'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
