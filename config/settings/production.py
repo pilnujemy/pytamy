@@ -9,10 +9,6 @@ Production Configurations
 '''
 from __future__ import absolute_import, unicode_literals
 
-
-from boto.s3.connection import OrdinaryCallingFormat
-from django.utils import six
-
 from .common import *  # noqa
 
 # SECRET CONFIGURATION
@@ -35,7 +31,7 @@ MIDDLEWARE_CLASSES = (
 ) + MIDDLEWARE_CLASSES
 
 # set this to 60 seconds and then to 518400 when you can prove it works
-SECURE_HSTS_SECONDS = 60
+SECURE_HSTS_SECONDS = env.int("HSTS_TIME", default=60)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
 SECURE_FRAME_DENY = env.bool("DJANGO_SECURE_FRAME_DENY", default=True)
 SECURE_CONTENT_TYPE_NOSNIFF = env.bool("DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
@@ -58,35 +54,6 @@ INSTALLED_APPS += ("gunicorn", )
 # Uploaded Media Files
 # ------------------------
 # See: http://django-storages.readthedocs.org/en/latest/index.html
-INSTALLED_APPS += (
-    'storages',
-)
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
-AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
-AWS_AUTO_CREATE_BUCKET = True
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
-
-# AWS cache settings, don't change unless you know what you're doing:
-AWS_EXPIRY = 60 * 60 * 24 * 7
-
-# TODO See: https://github.com/jschneier/django-storages/issues/47
-# Revert the following and use str after the above-mentioned bug is fixed in
-# either django-storage-redux or boto
-AWS_HEADERS = {
-    'Cache-Control': six.b('max-age=%d, s-maxage=%d, must-revalidate' % (
-        AWS_EXPIRY, AWS_EXPIRY))
-}
-
-# URL that handles the media served from MEDIA_ROOT, used for managing stored files.
-MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-
-# Static Assests
-# ------------------------
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # EMAIL
@@ -94,8 +61,8 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='foundation <noreply@panel.pilnujemy.info>')
 EMAIL_HOST = env("DJANGO_EMAIL_HOST")
-EMAIL_HOST_PASSWORD = env("SENDGRID_PASSWORD")
-EMAIL_HOST_USER = env('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
 EMAIL_PORT = env.int("EMAIL_PORT", default=587)
 EMAIL_SUBJECT_PREFIX = env("EMAIL_SUBJECT_PREFIX", default='[foundation] ')
 EMAIL_USE_TLS = True
