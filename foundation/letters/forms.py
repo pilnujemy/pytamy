@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from braces.forms import UserKwargModelFormMixin
 from atom.ext.crispy_forms.forms import HelperMixin, SingleButtonMixin
 from crispy_forms.layout import Submit
+from ckeditor.widgets import CKEditorWidget
 
 
 class LetterForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
@@ -21,6 +22,7 @@ class NewReplyForm(HelperMixin, UserKwargModelFormMixin, forms.ModelForm):
         super(NewReplyForm, self).__init__(*args, **kwargs)
         self.instance.sender_user = self.user
         self.instance.case = letter.case
+        self.fields['content'].widget = CKEditorWidget()
         self.fields['email'].limit_choices_to = {'office': letter.case.office}
         self.fields['email'].reqiured = True
         self.fields['email'].initial = letter.email

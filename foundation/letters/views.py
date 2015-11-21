@@ -45,7 +45,7 @@ class LetterUpdateView(LoginRequiredMixin, UserFormKwargsMixin,  FormValidMessag
         return _("{0} updated!").format(self.object)
 
 
-class ReplyView(SingleObjectMixin, UserFormKwargsMixin, FormView):
+class ReplyView(LoginRequiredMixin, SingleObjectMixin, UserFormKwargsMixin, FormView):
     form_class = NewReplyForm
     template_name_suffix = '_reply'
     model = Letter
