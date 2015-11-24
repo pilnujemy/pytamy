@@ -1,6 +1,6 @@
 # Pro-tip: Try not to put anything here. There should be no dependency in
 #	production that isn't in development.
-django==1.8.5
+django==1.8.6
 -r base.txt
 
 # WSGI Handler

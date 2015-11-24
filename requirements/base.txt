@@ -1,7 +1,7 @@
 # Configuration
 django-environ==0.4.0
 django-secure==1.0.1
-whitenoise==2.0.4
+whitenoise==2.0.6
 
 
 # Forms
@@ -11,21 +11,21 @@ django-floppyforms==1.5.2
 
 # Models and persistent storage
 django-model-utils==2.3.1
-mysqlclient==1.3.6
+mysqlclient==1.3.7
 
 # Images
 Pillow==3.0.0
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.23.0
+django-allauth==0.24.1
 
 # Unicode slugification
 unicode-slugify==0.1.3
 django-autoslug==1.9.3
 
 # Time zones support
-pytz==2015.6
+pytz==2015.7
 
 # Views
 django-tables2==1.0.4
@@ -43,5 +43,5 @@ django_localflavor==1.1
 jsonfield==1.0.3
 django-bleach==0.3.0
 djmail==0.11.0
-django_taggit==0.17
+django-taggit==0.17.3
 django-ckeditor==5.0.2
