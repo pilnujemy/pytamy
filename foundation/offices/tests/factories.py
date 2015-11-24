@@ -7,8 +7,7 @@ class OfficeFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence(lambda n: 'office-/{0}/'.format(n))
     jst = factory.SubFactory('foundation.teryt.tests.factories.JSTFactory')
     created_by = factory.SubFactory('foundation.users.tests.factories.UserFactory')
-    verified = True
-    state = 'created'
+    visible = True
 
     class Meta:
         model = models.Office
