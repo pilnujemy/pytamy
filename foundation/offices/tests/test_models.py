@@ -6,11 +6,12 @@ from foundation.users.tests.factories import UserFactory
 from foundation.teryt.tests.factories import JSTFactory
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import activate
 
 
 def assign_perm(user, model, codename):
     content_type = ContentType.objects.get_for_model(model)
-    permission = Permission.objects.get(content_type=content_type, codename='is_member')
+    permission = Permission.objects.get(content_type=content_type, codename=codename)
     user.user_permissions.add(permission)
 
 
@@ -19,18 +20,19 @@ class TestOffice(TestCase):
         self.object = OfficeFactory(name="testname")
 
     def test__str__(self):
+        activate('en')
         self.assertEqual(
             self.object.__str__(),
             "testname"
         )
 
         self.assertEqual(
-            OfficeFactory(name="testname", state='destroyed').__str__(),
-            "testname (destroyed)"
+            OfficeFactory(name="testname", visible=False).__str__(),
+            "testname (hidden)"
         )
         self.assertEqual(
-            OfficeFactory(name="testname", verified=False).__str__(),
-            "testname (unverified)"
+            OfficeFactory(name="testname", visible=True).__str__(),
+            "testname"
         )
 
     def test_get_absolute_url(self):
@@ -46,7 +48,7 @@ class TestOfficeQuerySet(TestCase):
 
     def test_for_user_can_change(self):
         user = UserFactory()
-        assign_perm(user, Office, 'change_office')
+        assign_perm(user, Office, 'delete_office')
         self.assertTrue(Office.objects.for_user(user).
                         filter(pk=OfficeFactory(visible=True).pk).exists())
         self.assertTrue(Office.objects.for_user(user).

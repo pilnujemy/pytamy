@@ -18,7 +18,7 @@ REGON_HELP_TEXT = _("Compatible with National Official Register of National Econ
 
 class OfficeQuerySet(QuerySet):
     def for_user(self, user):
-        if user.has_perm('cases.delete_office'):
+        if user.has_perm('offices.delete_office'):
             return self
         return self.filter(visible=True)
 
@@ -39,6 +39,7 @@ class Office(TimeStampedModel):
                                   verbose_name=_("Verified"))
     postcode = models.CharField(max_length=6,
                                 null=True,
+                                blank=True,
                                 verbose_name=_("Post code"))
     regon = models.CharField(max_length=10,
                              db_index=True,

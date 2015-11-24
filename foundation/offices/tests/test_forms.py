@@ -26,7 +26,9 @@ class CreateOfficeFormTest(TestCase):
             'email': "leela@example.com",
             'jst': jst.pk,
             'parent': [parent.pk],
+            'tags': 'ministerstwo',
         }, user=self.user)
+        form.is_valid()
         self.assertTrue(form.is_valid())
         obj = form.save()
         self.assertEqual(obj.name, "Turanga Leela")
