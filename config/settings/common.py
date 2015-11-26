@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = (
     'taggit',
     'djmail',
     'ckeditor',
+    'django_mailbox',
 )
 
 # Apps specific for this project go here.
