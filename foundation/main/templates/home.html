@@ -8,7 +8,7 @@
       <p>{% trans 'Letters are grouped in cases, so you can get to know easily the case study.' %}</p>
       <a class="btn btn-primary" href="{% url 'cases:list' %}">{% trans 'List' %}</a>
       <a class="btn btn-primary" href="{% url 'cases:create' %}">{% trans 'Create' %}
-      {% if request.user.is_authenticated %}
+      {% if not request.user.is_authenticated %}
       <i class="fa fa-lock"></i>
       {% endif %}
       </a>
@@ -22,7 +22,7 @@
       <p>{% trans 'If you are interested in cases of a given office - search for it.' %}</p>
       <a class="btn btn-primary" href="{% url 'offices:list' %}">{% trans 'List' %}</a>
       <a class="btn btn-primary" href="{% url 'offices:create' %}">{% trans 'Create' %}
-      {% if request.user.is_authenticated %}
+      {% if not request.user.is_authenticated %}
       <i class="fa fa-lock"></i>
       {% endif %}
       </a>

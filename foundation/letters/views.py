@@ -5,7 +5,7 @@ from braces.views import (SelectRelatedMixin, LoginRequiredMixin, FormValidMessa
 from django.views.generic.detail import SingleObjectMixin
 from django.core.urlresolvers import reverse_lazy
 from django_filters.views import FilterView
-from atom.views import DeleteMessageMixin
+from atom.views import DeleteMessageMixin, ActionMessageMixin, ActionView
 from cached_property import cached_property
 from .models import Letter
 from .forms import LetterForm, NewReplyForm
@@ -77,7 +77,19 @@ class ReplyView(LoginRequiredMixin, SingleObjectMixin, UserFormKwargsMixin, Form
 
 class LetterDeleteView(LoginRequiredMixin, DeleteMessageMixin, DeleteView):
     model = Letter
-    success_url = reverse_lazy('APP_NAME:list')
+    success_url = reverse_lazy('letters:list')
 
     def get_success_message(self):
         return _("{0} deleted!").format(self.object)
+
+
+class LetterSendView(LoginRequiredMixin, ActionMessageMixin, ActionView):
+    model = Letter
+    success_message = _("Letter has been send!")
+    template_name_suffix = '_send'
+
+    def action(self):
+        self.object.send(self.request.user)
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()

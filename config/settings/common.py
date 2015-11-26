@@ -58,8 +58,6 @@ LOCAL_APPS = (
     'foundation.correspondence',
     'foundation.cases',
     'foundation.letters',
-    'foundation.mail_messages',
-
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

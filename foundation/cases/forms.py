@@ -8,6 +8,8 @@ from foundation.letters.models import Letter
 from .models import Case
 from foundation.offices.models import Email
 from ckeditor.widgets import CKEditorWidget
+from foundation.letters.utils import can_send
+import autocomplete_light
 
 
 class CaseForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
@@ -20,36 +22,32 @@ class CaseForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
 
 
 class NewCaseForm(HelperMixin, UserKwargModelFormMixin, forms.ModelForm):
-    message = None
     letter = None
     text = forms.CharField(widget=CKEditorWidget(),
                            label=_("Inquire"))
-    email = forms.ModelChoiceField(queryset=Email.objects.all())
+    email = autocomplete_light.ModelChoiceField('EmailAutocomplete')
 
     def __init__(self, *args, **kwargs):
         super(NewCaseForm, self).__init__(*args, **kwargs)
         self.instance.created_by = self.user
         self.helper.add_input(Submit('save', _("Save"), css_class="btn-primary"))
-        self.helper.add_input(Submit('send', _("Save & send"), css_class="btn-primary"))
+        if can_send(self.user, self.instance):
+            self.helper.add_input(Submit('send', _("Save & send"), css_class="btn-primary"))
 
     def save(self, *args, **kwargs):
         self.instance.office = self.cleaned_data['email'].office
-        obj = super(NewCaseForm, self).save(*args, **kwargs)
-        letter = Letter(case=obj)
-        letter.name = self.cleaned_data['name']
-        letter.content = self.cleaned_data['text']
-        letter.recipient = obj.office
-        letter.email = self.cleaned_data['email']
-        letter.sender_user = self.user
+        super(NewCaseForm, self).save(*args, **kwargs)
+        letter = Letter(case=self.instance,
+                        subject=self.cleaned_data['name'],
+                        content=self.cleaned_data['text'],
+                        email=self.cleaned_data['email'],
+                        author=self.user)
+        if 'send' in self.data and can_send(self.user, self.instance):
+            letter.send(user=self.user)
         letter.save()
-        self.message = None
-        if 'send' in self.data:
-            message = letter.send_to_office(user=self.user)
-            self.message = message
         self.letter = letter
         return self.instance
 
     class Meta:
         model = Case
         fields = ['name']
-

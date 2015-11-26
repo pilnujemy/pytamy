@@ -17,5 +17,7 @@ urlpatterns = [
         name="delete"),
     url(r'^list-(?P<slug>[\w-]+)/~reply$', views.ReplyView.as_view(),
         name="reply"),
+    url(r'^list-(?P<slug>[\w-]+)/~send$', views.LetterSendView.as_view(),
+        name="send"),
 
 ]

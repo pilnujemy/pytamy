@@ -1,17 +1,30 @@
-{% load humanize i18n %}
+{% load humanize i18n letters_tags %}
 <div class="panel panel-default">
     <div class="panel-heading">
         <i class="fa fa-envelope"></i> 
         <a href="{{letter.get_absolute_url}}">
             {{letter}}
         </a>
+        {% if not letter.is_send and not letter.is_incoming %}
+        {% user_can_send request.user letter.case as can_send %}
+        <span class="badge">{% trans 'Draft' %}</span>
+        {% if can_send %}
+        <a href="{% url 'letters:send' slug=letter.slug%}" class="btn btn-xs btn-default"><i class="fa fa-paper-plane"></i> {% trans 'Send' %}</a>
+        {% else %}
+        {% endif %}
+        {% endif %}
     </div>
     <div class="panel-body">
         {{letter.content | safe}}
     </div>
     <div class="panel-footer">
-        {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime%}
-        Wrote <a href="{{author_url}}">{{author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>
-        {% endblocktrans %}
+        {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
+        {% if letter.eml %}
+            {% blocktrans with sender=letter.author sender_url=letter.author.get_absolute_url eml_url=letter.eml.url %}&bull; Send by <a href="{{sender_url}}">{{sender}}</a>
+            &bull; <a href="{{eml_url}}"><i class="fa fa-download"></i> Download</a>{% endblocktrans %}
+        {% endif %}
+        &bull;
+        <a href="{% url 'letters:reply' slug=letter.slug%}" class="btn btn-xs btn-primary">{% trans 'Reply'%}</a>
+
     </div>
 </div>
