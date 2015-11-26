@@ -20,7 +20,7 @@
     <div class="panel-footer">
         {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
         {% if letter.eml %}
-            {% blocktrans with sender=letter.author sender_url=letter.author.get_absolute_url eml_url=letter.eml.url %}&bull; Send by <a href="{{sender_url}}">{{sender}}</a>
+            &bull; {% blocktrans with sender=letter.author sender_url=letter.author.get_absolute_url eml_url=letter.eml.url %}Send by <a href="{{sender_url}}">{{sender}}</a>
             &bull; <a href="{{eml_url}}"><i class="fa fa-download"></i> Download</a>{% endblocktrans %}
         {% endif %}
         &bull;
