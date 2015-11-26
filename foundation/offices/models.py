@@ -46,8 +46,7 @@ class Office(TimeStampedModel):
                              null=True,
                              blank=True,
                              verbose_name=_("REGON"),
-                             help_text=REGON_HELP_TEXT,
-                             unique=True)
+                             help_text=REGON_HELP_TEXT)
     krs = models.CharField(max_length=9,
                            db_index=True,
                            null=True,

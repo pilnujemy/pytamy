@@ -5,7 +5,10 @@
   <li><i class="fa fa-university"></i> <a href="{{object.office.get_absolute_url}}">{{object.office}}</a></li>
   <li class="active"><i class="fa fa-folder"></i> {{object}}</li>
 </ol>
-<h1><i class="fa fa-folder"></i> {{object}}</h1>
+<div class="page-header">
+<h1><i class="fa fa-folder"></i> {% blocktrans with case=object office_url=object.office.get_absolute_url office=object.office %}{{case}} <small>in <a href="{{office_url}}">{{office}}</a></small>{% endblocktrans %}</h1>
+</div>
+
 {% for letter in object.letter_set.all %}
 {% include 'letters/_letter_item.html' with letter=letter %}
 {% endfor %}

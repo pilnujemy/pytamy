@@ -1,24 +1,34 @@
 import uuid
+import claw
+import os
+from atom.models import AttachmentBase
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.core.files import File
+from django.dispatch import receiver
 from django.conf import settings
 from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 from autoslug.fields import AutoSlugField
 from django.core.files.base import ContentFile
+from foundation.cases.models import Case
 from django_bleach.models import BleachField
 from foundation.offices.models import Office
+from django_mailbox.signals import message_received
 from django.db.models.signals import pre_save
 from django.utils import timezone
 from .email import MessageTemplateEmail
-
+from .utils import nl2br
 
 INCOMING_HELP = _("Is it a incoming message? Otherwise, it is outgoing.")
 
+claw.init()
+
 
 class LetterQuerySet(models.QuerySet):
-    pass
+    def for_milestone(self):
+        return self.select_related('case', 'author', 'sender_user', 'sender_office')
 
 
 class Letter(TimeStampedModel):
@@ -27,6 +37,7 @@ class Letter(TimeStampedModel):
     subject = models.CharField(verbose_name=_("Subject"), max_length=50)
     slug = AutoSlugField(populate_from='subject', verbose_name=_("Slug"), unique=True)
     content = BleachField()
+    quote = BleachField()
     incoming = models.BooleanField(default=False, verbose_name=_("Incoming"),
                                    help_text=INCOMING_HELP)
     eml = models.FileField(upload_to="eml_msg/%Y/%m/%d/", null=True, blank=True)
@@ -102,11 +113,55 @@ class Letter(TimeStampedModel):
         # Send message
         msg.send()
 
+    @classmethod
+    def process_incoming(cls, case, message):
+        if message.html:
+            text = claw.quotations.extract_from(message.html, 'text/html')
+            quote = message.text.replace(text, '')
+        else:
+            text = nl2br(claw.quotations.extract_from(message.text, 'text/plain'))
+            quote = nl2br(message.text.replace(text, ''))
+        obj = cls.objects.create(sender_office=case.institution,
+                                 from_email=message.from_address[0],
+                                 case=case,
+                                 subject=message.subject,
+                                 content=text,
+                                 quote=quote,
+                                 eml=File(message.eml, message.eml.name))
+        attachments = []
+        # Append attachments
+        for attachment in message.attachments.all():
+            name = attachment.get_filename() or 'Unknown.bin'
+            if len(name) > 70:
+                name, ext = os.path.splitext(name)
+                ext = ext[:70]
+                name = name[:70 - len(ext)] + ext
+            file_obj = File(attachment.document, name)
+            attachments.append(Attachment(letter=obj, attachment=file_obj))
+        Attachment.objects.bulk_create(attachments)
+        return obj, attachments
 
+
+class Attachment(AttachmentBase):
+    letter = models.ForeignKey(Letter)
+
+
+@receiver(message_received)
+def mail_process(sender, message, **args):
+    try:
+        case = Case.objects.get(receiving_email=message.to_addresses[0])
+    except Case.DoesNotExist:
+        print("Message #{pk} skip, due not recognized address {to}".
+              format(pk=message.pk, to=message.to_addresses[0]))
+        return
+    letter, attachments = Letter.process_incoming(case, message)
+    print("Message #{message} registered in case #{case} as letter #{letter}".
+          format(message=message.pk, case=case.pk, letter=letter.pk))
+
+
+@receiver(pre_save, sender=Letter)
 def update_send_at(sender, instance, **kwargs):
     if (not instance.incoming and  # outgoing
             not instance.send_at and  # no send time
             instance.eml):  # send msg set up
         instance.send_at = timezone.now()
-
-pre_save.connect(update_send_at, sender=Letter, dispatch_uid="update_send_at")
