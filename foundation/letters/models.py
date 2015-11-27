@@ -18,6 +18,7 @@ from foundation.offices.models import Office
 from django_mailbox.signals import message_received
 from django.db.models.signals import pre_save
 from django.utils import timezone
+from django.utils.text import get_valid_filename
 from .email import MessageTemplateEmail
 from .utils import nl2br
 
@@ -137,6 +138,7 @@ class Letter(TimeStampedModel):
                 name, ext = os.path.splitext(name)
                 ext = ext[:70]
                 name = name[:70 - len(ext)] + ext
+            name = get_valid_filename(name)
             file_obj = File(attachment.document, name)
             attachments.append(Attachment(letter=obj, attachment=file_obj))
         Attachment.objects.bulk_create(attachments)
