@@ -36,8 +36,8 @@ class Letter(TimeStampedModel):
     case = models.ForeignKey('cases.Case')
     subject = models.CharField(verbose_name=_("Subject"), max_length=50)
     slug = AutoSlugField(populate_from='subject', verbose_name=_("Slug"), unique=True)
-    content = BleachField()
-    quote = BleachField()
+    content = BleachField(strip_tags=True)
+    quote = BleachField(strip_tags=True)
     incoming = models.BooleanField(default=False, verbose_name=_("Incoming"),
                                    help_text=INCOMING_HELP)
     eml = models.FileField(upload_to="eml_msg/%Y/%m/%d/", null=True, blank=True)
