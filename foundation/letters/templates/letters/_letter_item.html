@@ -18,7 +18,7 @@
         {{letter.content | safe}}
     </div>
     <div class="panel-footer">
-        {% if not letter.is_incoming %}
+        {% if not letter.incoming %}
         {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
         {% endif %}
         {% if letter.sender %}
