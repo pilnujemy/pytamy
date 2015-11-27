@@ -121,7 +121,7 @@ class Letter(TimeStampedModel):
         else:
             text = nl2br(claw.quotations.extract_from(message.text, 'text/plain'))
             quote = nl2br(message.text.replace(text, ''))
-        obj = cls.objects.create(sender_office=case.institution,
+        obj = cls.objects.create(sender_office=case.office,
                                  from_email=message.from_address[0],
                                  case=case,
                                  subject=message.subject,
