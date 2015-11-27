@@ -18,7 +18,9 @@
         {{letter.content | safe}}
     </div>
     <div class="panel-footer">
+        {% if not letter.is_incoming %}
         {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
+        {% endif %}
         {% if letter.eml %}
             &bull; {% blocktrans with sender=letter.author sender_url=letter.author.get_absolute_url send_time=letter.send_at send_time_natural=letter.send_at|naturaltime %}Send by <a href="{{sender_url}}">{{sender}}</a> at <span title="{{send_time}}">{{send_time_natural}}</span>{% endblocktrans %}
             &bull; {% blocktrans with eml_url=letter.eml.url %}<a href="{{eml_url}}"><i class="fa fa-download"></i> Download</a>{% endblocktrans %}
