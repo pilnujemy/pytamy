@@ -127,6 +127,7 @@ class Letter(TimeStampedModel):
                                  subject=message.subject,
                                  content=text,
                                  quote=quote,
+                                 incoming=True,
                                  eml=File(message.eml, message.eml.name))
         attachments = []
         # Append attachments
