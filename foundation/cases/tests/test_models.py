@@ -3,6 +3,8 @@ from test_plus.test import TestCase
 from .factories import CaseFactory
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.test.utils import override_settings
+from ..models import Case
 
 
 def assign_perm(user, model, codename):
@@ -27,9 +29,13 @@ class TestCase(TestCase):
             '/sprawy/sprawa-testname'
         )
 
+    @override_settings(MAILBOX_RECEIVING_PROTOTYPE='example-{id}@example.com')
     def test_receiving_email(self):
-        self.assertTrue(CaseFactory().receiving_email)
+        self.assertEqual(CaseFactory(pk=75).receiving_email, 'example-75@example.com')
 
 
 class TestCaseQuerySet(TestCase):
-    pass
+    @override_settings(MAILBOX_RECEIVING_PROTOTYPE='example-{id}@example.com')
+    def test_by_rcv_email(self):
+        CaseFactory(pk=75)
+        self.assertEqual(Case.objects.by_rcv_email('example-75@example.com').get().pk, 75)
