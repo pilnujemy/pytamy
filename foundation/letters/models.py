@@ -155,8 +155,10 @@ class Letter(TimeStampedModel):
                 name = name[:70 - len(ext)] + ext
             name = get_valid_filename(name)
             file_obj = File(attachment.document, name)
-            attachments.append(Attachment(letter=obj, attachment=file_obj))
-        Attachment.objects.bulk_create(attachments)
+            att_obj = Attachment(letter=obj, attachment=file_obj)
+            att_obj.save()
+            # attachments.append(att_obj)
+        # Attachment.objects.bulk_create(attachments)
         return obj, attachments
 
 
