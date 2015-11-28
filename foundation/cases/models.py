@@ -6,7 +6,7 @@ from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 from autoslug.fields import AutoSlugField
 from django.db.models.signals import post_save
-from django.test.utils import override_settings
+
 
 class CaseQuerySet(models.QuerySet):
     def by_rcv_email(self, email):

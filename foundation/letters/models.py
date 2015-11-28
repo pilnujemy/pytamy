@@ -111,7 +111,8 @@ class Letter(TimeStampedModel):
                        office=self.email.office,
                        case=self.case,
                        letter=self,
-                       email=self.case.receiving_email)
+                       email=self.case.receiving_email,
+                       subject=self.subject)
         msg = MessageTemplateEmail().make_email_object(to=to,
                                                        context=context)
         msg.extra_headers.update({'Return-Receipt-To': self.case.receiving_email,
@@ -128,6 +129,7 @@ class Letter(TimeStampedModel):
         self.save()
         # Send message
         msg.send()
+        return msg
 
     @classmethod
     def process_incoming(cls, case, message):
@@ -148,18 +150,15 @@ class Letter(TimeStampedModel):
         attachments = []
         # Append attachments
         for attachment in message.attachments.all():
-            # name = attachment.get_filename() or 'Unknown.bin'
-            # if len(name) > 70:
-            #    name, ext = os.path.splitext(name)
-            #    ext = ext[:70]
-            #    name = name[:70 - len(ext)] + ext
-            # name = get_valid_filename(name)
-            # file_obj = File(attachment.document, name)
-            # att_obj = Attachment(letter=obj, attachment=file_obj)
-            # att_obj.save()
-            # attachments.append(att_obj)
-            attachments.append(Attachment(letter=obj, attachment=attachment.document))
-        # Attachment.objects.bulk_create(attachments)
+            name = attachment.get_filename().encode('ascii', 'ignore') or 'Unknown.bin'
+            if len(name) > 70:
+                name, ext = os.path.splitext(name)
+                ext = ext[:70]
+                name = name[:70 - len(ext)] + ext
+            file_obj = File(attachment.document, name)
+            att_obj = Attachment(letter=obj, attachment=file_obj)
+            attachments.append(att_obj)
+        Attachment.objects.bulk_create(attachments)
         return obj, attachments
 
 
