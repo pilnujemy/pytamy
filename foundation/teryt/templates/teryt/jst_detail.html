@@ -3,12 +3,11 @@
 {% block teryt_content %}
 <h2><a href="{{object.get_absolute_url}}">{{object}}</a></h2>
 
-{% if object.get_offices_in_region %}
-<h3>{% trans 'Offices' %}</h3>
-<ul>
-    {% for object in object.get_offices_in_region %}
-    <li><a href="{{object.get_absolute_url}}">{{object}}</a></li>
-    {% endfor %}
-</ul>
-{% endif %}
+<div class="row">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+        {% include 'offices/_office_list.html' with object_list=office_list %}
+    </div>
+</div>
 {% endblock %}

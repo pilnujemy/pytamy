@@ -13,6 +13,9 @@
         {% else %}
         {% endif %}
         {% endif %}
+        {% if letter.attachment_count %}
+        <span class="badge"><i class="fa fa-download"></i> {{ letter.attachment_count }}</span>
+        {% endif %}
     </div>
     <div class="panel-body">
         {{letter.content | safe}}
@@ -26,6 +29,10 @@
         {% else %}
             {% blocktrans with author_url=letter.sender_office.get_absolute_url author=letter.sender_office realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
         {% endif %}
+        {% if letter.eml %}
+            &bull; {% blocktrans with eml_url=letter.eml.url %}<a href="{{eml_url}}"><i class="fa fa-download"></i> Download</a>{% endblocktrans %}
+        {% endif %}
+
         &bull; <a href="{% url 'letters:reply' slug=letter.slug%}" class="btn btn-xs btn-primary">{% trans 'Reply'%}</a>
 
     </div>

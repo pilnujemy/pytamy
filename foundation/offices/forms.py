@@ -4,12 +4,14 @@ from .models import Office, Email
 from braces.forms import UserKwargModelFormMixin
 from django.utils.translation import ugettext as _
 from atom.ext.crispy_forms.forms import SingleButtonMixin
+from autocomplete_light.contrib.taggit_field import TaggitField, TaggitWidget
 
 OFFICE_FORM_FIELD = ['name', 'jst', 'parent', 'krs', 'regon', 'tags', 'postcode']
 
 
 class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin, forms.ModelForm):
     email = forms.EmailField(label=_("E-mail address"))
+    tags = TaggitField(widget=TaggitWidget('TagAutocomplete'))
 
     def __init__(self, *args, **kwargs):
         super(CreateOfficeForm, self).__init__(*args, **kwargs)
@@ -35,13 +37,20 @@ class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin, forms.ModelFo
         fields = OFFICE_FORM_FIELD
 
 
-class OfficeForm(UserKwargModelFormMixin, forms.ModelForm):
+class OfficeForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
+    tags = TaggitField(widget=TaggitWidget('TagAutocomplete'))
+
     class Meta:
         model = Office
         fields = OFFICE_FORM_FIELD
 
 
-class EmailForm(UserKwargModelFormMixin, forms.ModelForm):
+class EmailForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EmailForm, self).__init__(*args, **kwargs)
+        if not self.instance.pk:
+            self.instance.created_by = self.user
+
     class Meta:
         model = Email
-        fields = ['email', 'default']
+        fields = ['email', 'office', 'default']

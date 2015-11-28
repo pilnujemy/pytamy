@@ -8,6 +8,17 @@
 </ol>
 
 <h1><i class="fa fa-envelope"></i> {{object}}</h1>
+{% block content_top %}{% endblock %}
+
 {% include 'letters/_letter_item.html' with letter=object %}
+{% if object.attachment_set.all %}
+<h2>{% trans 'Attachments' %}</h2>
+<ul>
+{% for att in object.attachment_set.all %}
+    <li><a href="{{att.attachment.url}}">{{att.filename}}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
 {% block content_details %}{% endblock %}
+
 {% endblock %}

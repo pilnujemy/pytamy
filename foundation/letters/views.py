@@ -12,20 +12,22 @@ from .forms import LetterForm, NewReplyForm
 from .filters import LetterFilter
 
 
-class LetterListView(SelectRelatedMixin, FilterView):
+class LetterListView(FilterView):
     filterset_class = LetterFilter
     model = Letter
-    select_related = ['case', 'sender_user', 'sender_office']
     paginate_by = 25
 
     def get_queryset(self, *args, **kwargs):
         qs = super(LetterListView, self).get_queryset(*args, **kwargs)
-        return qs
+        return qs.for_list()
 
 
-class LetterDetailView(SelectRelatedMixin, DetailView):
+class LetterDetailView(DetailView):
     model = Letter
-    select_related = ['case', 'sender_user', 'sender_office']
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(LetterDetailView, self).get_queryset(*args, **kwargs)
+        return qs.for_detail()
 
 
 class LetterCreateView(LoginRequiredMixin, UserFormKwargsMixin, CreateView):

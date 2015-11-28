@@ -1,0 +1,12 @@
+{% regroup inbox by case as case_list %}
+{% for group in case_list %}
+<h2><a href="{{group.grouper.get_absolute_url}}">{{group.grouper}}</a></h2>
+<ul class="milestones">
+  {% for letter in group.list %}
+  <li>
+    <i class="fa {{letter.is_outgoing|yesno:'fa-university,fa-users'}}"></i>
+    {% include 'letters/_letter_item.html' with letter=letter %}
+  </li>
+  {% endfor %}
+</ul>
+{% endfor %}

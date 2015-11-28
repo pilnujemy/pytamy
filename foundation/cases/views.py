@@ -8,6 +8,7 @@ from atom.views import DeleteMessageMixin, FormInitialMixin
 from .models import Case
 from .forms import CaseForm, NewCaseForm
 from .filters import CaseFilter
+from foundation.letters.models import Letter
 
 
 class CaseListView(SelectRelatedMixin, FilterView):
@@ -24,6 +25,11 @@ class CaseListView(SelectRelatedMixin, FilterView):
 class CaseDetailView(SelectRelatedMixin, DetailView):
     model = Case
     select_related = ['created_by', 'office']
+
+    def get_context_data(self, **kwargs):
+        context = super(CaseDetailView, self).get_context_data(**kwargs)
+        context['letter_list'] = Letter.objects.filter(case=self.object).for_list().all()
+        return context
 
 
 class CaseCreateView(LoginRequiredMixin, FormInitialMixin, UserFormKwargsMixin, CreateView):

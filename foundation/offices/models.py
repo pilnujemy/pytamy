@@ -27,6 +27,9 @@ class OfficeQuerySet(QuerySet):
                            jst__lft__gte=jst.lft,
                            jst__lft__lte=jst.rght)
 
+    def for_list(self):
+        return self
+
 
 @python_2_unicode_compatible
 class Office(TimeStampedModel):

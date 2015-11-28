@@ -12,5 +12,8 @@ urlpatterns = [
        name="update"),
    url(r'^urzad-(?P<slug>[\w-]+)/~delete$', views.OfficeDeleteView.as_view(),
        name="delete"),
-
+   url(r'^email/~create$', views.EmailCreateView.as_view(),
+       name="email_create"),
+   url(r'^email-(?P<pk>[\w-]+)/~update$', views.EmailUpdateView.as_view(),
+       name="email_update"),
 ]

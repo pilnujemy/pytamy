@@ -1,0 +1,20 @@
+{% load i18n %}
+<table class="table table-striped">
+    <tr>
+        <th>{% trans 'ID' %}</th>
+        <th>{% trans 'Name' %}</th>
+        <th>{% trans 'REGON / KRS' %}</th>
+        <th>{% trans 'Region' %}</th>
+    </tr>
+    {% for object in object_list %}
+    <tr>
+        <td>{{object.pk}}</td>
+        <td><a href="{{object.get_absolute_url}}">{{object}}</a></td>
+        <td>
+            {% if object.regon %}<p>{% trans 'REGON'%}: {{object.regon}}</p>{% endif %}
+            {% if object.krs %}<p>{% trans 'KRS'%}: {{object.krs}}</p>{% endif %}
+        </td>
+        <td><a href="{{object.jst.get_absolute_url}}">{{object.jst}}</a></td>
+    </tr>
+    {% endfor %}
+</table>

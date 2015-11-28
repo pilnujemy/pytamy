@@ -29,8 +29,22 @@ claw.init()
 
 
 class LetterQuerySet(models.QuerySet):
+    def with_attachment_count(self):
+        return self.annotate(attachment_count=models.Count('attachment'))
+
     def for_milestone(self):
-        return self.select_related('case', 'author', 'sender_user', 'sender_office')
+        return (self.select_related('case').
+                for_list().
+                with_attachment_count())
+
+    def _for_item(self):
+        return self.select_related('author', 'sender_user', 'sender_office')
+
+    def for_list(self):
+        return self.with_attachment_count()._for_item()
+
+    def for_detail(self):
+        return self._for_item().select_related('case__office').prefetch_related('attachment_set')
 
 
 class Letter(TimeStampedModel):

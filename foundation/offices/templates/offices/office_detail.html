@@ -2,25 +2,40 @@
 {% load i18n %}
 {% block office_content %}
 <ol class="breadcrumb">
-  {% for jst in object.jst.get_ancestors %}
-  <li><a href="{{jst.get_absolute_url}}">{{jst}}</a></li>
-  {% endfor %}
-  <li><a href="{{object.jst.get_absolute_url}}">{{object.jst}}</a></li>
-  <li class="active">{{object}}</li>
+    {% for jst in object.jst.get_ancestors %}
+    <li><a href="{{jst.get_absolute_url}}">{{jst}}</a></li>
+    {% endfor %}
+    <li><a href="{{object.jst.get_absolute_url}}">{{object.jst}}</a></li>
+    <li class="active">{{object}}</li>
 </ol>
 
 <h2><a href="{{object.get_absolute_url}}">{{object}}</a></h2>
 
-<h3>{% trans 'Emails' %}</h3>
-{% if object.email_set.all %}
-<ul>
-{% for object in object.email_set.all %}
-<li>{% if object.default %}<b>{% endif %}
-<a href="{{object.get_absolute_url}}">{{object}}</a>
-{% if object.default %}</b>{% endif %}
-</li>
-{% endfor %}
-</ul>
-{% endif %}
+<div class="row">
+    <div class="col-sm-4">
+        <div class="well well-sm">
+            <h3>{% trans 'Emails' %}</h3>
+            {% if email_set %}
+            <ul>
+            {% for object in email_set %}
+            <li>{% if object.default %}<b>{% endif %}
+                <a href="{{object.get_absolute_url}}">{{object}}</a>
+                {% if object.default %}</b>{% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            <a href="{% url 'offices:email_create' %}?office={{object.pk}}" class="btn btn-primary">
+                {% trans 'add another' %}</a>
+                {% if not request.user.is_authenticated %}
+                <i class="fa fa-lock"></i>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-8">
+    {% include 'cases/_milestone_case.html' with case_list=inbox %}
+    </div>
+</div>
 
 {% endblock %}
