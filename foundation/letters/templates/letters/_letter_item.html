@@ -24,7 +24,7 @@
                 &bull; {% blocktrans with sender=letter.sender sender_url=letter.sender.get_absolute_url send_time=letter.send_at send_time_natural=letter.send_at|naturaltime %}Send by <a href="{{sender_url}}">{{sender}}</a> at <span title="{{send_time}}">{{send_time_natural}}</span>{% endblocktrans %}
             {% endif %}
         {% else %}
-            {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
+            {% blocktrans with author_url=letter.sender_office.get_absolute_url author=letter.sender_office realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
         {% endif %}
         &bull; <a href="{% url 'letters:reply' slug=letter.slug%}" class="btn btn-xs btn-primary">{% trans 'Reply'%}</a>
 
