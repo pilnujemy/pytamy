@@ -5,7 +5,7 @@
 {% crispy filter.form %}
 
 {% if object_list %}
-{% include '_office_list.html' %}
+{% include 'offices/_office_list.html' %}
 {% endif %}
 {% bootstrap_paginate page_obj range=10 %}
 
