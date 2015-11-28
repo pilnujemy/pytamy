@@ -6,6 +6,7 @@ from braces.forms import UserKwargModelFormMixin
 from atom.ext.crispy_forms.forms import HelperMixin, SingleButtonMixin
 from crispy_forms.layout import Submit
 from ckeditor.widgets import CKEditorWidget
+import autocomplete_light
 from .utils import can_send
 
 
@@ -18,7 +19,9 @@ class LetterForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
         fields = ['subject', 'content', 'email']
 
 
-class NewReplyForm(HelperMixin, UserKwargModelFormMixin, forms.ModelForm):
+class NewReplyForm(HelperMixin, UserKwargModelFormMixin, autocomplete_light.ModelForm):
+    email = autocomplete_light.ModelChoiceField('EmailAutocomplete')
+
     def __init__(self, letter, *args, **kwargs):
         super(NewReplyForm, self).__init__(*args, **kwargs)
         self.instance.case = letter.case
