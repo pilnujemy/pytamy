@@ -14,7 +14,7 @@ from foundation.letters.models import Letter
 class CaseListView(SelectRelatedMixin, FilterView):
     filterset_class = CaseFilter
     model = Case
-    select_related = ['created_by', 'office']
+    select_related = ['created_by', 'office', 'office__jst']
     paginate_by = 25
 
     def get_queryset(self, *args, **kwargs):
