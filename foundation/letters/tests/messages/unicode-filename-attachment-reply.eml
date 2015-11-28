@@ -1,0 +1,111 @@
+From nobody Sat Nov 28 16:28:01 2015
+Return-path: <all@badanie.pilnujemy.info>
+Envelope-to: main@badanie.pilnujemy.info
+Delivery-date: Sat, 28 Nov 2015 16:27:55 +0100
+Received: from localhost
+ ([127.0.0.1] helo=s7.mydevil.net ident=mecbWhaXZ29COnA)
+ by s7.mydevil.net with esmtp (Exim 4.86 (FreeBSD))
+ (envelope-from <all@badanie.pilnujemy.info>) id 1a2hPl-000Ovt-GS
+ for main@badanie.pilnujemy.info; Sat, 28 Nov 2015 16:27:55 +0100
+X-Sieve: Pigeonhole Sieve 0.4.9 (357ac0a0e68b+)
+X-Sieve-Redirected-From: all@badanie.pilnujemy.info
+Received: from s18c.hekko.net.pl ([188.116.9.128])
+ by s7.mydevil.net with esmtps (TLSv1:DHE-RSA-AES256-SHA:256)
+ (Exim 4.86 (FreeBSD)) (envelope-from <naczelnik@jawnosc.tk>)
+ id 1a2hPi-000OvN-O3
+ for sprawa-8@badanie.pilnujemy.info; Sat, 28 Nov 2015 16:27:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jawnosc.tk; 
+ s=x;
+ h=Content-Type:Cc:To:Subject:Message-ID:Date:From:References:
+ In-Reply-To:MIME-Version; bh=tnw/8axPDiK8Lvy5rFkiiVwfJg49JdTmSlkBQOyoBH0=; b=
+ yU/j01tgoeVqpSAhMIzpu7v8Zqam5RYfr5eUteGoi17FvK8X2ReWIETwgelYcFmq9NdvDScqmUX3B
+ uNA/TSw9XR9gUqsuGB13oALChcVuyo0LNxK1IuanaVjXYQgVE0a;
+Received: from mail-lf0-f52.google.com ([209.85.215.52])
+ by s18.hekko.net.pl with esmtpsa (TLSv1:RC4-SHA:128) (Exim 4.86)
+ (envelope-from <naczelnik@jawnosc.tk>) id 1a2hPg-0003AV-9t
+ for sprawa-8@badanie.pilnujemy.info; Sat, 28 Nov 2015 16:27:48 +0100
+Received: by lfdl133 with SMTP id l133so154060225lfd.2
+ for <sprawa-8@badanie.pilnujemy.info>; Sat, 28 Nov 2015 07:27:48 -0800 (PST)
+X-Received: by 10.25.83.146 with SMTP id h140mr11280242lfb.52.1448724468802;
+ Sat, 28 Nov 2015 07:27:48 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.25.34.196 with HTTP; Sat, 28 Nov 2015 07:27:08 -0800 (PST)
+In-Reply-To: <20151128152610.93404.82900@net.mydevil.s7.devil>
+References: <20151128152610.93404.82900@net.mydevil.s7.devil>
+From: naczelnik@jawnosc.tk
+Date: Sat, 28 Nov 2015 16:27:08 +0100
+X-Gmail-Original-Message-ID: <CANAJOb5Tph08YU+U-oiePs6TjOo7WyQaQz1kyzsGeW0j4bV==g@mail.gmail.com>
+Message-ID: <CANAJOb5Tph08YU+U-oiePs6TjOo7WyQaQz1kyzsGeW0j4bV==g@mail.gmail.com>
+Subject: =?UTF-8?Q?Re=3A_Wniosek_o_dane_do_Urz=C4=99dowy_Adam?=
+To: sprawa-8@badanie.pilnujemy.info
+Cc: badanie-pilnujemy@jawnosc.tk
+Content-Type: multipart/mixed; boundary=001a11419fc057481005259b73fa
+X-HEKKO: 209.85.215.52:sniff@jawnosc.tk
+X-AV-Check: Passed
+X-Spam-Score: 0.0
+X-AV-Check: Passed
+X-Spam-Score: 0.0
+
+--001a11419fc057481005259b73fa
+Content-Type: multipart/alternative; boundary=001a11419fc057480b05259b73f8
+
+--001a11419fc057480b05259b73f8
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Dzie=C5=84 dobry,
+
+Dzi=C4=99kujemy za przes=C5=82any wniosek. W za=C5=82=C4=85czeniu przesy=C5=
+=82amy =C5=BC=C4=85dane dokumenty.
+
+Z wyrazami szacunku,
+
+W dniu 28 listopada 2015 16:26 u=C5=BCytkownik <sprawa-8@badanie.pilnujemy.=
+info>
+napisa=C5=82:
+
+> Hello,
+>
+> Lorem *ip*sum!
+>
+> Greetings,
+> -----
+> Wniosek z systemu Fundacji Pilnujemy.info. Korespondencje w sprawie
+> prowadzi=C4=87 z wykorzystaniem adresu e-mail sprawa-8@badanie.pilnujemy.=
+info
+
+--001a11419fc057480b05259b73f8
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>Dzie=C5=84 dobry,<br><br></div>Dzi=C4=99kujemy z=
+a przes=C5=82any wniosek. W za=C5=82=C4=85czeniu przesy=C5=82amy =C5=BC=C4=
+=85dane dokumenty.<br><br></div>Z wyrazami szacunku,<br></div><div class=3D=
+"gmail_extra"><br><div class=3D"gmail_quote">W dniu 28 listopada 2015 16:26=
+ u=C5=BCytkownik  <span dir=3D"ltr">&lt;<a href=3D"mailto:sprawa-8@badanie.=
+pilnujemy.info" target=3D"_blank">sprawa-8@badanie.pilnujemy.info</a>&gt;</=
+span> napisa=C5=82:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 =
+0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><p>Hello,</p>
+
+<p>Lorem <strong>ip</strong>sum!</p>
+
+<p>Greetings,</p>
+
+-----<br>
+Wniosek z systemu Fundacji Pilnujemy.info. Korespondencje w sprawie prowadz=
+i=C4=87 z wykorzystaniem adresu e-mail <a href=3D"mailto:sprawa-8@badanie.p=
+ilnujemy.info" target=3D"_blank">sprawa-8@badanie.pilnujemy.info</a>
+</blockquote></div><br></div>
+
+--001a11419fc057480b05259b73f8--
+
+--001a11419fc057481005259b73fa
+Content-Type: application/pdf; name="=?UTF-8?B?T2Rwb3dpZWTFui5wZGY=?="
+Content-Disposition: attachment; filename="=?UTF-8?B?T2Rwb3dpZWTFui5wZGY=?="
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_ihj9430s0
+
+RXhhbXBsZV9jb250ZW50Cg==
+--001a11419fc057481005259b73fa--
+
+
