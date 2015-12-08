@@ -12,6 +12,8 @@ from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 from jsonfield import JSONField
 from cached_property import cached_property
+from pprint import pformat
+
 
 REGON_HELP_TEXT = _("Compatible with National Official Register of National Economy Entities")
 
@@ -72,6 +74,8 @@ class Office(TimeStampedModel):
     def get_absolute_url(self):
         return reverse('offices:detail', kwargs={'slug': self.slug})
 
+    def get_extra_display(self):
+        return pformat(self.extra, indent=4)
     class Meta:
         verbose_name = _("Office")
         verbose_name_plural = _("Offices")

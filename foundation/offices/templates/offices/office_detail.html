@@ -26,12 +26,17 @@
             </ul>
             {% endif %}
             <a href="{% url 'offices:email_create' %}?office={{object.pk}}" class="btn btn-primary">
-                {% trans 'add another' %}</a>
+                {% trans 'add another' %}
                 {% if not request.user.is_authenticated %}
                 <i class="fa fa-lock"></i>
                 {% endif %}
             </a>
         </div>
+        {% if object.extra %}
+        <pre>
+        {{ object.get_extra_display }}
+        </pre>
+        {% endif %}
     </div>
     <div class="col-sm-8">
     {% include 'cases/_milestone_case.html' with case_list=inbox %}
