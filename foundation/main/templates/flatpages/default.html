@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
-{% load flatpage_admin %}
 {% block content %}
 <div class="page-header">
   <h1>{{flatpage.title}}</h1>
 </div>
-{{flatpage_admin flatpage.content }}
+{{ flatpage.content }}
 {% endblock %}
