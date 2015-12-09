@@ -5,6 +5,7 @@
         <th>{% trans 'Name' %}</th>
         <th>{% trans 'REGON / KRS' %}</th>
         <th>{% trans 'Region' %}</th>
+        <th>{% trans 'Case count' %}</th>
     </tr>
     {% for object in object_list %}
     <tr>
@@ -15,6 +16,7 @@
             {% if object.krs %}<p>{% trans 'KRS'%}: {{object.krs}}</p>{% endif %}
         </td>
         <td><a href="{{object.jst.get_absolute_url}}">{{object.jst}}</a></td>
+        <td>{{object.case_count}}</td>
     </tr>
     {% endfor %}
 </table>

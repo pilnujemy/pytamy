@@ -24,6 +24,9 @@ class OfficeQuerySet(QuerySet):
             return self
         return self.filter(visible=True)
 
+    def with_case_count(self):
+        return self.annotate(case_count=models.Count('case'))
+
     def area(self, jst):
         return self.filter(jst__tree_id=jst.tree_id,
                            jst__lft__gte=jst.lft,

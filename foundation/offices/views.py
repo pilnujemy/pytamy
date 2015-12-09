@@ -18,6 +18,10 @@ class OfficeListView(SelectRelatedMixin, FilterView):
     select_related = ['jst', ]
     paginate_by = 25
 
+    def get_queryset(self, *args, **kwargs):
+        qs = super(OfficeListView, self).get_queryset(*args, **kwargs)
+        return qs.with_case_count()
+
 
 class OfficeDetailView(SelectRelatedMixin, DetailView):
     model = Office
