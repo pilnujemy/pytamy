@@ -38,7 +38,7 @@ class DeletedMessageMixin(object):
 
 
 class PagedFilteredTableView(SingleTableView):
-    filter_class = None
+    # filter_class = None
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
@@ -72,7 +72,8 @@ class BaseFormSetView(object):
         context = self.get_context_data()
         if all(context[key].is_valid() for key in self.formset_class.keys()):
             form.save()
-            [context[key].save() for key in self.formset_class.keys()]
+            for key in self.formset_class.keys():
+                context[key].save()
             return super(BaseFormSetView, self).form_valid(form=form, *args, **kwargs)
         else:
             return self.render_to_response(self.get_context_data(form=form))

@@ -4,7 +4,7 @@ import factory
 
 
 class CaseFactory(factory.django.DjangoModelFactory):
-    name = factory.Sequence(lambda n: 'case-/{0}/'.format(n))
+    name = factory.Sequence('case-/{0}/'.format)
     office = factory.SubFactory('foundation.offices.tests.factories.OfficeFactory')
     created_by = factory.SubFactory('foundation.users.tests.factories.UserFactory')
 

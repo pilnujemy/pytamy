@@ -44,7 +44,7 @@ class OfficeCreateView(LoginRequiredMixin, UserFormKwargsMixin, CreateView):
         return _("{0} created!").format(self.object)
 
 
-class OfficeUpdateView(LoginRequiredMixin, UserFormKwargsMixin,  FormValidMessageMixin,
+class OfficeUpdateView(LoginRequiredMixin, UserFormKwargsMixin, FormValidMessageMixin,
                        UpdateView):
     model = Office
     form_class = OfficeForm

@@ -13,7 +13,7 @@ def assign_perm(user, model, codename):
     user.user_permissions.add(permission)
 
 
-class TestCase(TestCase):
+class TestCaseCase(TestCase):
     def setUp(self):
         self.object = CaseFactory(name="testname")
 

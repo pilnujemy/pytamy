@@ -40,7 +40,7 @@ class CaseCreateView(LoginRequiredMixin, FormInitialMixin, UserFormKwargsMixin, 
         return _("{0} created!").format(self.object)
 
 
-class CaseUpdateView(LoginRequiredMixin, UserFormKwargsMixin,  FormValidMessageMixin,
+class CaseUpdateView(LoginRequiredMixin, UserFormKwargsMixin, FormValidMessageMixin,
                      UpdateView):
     model = Case
     form_class = CaseForm

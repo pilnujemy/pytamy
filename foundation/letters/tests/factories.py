@@ -29,8 +29,8 @@ class EmailField(factory.django.FileField):
 
 class LetterFactory(factory.django.DjangoModelFactory):
     case = factory.SubFactory('foundation.cases.tests.factories.CaseFactory')
-    subject = factory.Sequence(lambda n: 'letter-subject-/{0}/'.format(n))
-    content = factory.Sequence(lambda n: 'letter-text-/{0}/ {{EMAIL}}'.format(n))
+    subject = factory.Sequence('letter-subject-/{0}/'.format)
+    content = factory.Sequence('letter-text-/{0}/ {{EMAIL}}'.format)
 
     class Meta:
         model = models.Letter
@@ -40,7 +40,7 @@ class LetterFactory(factory.django.DjangoModelFactory):
 class IncomingLetterFactory(LetterFactory):
     incoming = True
     sender_office = factory.LazyAttribute(lambda o: o.case.office)
-    from_email = factory.Sequence(lambda n: 'office-/{0}/@example.com'.format(n))
+    from_email = factory.Sequence('office-/{0}/@example.com'.format)
     # eml = EmailField(from_addr=factory.SelfAttribute('from_email'),
     #                  to_addr=factory.SelfAttribute('case.receiving_email'),
     #                  subject=factory.SelfAttribute('subject'),

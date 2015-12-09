@@ -4,7 +4,7 @@ import factory
 
 
 class OfficeFactory(factory.django.DjangoModelFactory):
-    name = factory.Sequence(lambda n: 'office-/{0}/'.format(n))
+    name = factory.Sequence('office-/{0}/'.format)
     jst = factory.SubFactory('foundation.teryt.tests.factories.JSTFactory')
     created_by = factory.SubFactory('foundation.users.tests.factories.UserFactory')
     visible = True
@@ -14,7 +14,7 @@ class OfficeFactory(factory.django.DjangoModelFactory):
 
 
 class EmailFactory(factory.django.DjangoModelFactory):
-    email = factory.Sequence(lambda n: 'user-{0}@example.com'.format(n))
+    email = factory.Sequence('user-{0}@example.com'.format)
     office = factory.SubFactory(OfficeFactory)
     created_by = factory.SubFactory('foundation.users.tests.factories.UserFactory')
     default = False

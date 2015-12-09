@@ -79,6 +79,7 @@ class Office(TimeStampedModel):
 
     def get_extra_display(self):
         return pformat(self.extra, indent=4)
+
     class Meta:
         verbose_name = _("Office")
         verbose_name_plural = _("Offices")
