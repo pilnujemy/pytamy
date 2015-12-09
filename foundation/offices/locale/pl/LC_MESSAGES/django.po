@@ -7,102 +7,127 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-21 22:02+0100\n"
-"PO-Revision-Date: 2015-11-21 22:05+0100\n"
+"POT-Creation-Date: 2015-12-09 03:37+0100\n"
+"PO-Revision-Date: 2015-12-09 03:37+0100\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: pl_PL\n"
 
-#: forms.py:12 models.py:90
+#: forms.py:13 models.py:100
 msgid "E-mail address"
 msgstr "Adres e-mail"
 
-#: models.py:16
+#: models.py:18
 msgid "Compatible with National Official Register of National Economy Entities"
 msgstr "Zgodny z rejestrem REGON"
 
-#: models.py:33
+#: models.py:41 templates/offices/_office_list.html:5
 msgid "Name"
 msgstr "Nazwa"
 
-#: models.py:39
+#: models.py:47
 msgid "Verified"
 msgstr "Zweryfikowany"
 
-#: models.py:42
+#: models.py:51
 msgid "Post code"
 msgstr "Kod pocztowy"
 
-#: models.py:47
+#: models.py:56 templates/offices/_office_list.html:15
 msgid "REGON"
 msgstr "Kod REGON"
 
-#: models.py:54
+#: models.py:62
 msgid "Registration number"
 msgstr "Kod KRS"
 
-#: models.py:55
+#: models.py:63
 msgid "Compatible with Polish National Court Register"
-msgstr "Compatybilny z rejestrem KRS"
+msgstr "Kompatybilny z rejestrem KRS"
 
-#: models.py:66
+#: models.py:74
 #, python-brace-format
 msgid "{name} (hidden)"
 msgstr "{name} (ukryty)"
 
-#: models.py:73 models.py:79
+#: models.py:83 models.py:89
 msgid "Office"
 msgstr "Urząd"
 
-#: models.py:74
+#: models.py:84
 msgid "Offices"
 msgstr "Urzędy"
 
-#: models.py:80
+#: models.py:90
 msgid "Address"
 msgstr "Adres"
 
-#: models.py:83
+#: models.py:93
 msgid "Is valid?"
 msgstr "Czy poprawny?"
 
-#: models.py:84
+#: models.py:94
 msgid "Identify if email is valid (still)."
 msgstr "Identyfikuj jeżeli adres jest poprawny (wciąż)."
 
-#: models.py:86
+#: models.py:96
 msgid "Default"
 msgstr "Domyślny"
 
-#: models.py:87
+#: models.py:97
 msgid "Use this e-mail as primary for office"
 msgstr "Używaj tego adresu jako domyślnego dla urzędu"
 
-#: models.py:91
+#: models.py:101
 msgid "E-mail addresses"
 msgstr "Adres e-mail"
 
-#: templates/offices/office_detail.html:14
+#: templates/offices/_office_list.html:4
+msgid "ID"
+msgstr "ID"
+
+#: templates/offices/_office_list.html:6
+#| msgid "REGON"
+msgid "REGON / KRS"
+msgstr "REGON / KRS"
+
+#: templates/offices/_office_list.html:7
+msgid "Region"
+msgstr "Region"
+
+#: templates/offices/_office_list.html:8
+msgid "Case count"
+msgstr "Liczba spraw"
+
+#: templates/offices/_office_list.html:16
+msgid "KRS"
+msgstr "KRS"
+
+#: templates/offices/office_detail.html:17
 msgid "Emails"
 msgstr "E-maile"
 
-#: views.py:31
+#: templates/offices/office_detail.html:29
+msgid "add another"
+msgstr "dodaj następny"
+
+#: views.py:44 views.py:70
 #, python-brace-format
 msgid "{0} created!"
 msgstr "{0} utworzony!"
 
-#: views.py:40
+#: views.py:53 views.py:79
 #, python-brace-format
 msgid "{0} updated!"
 msgstr "{0} zaktualizowany!"
 
-#: views.py:48
+#: views.py:61
 #, python-brace-format
 msgid "{0} deleted!"
 msgstr "{0} usunięty!"
