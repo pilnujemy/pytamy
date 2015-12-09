@@ -27,6 +27,7 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
 
     # Useful template tags:
     'django.contrib.humanize',
@@ -48,6 +49,7 @@ THIRD_PARTY_APPS = (
     'djmail',
     'ckeditor',
     'django_mailbox',
+    'django_basic_tinymce_flatpages',
 )
 
 # Apps specific for this project go here.
@@ -305,3 +307,6 @@ CKEDITOR_CONFIGS = {
     }
 }
 DJANGO_MAILBOX_STORE_ORIGINAL_MESSAGE = True
+
+FLATPAGE_WIDGET = 'ckeditor.widgets.CKEditorWidget'
+FLATPAGE_KWARGS = {}

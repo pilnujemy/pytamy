@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 22:53+0100\n"
-"PO-Revision-Date: 2015-11-26 22:54+0100\n"
+"POT-Creation-Date: 2015-12-09 02:01+0100\n"
+"PO-Revision-Date: 2015-12-09 02:01+0100\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -19,44 +19,44 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: forms.py:31
+#: forms.py:34
 msgid "Save "
 msgstr "Zapisz"
 
-#: forms.py:33
+#: forms.py:36
 msgid "Save & send"
 msgstr "Zapisz & wyślij"
 
-#: models.py:17
+#: models.py:26
 msgid "Is it a incoming message? Otherwise, it is outgoing."
 msgstr ""
 "Czy to jest przychodząca wiadomość? W przeciwnym razie - jest to wychodząca."
 
-#: models.py:27
+#: models.py:53
 msgid "Subject"
 msgstr "Tytuł"
 
-#: models.py:28
+#: models.py:54
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:30
+#: models.py:57
 msgid "Incoming"
 msgstr "Wychodząca"
 
-#: models.py:43
+#: models.py:70
 msgid "From e-mail"
 msgstr "Adres e-mail nadawcy"
 
-#: models.py:46
+#: models.py:73
 msgid "Field valid only for incoming messages"
 msgstr "Pole poprawne tylko dla wiadomości przychodzących"
 
-#: models.py:69
+#: models.py:96
 msgid "Letter"
 msgstr "Pismo"
 
-#: models.py:70
+#: models.py:97
 msgid "Letters"
 msgstr "Pisma"
 
@@ -64,15 +64,13 @@ msgstr "Pisma"
 msgid "Draft"
 msgstr "Szkic"
 
-#: templates/letters/_letter_item.html:12
+#: templates/letters/_letter_item.html:12 templates/letters/letter_send.html:9
 msgid "Send"
 msgstr "Wyślij"
 
-#: templates/letters/_letter_item.html:21
+#: templates/letters/_letter_item.html:25
+#: templates/letters/_letter_item.html:30
 #, python-format
-#| msgid ""
-#| "Wrote <a href=\"%(author_url)s\">%(author)s</a> <span title=\"%(realtime)s"
-#| "\">%(naturaltime)s</span>"
 msgid ""
 "Wrote by <a href=\"%(author_url)s\">%(author)s</a> <span title=\"%(realtime)s"
 "\">%(naturaltime)s</span>"
@@ -80,11 +78,8 @@ msgstr ""
 "Napisał/-a <a href=\"%(author_url)s\">%(author)s</a> <span title="
 "\"%(realtime)s\">%(naturaltime)s</span>"
 
-#: templates/letters/_letter_item.html:23
+#: templates/letters/_letter_item.html:27
 #, python-format
-#| msgid ""
-#| "Wrote <a href=\"%(author_url)s\">%(author)s</a> <span title=\"%(realtime)s"
-#| "\">%(naturaltime)s</span>"
 msgid ""
 "Send by <a href=\"%(sender_url)s\">%(sender)s</a> at <span title="
 "\"%(send_time)s\">%(send_time_natural)s</span>"
@@ -92,35 +87,48 @@ msgstr ""
 "Wysłał/-a <a href=\"%(sender_url)s\">%(sender)s</a> <span title="
 "\"%(send_time)s\">%(send_time_natural)s</span>"
 
-#: templates/letters/_letter_item.html:24
+#: templates/letters/_letter_item.html:33
 #, python-format
-#| msgid ""
-#| "Send by <a href=\"%(sender_url)s\">%(sender)s</a>\n"
-#| "            &bull; <a href=\"%(eml_url)s\"><i class=\"fa fa-download\"></"
-#| "i> Download</a>"
 msgid "<a href=\"%(eml_url)s\"><i class=\"fa fa-download\"></i> Download</a>"
 msgstr "<a href=\"%(eml_url)s\"><i class=\"fa fa-download\"></i> Pobierz</a>"
 
-#: templates/letters/_letter_item.html:27
+#: templates/letters/_letter_item.html:36
 msgid "Reply"
 msgstr "Odpowiedź"
 
-#: views.py:36
+#: templates/letters/letter_detail.html:15
+msgid "Attachments"
+msgstr "Załączniki"
+
+#: templates/letters/letter_send.html:5
+msgid "Confirmation dialog"
+msgstr "Okno potwierdzenia"
+
+#: templates/letters/letter_send.html:7
+#, python-format
+msgid "Are you sure you want send \"%(object)s\"?"
+msgstr "Czy jesteś pewien/-na, że chcesz wysłać list \"%(object)s\"?"
+
+#: templates/letters/letter_send.html:10
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: views.py:38
 #, python-brace-format
 msgid "{0} created!"
 msgstr "{0} utworzony!"
 
-#: views.py:45
+#: views.py:47
 #, python-brace-format
 msgid "{0} updated!"
 msgstr "{0} zaktualizowany!"
 
-#: views.py:83
+#: views.py:85
 #, python-brace-format
 msgid "{0} deleted!"
 msgstr "{0} skasowany!"
 
-#: views.py:88
+#: views.py:90
 msgid "Letter has been send!"
 msgstr "List został wysłany"
 
