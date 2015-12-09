@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.flatpages import views
 
 urlpatterns = [
     url(r'^$', include('foundation.main.urls')),
@@ -22,6 +23,8 @@ urlpatterns = [
     url(r'^urzedy/', include("foundation.offices.urls", namespace="offices")),
     url(r'^sprawy/', include("foundation.cases.urls", namespace="cases")),
     url(r'^listy/', include("foundation.letters.urls", namespace="letters")),
+    url(r'^strony/(?P<url>.*/)$', views.flatpage),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
