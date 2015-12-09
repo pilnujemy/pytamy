@@ -49,6 +49,7 @@ THIRD_PARTY_APPS = (
     'djmail',
     'ckeditor',
     'django_mailbox',
+    'django_basic_tinymce_flatpages',
 )
 
 # Apps specific for this project go here.
