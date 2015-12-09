@@ -5,7 +5,7 @@
         <a href="{{letter.get_absolute_url}}">
             {{letter}}
         </a>
-        {% if not letter.is_send and not letter.is_incoming %}
+        {% if not letter.is_send and not letter.incoming %}
         {% user_can_send request.user letter.case as can_send %}
         <span class="badge">{% trans 'Draft' %}</span>
         {% if can_send %}
