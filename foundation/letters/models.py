@@ -150,7 +150,8 @@ class Letter(TimeStampedModel):
         attachments = []
         # Append attachments
         for attachment in message.attachments.all():
-            name = attachment.get_filename().encode('ascii', 'ignore') or 'Unknown.bin'
+            name = attachment.get_filename() or 'Unknown.bin'
+            name = name.encode('ascii', 'ignore')
             if len(name) > 70:
                 name, ext = os.path.splitext(name)
                 ext = ext[:70]
