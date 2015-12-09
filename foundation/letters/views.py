@@ -38,7 +38,7 @@ class LetterCreateView(LoginRequiredMixin, UserFormKwargsMixin, CreateView):
         return _("{0} created!").format(self.object)
 
 
-class LetterUpdateView(LoginRequiredMixin, UserFormKwargsMixin,  FormValidMessageMixin,
+class LetterUpdateView(LoginRequiredMixin, UserFormKwargsMixin, FormValidMessageMixin,
                        UpdateView):
     model = Letter
     form_class = LetterForm
