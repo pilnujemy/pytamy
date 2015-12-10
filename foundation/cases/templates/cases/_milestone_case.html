@@ -1,6 +1,7 @@
+{% load i18n %}
 {% regroup inbox by case as case_list %}
 {% for group in case_list %}
-<h2><a href="{{group.grouper.get_absolute_url}}">{{group.grouper}}</a></h2>
+<h2>{% blocktrans with case=group.grouper office_url=group.grouper.office.get_absolute_url office=group.grouper.office %}{{case}} <small>in <a href="{{office_url}}">{{office}}</a></small>{% endblocktrans %}</h2>
 <ul class="milestones">
   {% for letter in group.list %}
   <li>

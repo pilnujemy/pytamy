@@ -18,7 +18,6 @@ from foundation.offices.models import Office
 from django_mailbox.signals import message_received
 from django.db.models.signals import pre_save
 from django.utils import timezone
-from django.utils.text import get_valid_filename
 from .email import MessageTemplateEmail
 from .utils import nl2br
 
@@ -37,13 +36,14 @@ class LetterQuerySet(models.QuerySet):
                 with_attachment_count())
 
     def _for_item(self):
-        return self.select_related('author', 'sender_user', 'sender_office')
+        return self.select_related('author', 'sender_user', 'sender_office',
+                                   'case__created_by', 'case__office')
 
     def for_list(self):
         return self.with_attachment_count()._for_item()
 
     def for_detail(self):
-        return self._for_item().select_related('case__office').prefetch_related('attachment_set')
+        return self._for_item().prefetch_related('attachment_set')
 
 
 class Letter(TimeStampedModel):
