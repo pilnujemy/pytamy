@@ -1,11 +1,13 @@
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 from foundation.letters.models import Letter
 
 
-class HomeView(TemplateView):
+class HomeView(ListView):
     template_name = "home.html"
+    model = Letter
+    paginate_by = 25
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(HomeView, self).get_context_data(*args, **kwargs)
-        context['inbox'] = (Letter.objects.for_milestone().order_by('-created').all()[:20])
-        return context
+    def get_queryset(self, *args, **kwargs):
+        qs = super(HomeView, self).get_queryset(*args, **kwargs)
+        qs = qs.for_milestone().order_by('-created')
+        return qs

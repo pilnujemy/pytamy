@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load humanize i18n %}
+{% load bootstrap_pagination humanize i18n %}
 {% block content %}
 <div class="row">
   <div class="col-sm-4">
@@ -38,5 +38,6 @@
   </div>
 
 </div>
-{% include 'cases/_milestone_case.html' with case_list=case_list %}
+{% include 'cases/_milestone_case.html' with letter_list=letter_list %}
+{% bootstrap_paginate page_obj range=10 %}
 {% endblock %}
