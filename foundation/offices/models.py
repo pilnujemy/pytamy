@@ -5,7 +5,6 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from model_utils.models import TimeStampedModel
 from django.db.models.query import QuerySet
-from model_utils.managers import PassThroughManager
 from autoslug import AutoSlugField
 from django.utils.encoding import python_2_unicode_compatible
 from django.db.models.signals import post_save
@@ -62,7 +61,7 @@ class Office(TimeStampedModel):
                            verbose_name=_("Registration number"),
                            help_text=_("Compatible with Polish National Court Register"))
     extra = JSONField(default='{}')
-    objects = PassThroughManager.for_queryset_class(OfficeQuerySet)()
+    objects = OfficeQuerySet.as_manager()
     tags = TaggableManager()
 
     @cached_property
