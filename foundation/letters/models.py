@@ -9,7 +9,6 @@ from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.dispatch import receiver
 from django.conf import settings
-from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 from autoslug.fields import AutoSlugField
 from django.core.files.base import ContentFile
@@ -71,7 +70,7 @@ class Letter(TimeStampedModel):
                                   max_length=100,
                                   null=True,
                                   help_text=_("Field valid only for incoming messages"))
-    objects = PassThroughManager.for_queryset_class(LetterQuerySet)()
+    objects = LetterQuerySet.as_manager()
 
     def recipient(self):
         return self.email.office
