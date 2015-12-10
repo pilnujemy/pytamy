@@ -9,7 +9,7 @@ from .models import Case
 from foundation.offices.models import Email
 from ckeditor.widgets import CKEditorWidget
 from foundation.letters.utils import can_send
-import autocomplete_light
+from autocomplete_light import shortcuts as autocomplete_light
 
 
 class CaseForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
