@@ -19,7 +19,7 @@ from foundation.offices.models import Office
 from django_mailbox.signals import message_received
 from django.db.models.signals import pre_save
 from django.utils import timezone
-from django.utils.text import get_valid_filename
+from django_mailbox.models import Message
 from .email import MessageTemplateEmail
 from .utils import nl2br
 
@@ -57,6 +57,10 @@ class Letter(TimeStampedModel):
     incoming = models.BooleanField(default=False, verbose_name=_("Incoming"),
                                    help_text=INCOMING_HELP)
     eml = models.FileField(upload_to="eml_msg/%Y/%m/%d/", null=True, blank=True)
+    msg = models.ForeignKey(to=Message,
+                            null=True,
+                            blank=True,
+                            help_text=_("Message registered by django_mailbox"))
     # Outgoing
     sender_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     send_at = models.DateTimeField(null=True, blank=True)
@@ -146,6 +150,7 @@ class Letter(TimeStampedModel):
                                  content=text,
                                  quote=quote,
                                  incoming=True,
+                                 msg=message,
                                  eml=File(message.eml, message.eml.name))
         attachments = []
         # Append attachments
