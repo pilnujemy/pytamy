@@ -293,7 +293,8 @@ BLEACH_ALLOWED_TAGS = [
     # extra
     'br',
     'p',
-    'u'
+    'u',
+    'div',
 ]
 CKEDITOR_CONFIGS = {
     'default': {
