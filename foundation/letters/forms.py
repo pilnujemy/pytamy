@@ -6,7 +6,7 @@ from braces.forms import UserKwargModelFormMixin
 from atom.ext.crispy_forms.forms import HelperMixin, SingleButtonMixin
 from crispy_forms.layout import Submit
 from ckeditor.widgets import CKEditorWidget
-import autocomplete_light
+from autocomplete_light import shortcuts as autocomplete_light
 from .utils import can_send
 
 
