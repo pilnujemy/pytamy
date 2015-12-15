@@ -55,7 +55,7 @@
                 <ul class="dropdown-menu">
                   <li><a  href="{% url 'users:detail' request.user.username  %}">{% trans 'Profile' %}</a></li>
                   <li><a href="{% url 'letters:list' %}?case__created_by={{request.user.pk}}">{% trans 'Your letters' %}</a></li>
-                  <li><a href="{% url 'letters:list' %}?created_by={{request.user.pk}}">{% trans 'Your cases' %}</a></li>
+                  <li><a href="{% url 'cases:list' %}?created_by={{request.user.pk}}">{% trans 'Your cases' %}</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
