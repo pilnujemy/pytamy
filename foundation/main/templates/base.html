@@ -1,86 +1,104 @@
 {% load staticfiles i18n %}<!DOCTYPE html>
 <html lang="en" ng-app>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}Fundacja Pilnujemy.info{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block title %}Fundacja Pilnujemy.info{% endblock title %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+      <![endif]-->
 
-    {% block css %}
+      {% block css %}
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    {% endblock %}
+      {% endblock %}
 
-  </head>
+    </head>
 
-  <body>
+    <body>
 
-    <div class="header navbar navbar-default">
-      <div class="container">
-        <ul class="nav navbar-nav">
-          <li><a class="navbar-brand" href="/">Fundacja Pilnujemy.info</a></li>
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'django.contrib.flatpages.views.flatpage' url="/plan/" %}">Plan</a></li>
-          {% if request.user.is_staff %}
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'Staff only'%} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'correspondence:letter_list' %}">{% trans "Correspondence" %}</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'admin:index' %}">{% trans 'Admin panel' %}</a></li>
-          </ul>
-          </li>
-          {% endif %}
-          {% if request.user.is_authenticated %}
-            <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
-            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
 
-          {% else %}
-            <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-            <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
-          {% endif %}
-          <li><a href="https://github.com/pilnujemy/pytamy"><i class="fa fa-github"></i> GitHub</a></li>
-        </ul>
+      <div class="header navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Fundacja Pilnujemy.info</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'django.contrib.flatpages.views.flatpage' url="/plan/" %}">Plan</a></li>
+              {% if request.user.is_staff %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans 'Staff only'%} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'correspondence:letter_list' %}">{% trans "Correspondence" %}</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url 'admin:index' %}">{% trans 'Admin panel' %}</a></li>
+                </ul>
+              </li>
+              {% endif %}
+              {% if request.user.is_authenticated %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{request.user}} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a  href="{% url 'users:detail' request.user.username  %}">{% trans 'Profile' %}</a></li>
+                  <li><a href="{% url 'letters:list' %}?case__created_by={{request.user.pk}}">{% trans 'Your letters' %}</a></li>
+                  <li><a href="{% url 'letters:list' %}?created_by={{request.user.pk}}">{% trans 'Your cases' %}</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
+                </ul>
+              </li>
+              {% else %}
+              <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+              <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
+              {% endif %}
+              <li><a href="https://github.com/pilnujemy/pytamy"><i class="fa fa-github"></i> GitHub</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="container">
-      {% block breadcrumbs %}
-      {% endblock %}
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-          {% endfor %}
-      {% endif %}
+      <div class="container">
+        {% block breadcrumbs %}
+        {% endblock %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+        {% endif %}
 
-      {% block button %}
-      {% endblock %}
+        {% block button %}
+        {% endblock %}
 
-      {% block content %}
+        {% block content %}
         <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+        {% endblock content %}
 
-    </div> <!-- /container -->
+      </div> <!-- /container -->
 
-    {% block modal %}{% endblock modal %}
+      {% block modal %}{% endblock modal %}
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     {% block javascript %}
-      <script src="{% static 'js/script.js' %}"></script>
-      {% include 'autocomplete_light/static.html' %}
-      <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-      <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    {% include 'autocomplete_light/static.html' %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
     {% endblock javascript %}
   </body>
-</html>
- 
+  </html>
+

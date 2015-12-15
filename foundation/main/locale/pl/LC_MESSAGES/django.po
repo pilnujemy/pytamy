@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 01:27+0100\n"
-"PO-Revision-Date: 2015-12-15 01:27+0100\n"
+"POT-Creation-Date: 2015-12-15 01:42+0100\n"
+"PO-Revision-Date: 2015-12-15 01:43+0100\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -211,7 +211,7 @@ msgid "Signup"
 msgstr ""
 
 #: templates/account/signup.html:10 templates/account/signup.html.py:20
-#: templates/base.html:47
+#: templates/base.html:64
 msgid "Sign Up"
 msgstr ""
 
@@ -266,27 +266,37 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: templates/base.html:34
+#: templates/base.html:44
 msgid "Staff only"
 msgstr "Tylko dla zespołu"
 
-#: templates/base.html:36
+#: templates/base.html:46
 msgid "Correspondence"
 msgstr "Korespondencja"
 
-#: templates/base.html:38
+#: templates/base.html:48
 msgid "Admin panel"
 msgstr "Panel administracyjny"
 
-#: templates/base.html:43
-msgid "My Profile"
-msgstr "Mój profil"
+#: templates/base.html:56
+#| msgid "My Profile"
+msgid "Profile"
+msgstr "Profil"
 
-#: templates/base.html:44
+#: templates/base.html:57
+#| msgid "Letters"
+msgid "Your letters"
+msgstr "Twoje listy"
+
+#: templates/base.html:58
+msgid "Your cases"
+msgstr ""
+
+#: templates/base.html:60
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: templates/base.html:48
+#: templates/base.html:65
 msgid "Log In"
 msgstr "Zaloguj"
 
