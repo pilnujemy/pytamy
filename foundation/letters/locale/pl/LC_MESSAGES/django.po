@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-09 02:01+0100\n"
-"PO-Revision-Date: 2015-12-09 02:01+0100\n"
+"POT-Creation-Date: 2015-12-15 01:28+0100\n"
+"PO-Revision-Date: 2015-12-15 01:28+0100\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -19,6 +19,10 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.4\n"
 
+#: filters.py:12
+msgid "Case maintained by"
+msgstr "Osoba prowadząca sprawę"
+
 #: forms.py:34
 msgid "Save "
 msgstr "Zapisz"
@@ -27,7 +31,7 @@ msgstr "Zapisz"
 msgid "Save & send"
 msgstr "Zapisz & wyślij"
 
-#: models.py:26
+#: models.py:25
 msgid "Is it a incoming message? Otherwise, it is outgoing."
 msgstr ""
 "Czy to jest przychodząca wiadomość? W przeciwnym razie - jest to wychodząca."
@@ -44,19 +48,23 @@ msgstr "Slug"
 msgid "Incoming"
 msgstr "Wychodząca"
 
-#: models.py:70
+#: models.py:63
+msgid "Message registered by django_mailbox"
+msgstr "Wiadomość zarejestrowana przez django_mailbox"
+
+#: models.py:74
 msgid "From e-mail"
 msgstr "Adres e-mail nadawcy"
 
-#: models.py:73
+#: models.py:77
 msgid "Field valid only for incoming messages"
 msgstr "Pole poprawne tylko dla wiadomości przychodzących"
 
-#: models.py:96
+#: models.py:100
 msgid "Letter"
 msgstr "Pismo"
 
-#: models.py:97
+#: models.py:101
 msgid "Letters"
 msgstr "Pisma"
 
