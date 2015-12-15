@@ -1,0 +1,10 @@
+{% load i18n %}
+<h2>{% blocktrans with case=case office_url=case.office.get_absolute_url office=case.office %}{{case}} <small>in <a href="{{office_url}}">{{office}}</a></small>{% endblocktrans %}</h2>
+<ul class="milestones">
+  {% for letter in letter_list %}
+      <li>
+        <i class="fa {{letter.is_outgoing|yesno:'fa-university,fa-users'}}"></i>
+        {% include 'letters/_letter_item.html' with letter=letter %}
+    </li>
+{% endfor %}
+</ul>
