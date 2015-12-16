@@ -25,10 +25,10 @@ admin.site.register(Letter, LetterAdmin)
 class OutgoingLetterAdmin(LetterAdmin):
     list_display = LetterAdmin.list_display + ['email']
 
-admin.site.register(OutgoingLetter, LetterAdmin)
+admin.site.register(OutgoingLetter, OutgoingLetterAdmin)
 
 
 class IncomingLetterAdmin(LetterAdmin):
     list_display = LetterAdmin.list_display + ['email']
 
-admin.site.register(IncomingLetter, LetterAdmin)
+admin.site.register(IncomingLetter, IncomingLetterAdmin)
