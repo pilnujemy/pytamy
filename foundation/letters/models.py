@@ -37,7 +37,9 @@ class LetterQuerySet(models.QuerySet):
                 with_attachment_count())
 
     def _for_item(self):
-        return self.select_related('author', 'sender_user', 'sender_office',
+        return self.select_related('outgoingletter__author',
+                                   'outgoingletter__sender',
+                                   'incomingletter__sender',
                                    'case__created_by', 'case__office')
 
     def for_list(self):
@@ -54,58 +56,36 @@ class Letter(TimeStampedModel):
     slug = AutoSlugField(populate_from='subject', verbose_name=_("Slug"), unique=True)
     content = BleachField(strip_tags=True)
     quote = BleachField(strip_tags=True)
-    incoming = models.BooleanField(default=False, verbose_name=_("Incoming"),
-                                   help_text=INCOMING_HELP)
     eml = models.FileField(upload_to="eml_msg/%Y/%m/%d/", null=True, blank=True)
     msg = models.ForeignKey(to=Message,
                             null=True,
                             blank=True,
                             help_text=_("Message registered by django_mailbox"))
-    # Outgoing
-    sender_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-    send_at = models.DateTimeField(null=True, blank=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               related_name="author_letter",
-                               null=True,
-                               blank=True)
-    email = models.ForeignKey('offices.Email', null=True, blank=True)
-    # Incoming
-    sender_office = models.ForeignKey(Office, null=True, blank=True, related_name='sender_office')
-    from_email = models.CharField(verbose_name=_("From e-mail"),
-                                  max_length=100,
-                                  null=True,
-                                  help_text=_("Field valid only for incoming messages"))
     objects = LetterQuerySet.as_manager()
-
-    def recipient(self):
-        return self.email.office
-
-    @property
-    def sender(self):
-        return self.sender_user or self.sender_office
-
-    @sender.setter
-    def sender(self, value):
-        if isinstance(value, Office):
-            self.sender_office = value
-            self.sender_user = None
-        else:
-            self.sender_user = value
-            self.sender_office = None
-
-    def is_send(self):
-        return bool(self.eml)
-
-    class Meta:
-        verbose_name = _("Letter")
-        verbose_name_plural = _("Letters")
-        ordering = ['created', ]
 
     def __unicode__(self):
         return self.subject
 
     def get_absolute_url(self):
         return reverse('letters:details', kwargs={'slug': self.slug})
+
+    class Meta:
+        verbose_name = _("Letter")
+        verbose_name_plural = _("Letters")
+        ordering = ['created', ]
+
+
+class OutgoingLetter(Letter):
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+    send_at = models.DateTimeField(null=True, blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               related_name="author_letter",
+                               null=True,
+                               blank=True)
+    email = models.ForeignKey('offices.Email', null=True, blank=True)
+
+    def recipient(self):
+        return self.email.office
 
     def send(self, user):
         text = self.content.replace('{{EMAIL}}', self.case.receiving_email)
@@ -135,6 +115,25 @@ class Letter(TimeStampedModel):
         msg.send()
         return msg
 
+    class Meta:
+        verbose_name = _("Outgoing letter")
+        verbose_name_plural = _("Outgoing letters")
+
+
+class IncomingLetter(Letter):
+    sender = models.ForeignKey(Office, null=True, blank=True, related_name='sender_office')
+    email = models.CharField(verbose_name=_("From e-mail"),
+                             max_length=100,
+                             null=True,
+                             help_text=_("Field valid only for incoming messages"))
+
+    def is_send(self):
+        return bool(self.eml)
+
+    class Meta:
+        verbose_name = _("Incoming letter")
+        verbose_name_plural = _("Incoming letters")
+
     @classmethod
     def process_incoming(cls, case, message):
         if message.html:
@@ -143,13 +142,12 @@ class Letter(TimeStampedModel):
         else:
             text = nl2br(claw.quotations.extract_from(message.text, 'text/plain'))
             quote = nl2br(message.text.replace(text, ''))
-        obj = cls.objects.create(sender_office=case.office,
-                                 from_email=message.from_address[0],
+        obj = cls.objects.create(sender=case.office,
+                                 email=message.from_address[0],
                                  case=case,
                                  subject=message.subject,
                                  content=text,
                                  quote=quote,
-                                 incoming=True,
                                  msg=message,
                                  eml=File(message.eml, message.eml.name))
         attachments = []
@@ -180,14 +178,13 @@ def mail_process(sender, message, **args):
         print("Message #{pk} skip, due not recognized address {to}".
               format(pk=message.pk, to=message.to_addresses[0]))
         return
-    letter, attachments = Letter.process_incoming(case, message)
+    letter, attachments = IncomingLetter.process_incoming(case, message)
     print("Message #{message} registered in case #{case} as letter #{letter}".
           format(message=message.pk, case=case.pk, letter=letter.pk))
 
 
-@receiver(pre_save, sender=Letter)
+@receiver(pre_save, sender=OutgoingLetter)
 def update_send_at(sender, instance, **kwargs):
-    if (not instance.incoming and  # outgoing
-            not instance.send_at and  # no send time
+    if (not instance.send_at and  # no send time
             instance.eml):  # send msg set up
         instance.send_at = timezone.now()

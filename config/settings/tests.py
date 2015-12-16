@@ -10,3 +10,5 @@ class DisableMigrations(object):
         return "notmigrations"
 
 MIGRATION_MODULES = DisableMigrations()
+
+LOGGING = {}

@@ -9,16 +9,31 @@ from foundation.cases.tests.factories import CaseFactory
 from django.core import mail
 from .factories import (SendOutgoingLetterFactory, make_message, OutgoingLetterFactory,
                         IncomingLetterFactory)
-from ..models import Letter
+from ..models import Letter, IncomingLetter, OutgoingLetter
 from django_mailbox.models import Mailbox
 
 
 class TestLetter(TestCase):
+    def test_valid_with_attachment_count(self):
+        Letter.objects.with_attachment_count().all().first()
+
+    def test_valid_for_milestone(self):
+        Letter.objects.for_milestone().all().first()
+
+    def test_valid_for_item(self):
+        Letter.objects.filter()._for_item().all().first()
+
+    def test_valid_for_list(self):
+        Letter.objects.for_list().all().first()
+
+    def test_valid_for_detail(self):
+        Letter.objects.for_detail().all().first()
+
+
+class TestOutgoingLetterFactory(TestCase):
     def setUp(self):
         self.object = OutgoingLetterFactory(subject="Example subj")
-        self.mailbox = Mailbox(name="My mailbox")
-        self.mailbox.save()
-        super(TestLetter, self).setUp()
+        super(TestOutgoingLetterFactory, self).setUp()
 
     def test__str__(self):
         self.assertEqual(
@@ -50,6 +65,12 @@ class TestLetter(TestCase):
         self.assertTrue(self.object.send_at)
         self.assertEqual(self.object.incoming, False)
 
+
+class TestIncomingLetter(TestCase):
+    def setUp(self):
+        self.mailbox = Mailbox.objects.create(name="My mailbox")
+        super(TestIncomingLetter, self).setUp()
+
     def _get_email_as_text(self, name):
         with open(
             os.path.join(
@@ -72,5 +93,5 @@ class TestLetter(TestCase):
     def test_process_incoming_unicode_attachment(self):
         case = CaseFactory(receiving_email='sprawa-8@badanie.pilnujemy.info')
         msg = self._get_email_object('unicode-filename-attachment-reply.eml')
-        letter, attachments = Letter.process_incoming(case, msg)
+        letter, attachments = IncomingLetter.process_incoming(case, msg)
         self.assertEqual(letter.attachment_set.all().count(), 1)

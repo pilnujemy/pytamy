@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Letter, Attachment
+from .models import Letter, Attachment, OutgoingLetter, IncomingLetter
 
 
 class AttachmentInline(admin.TabularInline):
@@ -13,11 +13,22 @@ class LetterAdmin(admin.ModelAdmin):
     '''
         Admin View for Letter
     '''
-    list_display = ('sender', 'subject', 'incoming', 'is_send')
-    list_filter = ('incoming',)
+    list_display = ['subject', 'case', 'created', 'modified']
     inlines = [
         AttachmentInline,
     ]
     search_fields = ['subject']
 
 admin.site.register(Letter, LetterAdmin)
+
+
+class OutgoingLetterAdmin(LetterAdmin):
+    list_display = LetterAdmin.list_display + ['email']
+
+admin.site.register(OutgoingLetter, LetterAdmin)
+
+
+class IncomingLetterAdmin(LetterAdmin):
+    list_display = LetterAdmin.list_display + ['email']
+
+admin.site.register(IncomingLetter, LetterAdmin)

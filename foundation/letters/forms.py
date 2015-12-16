@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from .models import Letter
+from .models import Letter, OutgoingLetter
 from django.utils.translation import ugettext_lazy as _
 from braces.forms import UserKwargModelFormMixin
 from atom.ext.crispy_forms.forms import HelperMixin, SingleButtonMixin
@@ -15,7 +15,7 @@ class LetterForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
         super(LetterForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        model = Letter
+        model = OutgoingLetter
         fields = ['subject', 'content', 'email']
 
 
@@ -42,5 +42,5 @@ class NewReplyForm(HelperMixin, UserKwargModelFormMixin, autocomplete_light.Mode
         return self.instance
 
     class Meta:
-        model = Letter
+        model = OutgoingLetter
         fields = ['subject', 'content', 'email']

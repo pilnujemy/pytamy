@@ -34,13 +34,14 @@ class LetterFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = models.Letter
-        abstract = True
 
 
 class IncomingLetterFactory(LetterFactory):
-    incoming = True
-    sender_office = factory.LazyAttribute(lambda o: o.case.office)
+    sender = factory.LazyAttribute(lambda o: o.case.office)
     from_email = factory.Sequence('office-/{0}/@example.com'.format)
+
+    class Meta:
+        model = models.IncomingLetter
     # eml = EmailField(from_addr=factory.SelfAttribute('from_email'),
     #                  to_addr=factory.SelfAttribute('case.receiving_email'),
     #                  subject=factory.SelfAttribute('subject'),
@@ -48,13 +49,15 @@ class IncomingLetterFactory(LetterFactory):
 
 
 class OutgoingLetterFactory(LetterFactory):
-    incoming = False
     author = factory.SubFactory('foundation.users.tests.factories.UserFactory')
     email = factory.SubFactory('foundation.offices.tests.factories.EmailFactory')
 
+    class Meta:
+        model = models.OutgoingLetter
+
 
 class SendOutgoingLetterFactory(LetterFactory):
-    sender_user = factory.LazyAttribute(lambda o: o.case.created_by)
+    sender = factory.LazyAttribute(lambda o: o.case.created_by)
     send_at = factory.LazyAttribute(lambda o: datetime.datetime.utcnow() +
                                     datetime.timedelta(hours=1))
     # eml = EmailField(from_addr=factory.SelfAttribute('send_at'),
