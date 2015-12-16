@@ -5,24 +5,6 @@ from django.db import migrations, models
 from django.conf import settings
 
 
-def split_models(apps, schema_editor):
-    # We can't import the Person model directly as it may be a newer
-    # version than this migration expects. We use the historical version.
-    L = apps.get_model("letters", "Letter")
-    OL = apps.get_model("letters", "OutgoingLetter")
-    IL = apps.get_model("letters", "IncomingLetter")
-
-    for letter in L.objects.filter(incoming=True).all():
-        IL.objects.create(parent=letter,
-                          temp_from_email=letter.email,
-                          temp_sender=letter.sender_office)
-    for letter in L.objects.filter(incoming=False).all():
-        OL.objects.create(parent=letter,
-                          temp_send_at=letter.send_at,
-                          temp_sender=letter.sender_user,
-                          temp_author=letter.author,
-                          temp_email=letter.email)
-
 
 class Migration(migrations.Migration):
 
@@ -84,34 +66,5 @@ class Migration(migrations.Migration):
             model_name='incomingletter',
             name='temp_sender',
             field=models.ForeignKey(related_name='sender_office', blank=True, to='offices.Office', null=True),
-        ),
-        migrations.RunPython(split_models),
-        migrations.RemoveField(
-            model_name='letter',
-            name='author',
-        ),
-        migrations.RemoveField(
-            model_name='letter',
-            name='email',
-        ),
-        migrations.RemoveField(
-            model_name='letter',
-            name='from_email',
-        ),
-        migrations.RemoveField(
-            model_name='letter',
-            name='incoming',
-        ),
-        migrations.RemoveField(
-            model_name='letter',
-            name='send_at',
-        ),
-        migrations.RemoveField(
-            model_name='letter',
-            name='sender_office',
-        ),
-        migrations.RemoveField(
-            model_name='letter',
-            name='sender_user',
         ),
     ]
