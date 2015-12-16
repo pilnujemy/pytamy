@@ -63,7 +63,6 @@ class TestOutgoingLetterFactory(TestCase):
         self.assertTrue(self.object.eml)
         self.assertEqual(self.object.sender_user, user)
         self.assertTrue(self.object.send_at)
-        self.assertEqual(self.object.incoming, False)
 
 
 class TestIncomingLetter(TestCase):

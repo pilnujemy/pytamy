@@ -5,7 +5,7 @@
         <a href="{{letter.get_absolute_url}}">
             {{letter}}
         </a>
-        {% if not letter.is_send and not letter.incoming %}
+        {% if not letter.is_send and not letter.incomingletter %}
         {% user_can_send request.user letter.case as can_send %}
         <span class="badge">{% trans 'Draft' %}</span>
         {% if can_send %}
@@ -21,7 +21,7 @@
         {{letter.content | safe}}
     </div>
     <div class="panel-footer">
-        {% if not letter.incoming %}
+        {% if not letter.incomingletter %}
             {% blocktrans with author_url=letter.author.get_absolute_url author=letter.author realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
             {% if letter.sender %}
                 &bull; {% blocktrans with sender=letter.sender sender_url=letter.sender.get_absolute_url send_time=letter.send_at send_time_natural=letter.send_at|naturaltime %}Send by <a href="{{sender_url}}">{{sender}}</a> at <span title="{{send_time}}">{{send_time_natural}}</span>{% endblocktrans %}

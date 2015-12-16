@@ -108,7 +108,6 @@ class OutgoingLetter(Letter):
                       save=False)
         # Update instance
         self.sender_user = user
-        self.incoming = False
         # Save instance
         self.save()
         # Send message
