@@ -13,7 +13,7 @@ def split_models(apps, schema_editor):
 
     for letter in L.objects.filter(incoming=True).all():
         IL.objects.create(parent=letter,
-                          temp_from_email=letter.email,
+                          temp_email=letter.email,
                           temp_sender=letter.sender_office)
     for letter in L.objects.filter(incoming=False).all():
         OL.objects.create(parent=letter,
