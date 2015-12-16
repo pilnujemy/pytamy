@@ -1,9 +1,10 @@
 from __future__ import absolute_import, unicode_literals
-import autocomplete_light
+from autocomplete_light import shortcuts as autocomplete_light
 from .models import Email, Office
 from taggit.models import Tag
-import autocomplete_light.shortcuts as al
-al.register(Tag)
+
+
+autocomplete_light.register(Tag)
 
 
 class EmailAutocomplete(autocomplete_light.AutocompleteModelBase):
@@ -22,5 +23,3 @@ class OfficeAutocomplete(autocomplete_light.AutocompleteModelBase):
     model = Office
     add_another_url_name = 'offices:create'
 autocomplete_light.register(OfficeAutocomplete)
-
-

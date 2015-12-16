@@ -138,8 +138,8 @@ class Letter(TimeStampedModel):
     @classmethod
     def process_incoming(cls, case, message):
         if message.html:
-            text = claw.quotations.extract_from(message.html, 'text/html')
-            quote = message.text.replace(text, '')
+            text = message.html
+            quote = ''
         else:
             text = nl2br(claw.quotations.extract_from(message.text, 'text/plain'))
             quote = nl2br(message.text.replace(text, ''))

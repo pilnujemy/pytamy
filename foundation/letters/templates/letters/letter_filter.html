@@ -1,0 +1,8 @@
+{% extends 'letters/letter_base.html' %}
+{% load crispy_forms_tags i18n %}
+{% load bootstrap_pagination %}
+{% block letter_content %}
+{% crispy filter.form %}
+{% include 'cases/_milestone_case.html' with letter_list=letter_list %}
+{% bootstrap_paginate page_obj range=10 %}
+{% endblock %}

@@ -2,7 +2,7 @@
 {% load bootstrap_pagination humanize i18n %}
 {% block content %}
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <div class="well well-sm">
       <h2>{% trans 'Cases' %}</h2>
       <p>{% trans 'Letters are grouped in cases, so you can get to know easily the case study.' %}</p>
@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <div class="well well-sm">
       <h2>{% trans 'Offices' %}</h2>
       <p>{% trans 'If you are interested in cases of a given office - search for it.' %}</p>
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <div class="well well-sm">
       <h2>{% trans 'Regions' %}</h2>
       <p>{% trans 'If you are interested in offices in a given region - search for your city.' %}</p>
@@ -37,6 +37,13 @@
     </div>
   </div>
 
+  <div class="col-sm-3">
+    <div class="well well-sm">
+      <h2>{% trans 'Letters' %}</h2>
+      <p>{% trans 'If you are interested in specified list fg. in cases maintaned by you.' %}</p>
+      <a class="btn btn-primary" href="{% url 'letters:list' %}">{% trans 'List' %}</a>
+    </div>
+  </div>
 </div>
 {% include 'cases/_milestone_case.html' with letter_list=letter_list %}
 {% bootstrap_paginate page_obj range=10 %}

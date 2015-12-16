@@ -1,13 +1,5 @@
 {% load i18n %}
 {% regroup letter_list by case as case_groups %}
 {% for group in case_groups %}
-<h2>{% blocktrans with case=group.grouper office_url=group.grouper.office.get_absolute_url office=group.grouper.office %}{{case}} <small>in <a href="{{office_url}}">{{office}}</a></small>{% endblocktrans %}</h2>
-<ul class="milestones">
-  {% for letter in group.list %}
-  <li>
-    <i class="fa {{letter.is_outgoing|yesno:'fa-university,fa-users'}}"></i>
-    {% include 'letters/_letter_item.html' with letter=letter %}
-  </li>
-  {% endfor %}
-</ul>
+{% include 'cases/_milestone_item.html' with case=group.grouper letter_list=group.list %}
 {% endfor %}
