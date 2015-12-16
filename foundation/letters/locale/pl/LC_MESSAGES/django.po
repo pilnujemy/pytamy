@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 01:28+0100\n"
-"PO-Revision-Date: 2015-12-15 01:28+0100\n"
+"POT-Creation-Date: 2015-12-16 07:30+0100\n"
+"PO-Revision-Date: 2015-12-16 07:30+0100\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -36,37 +36,51 @@ msgid "Is it a incoming message? Otherwise, it is outgoing."
 msgstr ""
 "Czy to jest przychodząca wiadomość? W przeciwnym razie - jest to wychodząca."
 
-#: models.py:53
+#: models.py:55
 msgid "Subject"
 msgstr "Tytuł"
 
-#: models.py:54
+#: models.py:56
 msgid "Slug"
 msgstr "Slug"
-
-#: models.py:57
-msgid "Incoming"
-msgstr "Wychodząca"
 
 #: models.py:63
 msgid "Message registered by django_mailbox"
 msgstr "Wiadomość zarejestrowana przez django_mailbox"
 
-#: models.py:74
-msgid "From e-mail"
-msgstr "Adres e-mail nadawcy"
-
-#: models.py:77
-msgid "Field valid only for incoming messages"
-msgstr "Pole poprawne tylko dla wiadomości przychodzących"
-
-#: models.py:100
+#: models.py:73
 msgid "Letter"
 msgstr "Pismo"
 
-#: models.py:101
+#: models.py:74
 msgid "Letters"
 msgstr "Pisma"
+
+#: models.py:119
+msgid "Outgoing letter"
+msgstr "List wychodzący"
+
+#: models.py:120
+msgid "Outgoing letters"
+msgstr "Listy wychodzące"
+
+#: models.py:125
+msgid "From e-mail"
+msgstr "Adres e-mail nadawcy"
+
+#: models.py:128
+msgid "Field valid only for incoming messages"
+msgstr "Pole poprawne tylko dla wiadomości przychodzących"
+
+#: models.py:134
+#| msgid "Incoming"
+msgid "Incoming letter"
+msgstr "List przychodzący"
+
+#: models.py:135
+#| msgid "Incoming"
+msgid "Incoming letters"
+msgstr "Listy przychodzące"
 
 #: templates/letters/_letter_item.html:10
 msgid "Draft"
