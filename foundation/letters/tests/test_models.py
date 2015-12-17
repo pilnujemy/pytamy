@@ -62,6 +62,7 @@ class TestOutgoingLetterFactory(TestCase):
     def test_send(self):
         user = UserFactory()
         self.assertFalse(self.object.eml)
+        self.assertFalse(self.object.is_send())
         self.object.send(user)
 
         # Send message
@@ -73,8 +74,9 @@ class TestOutgoingLetterFactory(TestCase):
 
         # Save data
         self.assertTrue(self.object.eml)
-        self.assertEqual(self.object.sender_user, user)
+        self.assertEqual(self.object.sender, user)
         self.assertTrue(self.object.send_at)
+        self.assertTrue(self.object.is_send(), True)
 
 
 class TestIncomingLetter(TestCase):
