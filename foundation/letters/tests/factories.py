@@ -38,7 +38,7 @@ class LetterFactory(factory.django.DjangoModelFactory):
 
 class IncomingLetterFactory(LetterFactory):
     sender = factory.LazyAttribute(lambda o: o.case.office)
-    from_email = factory.Sequence('office-/{0}/@example.com'.format)
+    email = factory.Sequence('office-/{0}/@example.com'.format)
 
     class Meta:
         model = models.IncomingLetter
