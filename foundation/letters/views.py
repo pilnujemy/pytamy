@@ -91,7 +91,7 @@ class LetterSendView(LoginRequiredMixin, ActionMessageMixin, ActionView):
     template_name_suffix = '_send'
 
     def action(self):
-        self.object.send(self.request.user)
+        self.object.outgoingletter.send(self.request.user)
 
     def get_success_url(self):
         return self.object.get_absolute_url()
