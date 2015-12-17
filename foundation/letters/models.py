@@ -90,6 +90,9 @@ class OutgoingLetter(Letter):
                                blank=True)
     email = models.ForeignKey('offices.Email', null=True, blank=True)
 
+    def is_send(self):
+        return bool(self.send_at)
+
     def recipient(self):
         return self.email.office
 
@@ -113,7 +116,7 @@ class OutgoingLetter(Letter):
                       ContentFile(msg.message().as_string()),
                       save=False)
         # Update instance
-        self.sender_user = user
+        self.sender = user
         # Save instance
         self.save()
         # Send message
