@@ -48,6 +48,12 @@ class LetterQuerySet(models.QuerySet):
     def for_detail(self):
         return self._for_item().prefetch_related('attachment_set')
 
+    def incoming(self):
+        return self.filter(incomingletter__isnull=False)
+
+    def outgoing(self):
+        return self.filter(outgoingletter__isnull=False)
+
 
 class Letter(TimeStampedModel):
     # General

@@ -13,7 +13,7 @@ from ..models import Letter, IncomingLetter, OutgoingLetter
 from django_mailbox.models import Mailbox
 
 
-class TestLetter(TestCase):
+class LetterQuerySetTestCase(TestCase):
     def test_valid_with_attachment_count(self):
         Letter.objects.with_attachment_count().all().first()
 
@@ -28,6 +28,18 @@ class TestLetter(TestCase):
 
     def test_valid_for_detail(self):
         Letter.objects.for_detail().all().first()
+
+    def _exists(self, call, result=True):
+        qs = Letter.objects
+        self.assertEqual(call(qs).exists(), result)
+
+    def test_outgoing(self):
+        self._exists(lambda x: x.outgoing().filter(pk=IncomingLetterFactory().pk), False)
+        self._exists(lambda x: x.outgoing().filter(pk=OutgoingLetterFactory().pk), True)
+
+    def test_incoming(self):
+        self._exists(lambda x: x.incoming().filter(pk=IncomingLetterFactory().pk), True)
+        self._exists(lambda x: x.incoming().filter(pk=OutgoingLetterFactory().pk), False)
 
 
 class TestOutgoingLetterFactory(TestCase):
@@ -94,3 +106,4 @@ class TestIncomingLetter(TestCase):
         msg = self._get_email_object('unicode-filename-attachment-reply.eml')
         letter, attachments = IncomingLetter.process_incoming(case, msg)
         self.assertEqual(letter.attachment_set.all().count(), 1)
+
