@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from .models import Letter, OutgoingLetter
+from foundation.offices.models import Email
+from .models import OutgoingLetter
 from django.utils.translation import ugettext_lazy as _
 from braces.forms import UserKwargModelFormMixin
 from atom.ext.crispy_forms.forms import HelperMixin, SingleButtonMixin
@@ -27,7 +28,7 @@ class NewReplyForm(HelperMixin, UserKwargModelFormMixin, forms.ModelForm):
         self.instance.author = self.user
         self.fields['content'].widget = CKEditorWidget()
         self.fields['subject'].initial = letter.case.name
-        self.fields['email'].limit_choices_to = {'office': letter.case.office}
+        self.fields['email'].queryset = Email.objects.filter(office=letter.case.office).all()
         self.fields['email'].reqiured = True
         if hasattr(letter, 'outgoingletter'):
             self.fields['email'].initial = letter.outgoingletter.email
