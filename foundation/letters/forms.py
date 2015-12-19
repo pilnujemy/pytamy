@@ -19,8 +19,7 @@ class LetterForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
         fields = ['subject', 'content', 'email']
 
 
-class NewReplyForm(HelperMixin, UserKwargModelFormMixin, autocomplete_light.ModelForm):
-    email = autocomplete_light.ModelChoiceField('EmailAutocomplete')
+class NewReplyForm(HelperMixin, UserKwargModelFormMixin, forms.ModelForm):
 
     def __init__(self, letter, *args, **kwargs):
         super(NewReplyForm, self).__init__(*args, **kwargs)
