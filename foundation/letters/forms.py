@@ -30,7 +30,8 @@ class NewReplyForm(HelperMixin, UserKwargModelFormMixin, autocomplete_light.Mode
         self.fields['subject'].initial = letter.case.name
         self.fields['email'].limit_choices_to = {'office': letter.case.office}
         self.fields['email'].reqiured = True
-        self.fields['email'].initial = letter.email
+        if letter.outgoingletter:
+            self.fields['email'].initial = letter.outgoingletter.email
         self.helper.add_input(Submit('save', _('Save '), css_class="btn-primary"))
         if can_send(self.user, letter.case):
             self.helper.add_input(Submit('send', _('Save & send'), css_class="btn-primary"))
