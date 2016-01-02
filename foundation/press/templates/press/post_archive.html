@@ -1,0 +1,23 @@
+{% extends 'press/base.html' %}
+{% load humanize i18n bootstrap_pagination %}
+{% block press_content %}
+    {% block breadcrumb %}
+    <ol class="breadcrumb">
+    {% block breadcrumb_item %}
+    <li class="active">{% trans 'Blog' %}</li>
+    {% endblock %}
+    </ol>
+    {% endblock %}
+    <h1>{% block press_title %}{% trans 'Archive' %}{%endblock %}</h1>
+    {% for post in object_list %}
+        <h2><a href="{{post.get_absolute_url}}">{{ post.name }}</a>
+        <small><span title="{{post.published}}">{{post.published|naturaltime}}</span> {% trans 'by' %} <a href="{{post.user.get_absolute_url}}">{{post.user}}</a></small></h2>
+        {{post.excerpt|safe}}
+        {% if post.content %}
+        <a href="{{post.get_absolute_url}}">{% trans 'Read more' %}</a>
+        {% endif %}
+    {% endfor %}
+    <div class="row">
+    {% bootstrap_paginate page_obj range=10 %}
+    </div>
+{% endblock %}

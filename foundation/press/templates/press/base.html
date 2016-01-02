@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n cache %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-9">
+        {% block press_content %}
+        {% endblock %}
+    </div>
+    <div class="col-sm-3">
+        {% cache 600 press_month_list %}
+        {% if month_list %}
+        <div class="well">
+            <h2>{% trans 'Months' %}</h2>
+            {% regroup month_list by year as months %}
+            <ul>
+            {% for group in months %}
+            <li><a href="{% url 'press:archive' year=group.grouper %}">{{group.grouper}}</a>
+            <ul>
+                {% for month in group.list %}
+                    <li><a href="{% url 'press:archive' month=month.month year=month.year %}">{{month|date:"F" }}</a></li>
+                {% endfor %}
+            </ul>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endcache %}
+    </div>
+</div>
+{% endblock %}

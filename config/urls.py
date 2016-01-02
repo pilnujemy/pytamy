@@ -12,7 +12,7 @@ urlpatterns = [
 
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
-
+    url(r'^blog/', include('foundation.press.urls', namespace="press")),
     # User management
     url(r'^users/', include("foundation.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),

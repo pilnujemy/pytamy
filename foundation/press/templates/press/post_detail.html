@@ -1,0 +1,29 @@
+{% extends 'press/base.html' %}
+{% load humanize i18n %}
+
+
+
+{% block press_content %}
+    {% block breadcrumb %}
+    <ol class="breadcrumb">
+    {% block breadcrumb_item %}
+    <li><a href="{% url 'press:archive' %}">{% trans 'Blog' %}</a></li>
+    <li><a href="{% url 'press:archive' year=post.published.year %}">{{post.published|date:"Y" }}</a></li>
+    <li><a href="{% url 'press:archive' month=post.published.month year=post.published.year %}">{{post.published|date:"F Y" }}</a></li>
+    <li><a href="{% url 'press:archive' day=post.published.day month=post.published.month year=post.published.year %}">{{post.published|date:"d F Y" }}</a></li>
+    <li class="active">{{post}}</li>
+    {% endblock %}
+    </ol>
+    {% endblock %}
+    <h1><a href="{{post.get_absolute_url}}">{{ post.name }}</a>
+        <small><span title="{{post.published}}">{{post.published|naturaltime}}</span> {% trans 'by' %} <a href="{{post.user.get_absolute_url}}">{{post.user}}</a></small></h2>
+        {{post.excerpt|safe}}
+        {{ post.content|safe }}
+        {% if object.tags.all %}
+        <p>{% trans 'Tags:' %}
+        {% for tag in object.tags.all %}
+        <a href="{{tag.get_absolute_url}}">{{tag}}</a>
+        {% endfor %}
+        </p>
+        {% endif %}
+{% endblock %}

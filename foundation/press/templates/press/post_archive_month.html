@@ -1,0 +1,9 @@
+{% extends 'press/post_archive.html' %}
+{% load i18n %}
+{% block press_title %}{% trans 'Archive of' %} {{month|date:"F Y" }}{%endblock %}
+
+{% block breadcrumb_item %}
+<li><a href="{% url 'press:archive' %}">{% trans 'Blog' %}</a></li>
+<li><a href="{% url 'press:archive' year=month.year %}">{{month|date:"Y" }}</a></li>
+<li class="active"> {{month|date:"F Y" }}</li>
+{% endblock %}
