@@ -28,7 +28,7 @@ django-autoslug==1.9.3
 pytz==2015.7
 
 # Views
-django-tables2==1.0.5
+django-tables2==1.0.6
 django-filter==0.11.0
 django-autocomplete-light==2.2.10
 django-extra-views==0.7.1
