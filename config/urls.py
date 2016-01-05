@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.contrib.flatpages import views
 
 urlpatterns = [
-    url(r'^$', include('foundation.main.urls')),
+    url(r'^', include('foundation.main.urls')),
 
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
