@@ -5,18 +5,42 @@ from braces.forms import UserKwargModelFormMixin
 from django.utils.translation import ugettext as _
 from atom.ext.crispy_forms.forms import SingleButtonMixin
 from autocomplete_light.contrib.taggit_field import TaggitField, TaggitWidget
+from autocomplete_light import shortcuts as autocomplete_light
+from crispy_forms.layout import Layout, Fieldset
 
 OFFICE_FORM_FIELD = ['name', 'jst', 'parent', 'krs', 'regon', 'tags', 'postcode']
 
+EMAIL_HELP_TEXT = _("After creating the office, you can add another e-mail addresses.")
 
-class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin, forms.ModelForm):
-    email = forms.EmailField(label=_("E-mail address"))
-    tags = TaggitField(widget=TaggitWidget('TagAutocomplete'))
+
+class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin,  autocomplete_light.ModelForm):
+    email = forms.EmailField(label=_("E-mail address"),
+                             help_text=EMAIL_HELP_TEXT)
+    tags = TaggitField(widget=TaggitWidget('TagAutocomplete'), required=False)
 
     def __init__(self, *args, **kwargs):
         super(CreateOfficeForm, self).__init__(*args, **kwargs)
         self.instance.created_by = self.user
         self._email = Email()
+        self.helper.layout = Layout(
+            Fieldset(
+                _('Identification'),
+                'name',
+                'jst',
+                'krs',
+                'regon',
+                'postcode'
+            ),
+            Fieldset(
+                _('Contacts'),
+                'email',
+                'parent',
+            ),
+            Fieldset(
+                _('Other'),
+                'tags',
+            ),
+        )
 
     def save_email(self, commit=True):
         self._email.office = self.instance
@@ -35,6 +59,7 @@ class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin, forms.ModelFo
     class Meta:
         model = Office
         fields = OFFICE_FORM_FIELD
+        autocomplete_names = {'jst': 'JSTCommunityAutocomplete'}
 
 
 class OfficeForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):

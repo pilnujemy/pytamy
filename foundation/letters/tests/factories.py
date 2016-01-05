@@ -13,7 +13,7 @@ def make_message(subject="Example subject",
     mail = EmailMultiAlternatives(subject, text, from_addr, [to_addr])
     if html_text:
         mail.attach_alternative(html_text, 'text/html')
-    return mail
+    return mail.message()
 
 
 class EmailField(factory.django.FileField):
@@ -42,10 +42,10 @@ class IncomingLetterFactory(LetterFactory):
 
     class Meta:
         model = models.IncomingLetter
-    # eml = EmailField(from_addr=factory.SelfAttribute('from_email'),
-    #                  to_addr=factory.SelfAttribute('case.receiving_email'),
-    #                  subject=factory.SelfAttribute('subject'),
-    #                  text=factory.SelfAttribute('content'))
+    eml = EmailField(from_addr=factory.SelfAttribute('..email'),
+                     to_addr=factory.SelfAttribute('..case.receiving_email'),
+                     subject=factory.SelfAttribute('..subject'),
+                     text=factory.SelfAttribute('..content'))
 
 
 class OutgoingLetterFactory(LetterFactory):
@@ -60,7 +60,7 @@ class SendOutgoingLetterFactory(LetterFactory):
     sender = factory.LazyAttribute(lambda o: o.case.created_by)
     send_at = factory.LazyAttribute(lambda o: datetime.datetime.utcnow() +
                                     datetime.timedelta(hours=1))
-    # eml = EmailField(from_addr=factory.SelfAttribute('send_at'),
-    #                  to_addr=factory.SelfAttribute('email.email'),
-    #                  subject=factory.SelfAttribute('subject'),
-    #                  text=factory.SelfAttribute('content'))
+    eml = EmailField(from_addr=factory.SelfAttribute('..send_at'),
+                     to_addr=factory.SelfAttribute('..email.email'),
+                     subject=factory.SelfAttribute('..subject'),
+                     text=factory.SelfAttribute('..content'))

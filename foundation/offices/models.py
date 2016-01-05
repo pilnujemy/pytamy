@@ -39,8 +39,11 @@ class OfficeQuerySet(QuerySet):
 class Office(TimeStampedModel):
     name = models.CharField(max_length=150, verbose_name=_("Name"))
     slug = AutoSlugField(populate_from='name', unique=True)
-    parent = models.ManyToManyField('self', blank=True)
-    jst = models.ForeignKey(JST)
+    parent = models.ManyToManyField(to='self',
+                                    blank=True,
+                                    verbose_name=_("Offices Supervisory"))
+    jst = models.ForeignKey(to=JST,
+                            verbose_name=_("Unit of administrative division"))
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     visible = models.BooleanField(default=True,
                                   verbose_name=_("Verified"))
@@ -60,13 +63,13 @@ class Office(TimeStampedModel):
                            blank=True,
                            verbose_name=_("Registration number"),
                            help_text=_("Compatible with Polish National Court Register"))
-    extra = JSONField(default='{}')
+    extra = JSONField(default={})
     objects = OfficeQuerySet.as_manager()
-    tags = TaggableManager()
+    tags = TaggableManager(verbose_name=_("Tags"), blank=True)
 
     @cached_property
     def email(self):
-        return Email.objects.filter(office=self).order_by('default').first().email
+        return Email.objects.filter(office=self).order_by('default').first()
 
     def __str__(self):
         if not self.visible:

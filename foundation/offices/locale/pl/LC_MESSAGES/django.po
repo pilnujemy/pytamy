@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-09 03:37+0100\n"
-"PO-Revision-Date: 2015-12-09 03:37+0100\n"
+"POT-Creation-Date: 2016-01-05 04:10+0100\n"
+"PO-Revision-Date: 2016-01-05 04:10+0100\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -19,72 +19,100 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: forms.py:13 models.py:100
+#: forms.py:13
+msgid "After creating the office, you can add another e-mail addresses."
+msgstr "Po utworzeniu urzędu, będziesz mógł dodać dodatkowe adresy e-mail."
+
+#: forms.py:17 models.py:103
 msgid "E-mail address"
 msgstr "Adres e-mail"
 
-#: models.py:18
+#: forms.py:27
+msgid "Identification"
+msgstr "Identyfikacja"
+
+#: forms.py:35
+msgid "Contacts"
+msgstr "Kontakt"
+
+#: forms.py:40
+msgid "Other"
+msgstr "Inne"
+
+#: models.py:17
 msgid "Compatible with National Official Register of National Economy Entities"
 msgstr "Zgodny z rejestrem REGON"
 
-#: models.py:41 templates/offices/_office_list.html:5
+#: models.py:40 templates/offices/_office_list.html:5
 msgid "Name"
 msgstr "Nazwa"
 
-#: models.py:47
+#: models.py:44
+msgid "Offices Supervisory"
+msgstr "Urzędy nadzorujące"
+
+#: models.py:46
+msgid "Unit of administrative division"
+msgstr "Jednostka samorządu terytorialnego"
+
+#: models.py:49
 msgid "Verified"
 msgstr "Zweryfikowany"
 
-#: models.py:51
+#: models.py:53
 msgid "Post code"
 msgstr "Kod pocztowy"
 
-#: models.py:56 templates/offices/_office_list.html:15
+#: models.py:58 templates/offices/_office_list.html:15
 msgid "REGON"
 msgstr "Kod REGON"
 
-#: models.py:62
+#: models.py:64
 msgid "Registration number"
 msgstr "Kod KRS"
 
-#: models.py:63
+#: models.py:65
 msgid "Compatible with Polish National Court Register"
-msgstr "Kompatybilny z rejestrem KRS"
+msgstr "Zgodny z rejestrem REGON"
 
-#: models.py:74
+#: models.py:68
+msgid "Tags"
+msgstr "Tagi"
+
+#: models.py:76
 #, python-brace-format
 msgid "{name} (hidden)"
 msgstr "{name} (ukryty)"
 
-#: models.py:83 models.py:89
+#: models.py:86 models.py:92
 msgid "Office"
 msgstr "Urząd"
 
-#: models.py:84
+#: models.py:87
 msgid "Offices"
 msgstr "Urzędy"
 
-#: models.py:90
+#: models.py:93
 msgid "Address"
 msgstr "Adres"
 
-#: models.py:93
+#: models.py:96
 msgid "Is valid?"
 msgstr "Czy poprawny?"
 
-#: models.py:94
+#: models.py:97
 msgid "Identify if email is valid (still)."
 msgstr "Identyfikuj jeżeli adres jest poprawny (wciąż)."
 
-#: models.py:96
+#: models.py:99
 msgid "Default"
 msgstr "Domyślny"
 
-#: models.py:97
+#: models.py:100
 msgid "Use this e-mail as primary for office"
 msgstr "Używaj tego adresu jako domyślnego dla urzędu"
 
-#: models.py:101
+#: models.py:104
 msgid "E-mail addresses"
 msgstr "Adres e-mail"
 
@@ -93,7 +121,6 @@ msgid "ID"
 msgstr "ID"
 
 #: templates/offices/_office_list.html:6
-#| msgid "REGON"
 msgid "REGON / KRS"
 msgstr "REGON / KRS"
 
