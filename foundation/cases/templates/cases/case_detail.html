@@ -8,8 +8,5 @@
 <div class="page-header">
 <h1><i class="fa fa-folder"></i> {% blocktrans with case=object office_url=object.office.get_absolute_url office=object.office %}{{case}} <small>in <a href="{{office_url}}">{{office}}</a></small>{% endblocktrans %}</h1>
 </div>
-
-{% for letter in letter_list %}
-{% include 'letters/_letter_item.html' with letter=letter %}
-{% endfor %}
+{% include 'cases/_milestone_list.html' with letter_list=letter_list %}
 {% endblock %}

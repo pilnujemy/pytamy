@@ -1,0 +1,8 @@
+<ul class="milestones">
+  {% for letter in letter_list %}
+      <li>
+        <i class="fa {{letter.is_outgoing|yesno:'fa-university,fa-users'}}"></i>
+        {% include 'letters/_letter_item.html' with letter=letter %}
+    </li>
+{% endfor %}
+</ul>
