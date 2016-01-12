@@ -13,26 +13,24 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <div class="well well-sm">
-            <h3>{% trans 'Emails' %}</h3>
-            {% if email_set %}
-            <ul>
+        {% if email_set %}
+        <div class="list-group">
             {% for object in email_set %}
-            <li>{% if object.default %}<b>{% endif %}
-                <a href="{{object.get_absolute_url}}">{{object}}</a>
-                {% if object.default %}</b>{% endif %}
-            </li>
-            {% endfor %}
-            </ul>
-            {% endif %}
-            <a href="{% url 'offices:email_create' %}?office={{object.pk}}" class="btn btn-primary">
-                {% trans 'add another' %}
-                {% if not request.user.is_authenticated %}
-                <i class="fa fa-lock"></i>
-                {% endif %}
+            <a class="list-group-item active" href="{{object.get_absolute_url}}">
+            <h4 class="list-group-item-heading">{{object}}</h4>
+            <p class="list-group-item-text">{% trans 'Added by' %} {{ object.created_by }}</p>
             </a>
+            {% endfor %}
         </div>
-        {% if object.extra %}
+        {% endif %}
+        <a href="{% url 'offices:email_create' %}?office={{object.pk}}" class="btn btn-primary">
+            {% trans 'Add another' %}
+            {% if not request.user.is_authenticated %}
+            <i class="fa fa-lock"></i>
+            {% endif %}
+        </a>
+        {% if object.extra and request.user.is_staff %}
+        <h3>{% trans 'Extra' %}</h3>
         <pre>
         {{ object.get_extra_display }}
         </pre>

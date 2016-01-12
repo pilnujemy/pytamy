@@ -8,32 +8,30 @@ from atom.ext.crispy_forms.forms import SingleButtonMixin
 # from autocomplete_light import shortcuts as autocomplete_light
 from crispy_forms.layout import Layout, Fieldset
 
-OFFICE_FORM_FIELD = ['name', 'jst', 'parent', 'krs', 'regon', 'tags', 'postcode']
-
 EMAIL_HELP_TEXT = _("After creating the office, you can add another e-mail addresses.")
 
+OFFICE_FORM_FIELD = ['name', 'jst', 'parent', 'krs', 'regon', 'tags', 'postcode']
 
-class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin,  forms.ModelForm):
+
+class OfficeForm(SingleButtonMixin, UserKwargModelFormMixin,  forms.ModelForm):
     email = forms.EmailField(label=_("E-mail address"),
                              help_text=EMAIL_HELP_TEXT)
     # TODO: tags = TaggitField(widget=TaggitWidget('TagAutocomplete'), required=False)
 
     def __init__(self, *args, **kwargs):
-        super(CreateOfficeForm, self).__init__(*args, **kwargs)
+        super(OfficeForm, self).__init__(*args, **kwargs)
         self.instance.created_by = self.user
-        self._email = Email()
         self.helper.layout = Layout(
             Fieldset(
                 _('Identification'),
                 'name',
-                'jst',
                 'krs',
                 'regon',
                 'postcode'
             ),
             Fieldset(
-                _('Contacts'),
-                'email',
+                _('Relations'),
+                'jst',
                 'parent',
             ),
             Fieldset(
@@ -42,32 +40,10 @@ class CreateOfficeForm(SingleButtonMixin, UserKwargModelFormMixin,  forms.ModelF
             ),
         )
 
-    def save_email(self, commit=True):
-        self._email.office = self.instance
-        self._email.created_by = self.user
-        self._email.email = self.cleaned_data['email']
-        if commit:
-            self._email.save()
-        return self._email
-
-    def save(self, commit=True, *args, **kwargs):
-        super(CreateOfficeForm, self).save(commit=True, *args, **kwargs)
-        if self.cleaned_data['email']:
-            self.save_email()
-        return self.instance
-
     class Meta:
         model = Office
         fields = OFFICE_FORM_FIELD
         autocomplete_names = {'jst': 'JSTCommunityAutocomplete'}
-
-
-class OfficeForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
-    # TOOD: tags = TaggitField(widget=TaggitWidget('TagAutocomplete'))
-
-    class Meta:
-        model = Office
-        fields = OFFICE_FORM_FIELD
 
 
 class EmailForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
@@ -75,7 +51,9 @@ class EmailForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
         super(EmailForm, self).__init__(*args, **kwargs)
         if not self.instance.pk:
             self.instance.created_by = self.user
+        if not self.user.has_perm('offices.change_email'):
+            del self.fields['default']
 
     class Meta:
         model = Email
-        fields = ['email', 'office', 'default']
+        fields = ['email', 'default']
