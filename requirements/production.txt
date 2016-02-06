@@ -1,10 +1,10 @@
 # Pro-tip: Try not to put anything here. There should be no dependency in
 #	production that isn't in development.
-Django==1.8.8 # rq.filter: >=1.8,<1.9
+Django==1.8.9 # rq.filter: >=1.8,<1.9
 -r base.txt
 
 # WSGI Handler
 # ------------------------------------------------
 gevent==1.0.2
 gunicorn==19.4.5
-raven==5.9.2
+raven==5.10.2
