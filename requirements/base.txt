@@ -6,15 +6,15 @@ whitenoise==2.0.6
 
 # Forms
 django-braces==1.8.1
-django-crispy-forms==1.5.2
-django-floppyforms==1.6.0
+django-crispy-forms==1.6.0
+django-floppyforms==1.6.1
 
 # Models and persistent storage
 django-model-utils==2.4
 mysqlclient==1.3.7
 
 # Images
-Pillow==3.1.0
+Pillow==3.1.1
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
@@ -28,9 +28,9 @@ django-autoslug==1.9.3
 pytz==2015.7
 
 # Views
-django-tables2==1.0.7
-django-filter==0.11.0
-django-autocomplete-light==2.2.10
+django-tables2==1.1.1
+django-filter==0.12.0
+django-autocomplete-light==3.0.2
 django-extra-views==0.7.1
 
 # Your custom requirements go here
@@ -43,8 +43,8 @@ django-localflavor==1.2
 jsonfield==1.0.3
 django-bleach==0.3.0
 djmail==0.12.0.post1
-django-taggit==0.17.6
-django-ckeditor==5.0.2
+django-taggit==0.18.0
+django-ckeditor==5.0.3
 claw==1.3.0
 django-mailbox==4.4.5
 https://github.com/ad-m/django-basic-tinymce-flatpages/archive/master.zip
