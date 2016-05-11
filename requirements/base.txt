@@ -1,51 +1,51 @@
 # Configuration
 django-environ==0.4.0
 django-secure==1.0.1
-whitenoise==2.0.6
+whitenoise==3.0
 
 
 # Forms
 django-braces==1.8.1
-django-crispy-forms==1.5.2
-django-floppyforms==1.6.0
+django-crispy-forms==1.6.0
+django-floppyforms==1.6.2
 
 # Models and persistent storage
-django-model-utils==2.4
+django-model-utils==2.5
 mysqlclient==1.3.7
 
 # Images
-Pillow==3.0.0
+Pillow==3.2.0
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.24.1
+django-allauth==0.25.2
 
 # Unicode slugification
 unicode-slugify==0.1.3
 django-autoslug==1.9.3
 
 # Time zones support
-pytz==2015.7
+pytz==2016.4
 
 # Views
-django-tables2==1.0.6
-django-filter==0.11.0
-django-autocomplete-light==2.2.10
+django-tables2==1.2.1
+django-filter==0.13.0
+django-autocomplete-light==3.1.5
 django-extra-views==0.7.1
 
 # Your custom requirements go here
 git+https://github.com/ad-m/django-atom.git@master#egg=django-atom
 git+https://github.com/ad-m/django-teryt-tree.git@master#egg=django-teryt-tree
 django-states==1.6.5
-django-bootstrap-pagination==1.5.1
+django-bootstrap-pagination==1.6.1
 cached-property==1.3.0
-django-localflavor==1.2
+django-localflavor==1.3
 jsonfield==1.0.3
 django-bleach==0.3.0
 djmail==0.12.0.post1
-django-taggit==0.17.6
-django-ckeditor==5.0.2
+django-taggit==0.18.2
+django-ckeditor==5.0.3
 claw==1.3.0
-django-mailbox==4.4.5
+django-mailbox==4.4.8
 https://github.com/ad-m/django-basic-tinymce-flatpages/archive/master.zip
 
