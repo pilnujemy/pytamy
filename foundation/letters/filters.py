@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from atom.filters import CrispyFilterMixin
+from atom.ext.django_filters.filters import CrispyFilterMixin
 from django.utils.translation import ugettext as _
 import django_filters
 from .models import Letter

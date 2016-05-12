@@ -36,7 +36,8 @@ DJANGO_APPS = (
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
-    'autocomplete_light',
+    'dal',
+    'dal_select2',
     'crispy_forms',  # Form layouts
     'allauth',  # registration
     'allauth.account',  # registration

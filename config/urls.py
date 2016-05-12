@@ -16,7 +16,6 @@ urlpatterns = [
     # User management
     url(r'^users/', include("foundation.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^autocomplete/', include('autocomplete_light.urls')),
     # Your stuff: custom urls includes go here
     url(r'^correspondence/', include("foundation.correspondence.urls", namespace="correspondence")),
     url(r'^kraj/', include("foundation.teryt.urls", namespace="teryt")),

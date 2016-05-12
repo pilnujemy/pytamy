@@ -1,13 +1,12 @@
 from django import forms
 from braces.forms import UserKwargModelFormMixin
-from autocomplete_light import shortcuts as autocomplete_light
 from .models import Letter, Contact, Attachment
 from atom.ext.crispy_forms.forms import SingleButtonMixin
 from atom.forms import AuthorMixin
 
 
 class LetterForm(UserKwargModelFormMixin, SingleButtonMixin, AuthorMixin,
-                 autocomplete_light.ModelForm):
+                 forms.ModelForm):
     class Meta:
         model = Letter
         fields = ['outgoing', 'contact', 'transfer_on', 'description']
