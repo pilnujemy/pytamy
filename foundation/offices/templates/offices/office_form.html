@@ -3,6 +3,8 @@
 {% block office_content %}
 <form method="POST">
 {% crispy form %}
-{% crispy formsets.email %}
+{% for inline in inlines %}
+{% crispy inline %}
+{% endfor %}
 </form>
 {% endblock %}

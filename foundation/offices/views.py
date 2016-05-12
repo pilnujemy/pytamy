@@ -42,79 +42,16 @@ class OfficeDetailView(SelectRelatedMixin, DetailView):
         return context
 
 
-class FormSetMixin(object):
-    inline_model = None
-    inline_form_cls = None
-    formset_cls = BaseTableFormSet
-    formsets = {'name': {'model': None,
-                         'form': None,
-                         'kw_callback': lambda self: {}}
-                }
-
-    def get_form(self, form_class, *args, **kwargs):
-        form = super(FormSetMixin, self).get_form(form_class, *args, **kwargs)
-        if hasattr(form, 'helper'):
-            form.helper.form_tag = False
-        return form
-
-    def get_formset(self, formset):
-        constructed = inlineformset_factory(parent_model=self.model,
-                                            model=formset['model'],
-                                            form=formset['form'],
-                                            formset=self.formset_cls)
-        kwargs = formset.get('kw_callback', lambda x: {})(self)
-        constructed.form = staticmethod(curry(formset['form'], **kwargs))
-        return constructed
-
-    def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and instantiates blank versions of the form
-        and its inline formsets.
-        """
-        self.object = self.object if hasattr(self, 'object') else self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        formsets = {k: self.get_formset(v)() for k, v in self.formsets.items()}
-        return self.render_to_response(
-            self.get_context_data(form=form,
-                                  formsets=formsets))
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.object if hasattr(self, 'object') else self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        if form.is_valid():
-            self.object = form.save(commit=False)
-            formsets = {}
-            for k, v in self.formsets.items():
-                formsets[k] = self.get_formset(v)(self.request.POST or None,
-                                                  self.request.FILES,
-                                                  instance=self.object)
-            if all(x.is_valid() for x in formsets.values()):
-                return self.form_valid(form, formsets)
-            return self.form_invalid(form, formsets)
-        formsets = {k: self.get_formset(v)(self.request.POST or None, self.request.FILES)
-                    for k, v in self.formsets.items()}
-        return self.form_invalid(form, formsets)
-
-    def form_valid(self, form, formsets):
-        self.object.save()
-        [x.save() for x in formsets.values()]
-        return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, formsets):
-        return self.render_to_response(
-            self.get_context_data(form=form, formsets=formsets))
+from extra_views import CreateWithInlinesView, InlineFormSet
 
 
-class OfficeCreateView(LoginRequiredMixin, FormSetMixin, UserFormKwargsMixin, CreateView):
-    object = None
+class EmailInline(InlineFormSet):
+    model = Email
+
+
+class OfficeCreateView(LoginRequiredMixin, CreateWithInlinesView):
     model = Office
-    form_class = OfficeForm
-    formsets = {'email': {'model': Email,
-                          'form': EmailForm,
-                          'kw_callback': lambda x: {'user': x.request.user}}
-                }
+    inlines = [EmailInline]
 
 
 class OfficeUpdateView(LoginRequiredMixin, UserFormKwargsMixin, FormValidMessageMixin,
