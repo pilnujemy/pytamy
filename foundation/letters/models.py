@@ -82,19 +82,17 @@ class Letter(TimeStampedModel):
 
 
 class OutgoingLetter(Letter):
+    office = models.ForeignKey('offices.Office')
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     send_at = models.DateTimeField(null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="author_letter",
                                null=True,
                                blank=True)
-    email = models.ForeignKey('offices.Email', null=True, blank=True)
+    email = models.EmailField(verbose_name=_("E-mail address"), null=True, blank=True)
 
     def is_send(self):
         return bool(self.send_at)
-
-    def recipient(self):
-        return self.email.office
 
     def send(self, user):
         text = self.content.replace('{{EMAIL}}', self.case.receiving_email)

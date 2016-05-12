@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from foundation.offices.models import Email
+from foundation.offices.emails.models import Email
 from .models import OutgoingLetter
 from django.utils.translation import ugettext_lazy as _
 from braces.forms import UserKwargModelFormMixin

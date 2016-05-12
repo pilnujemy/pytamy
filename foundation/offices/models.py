@@ -7,7 +7,6 @@ from model_utils.models import TimeStampedModel
 from django.db.models.query import QuerySet
 from autoslug import AutoSlugField
 from django.utils.encoding import python_2_unicode_compatible
-from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 from jsonfield import JSONField
 from cached_property import cached_property
@@ -67,10 +66,6 @@ class Office(TimeStampedModel):
     objects = OfficeQuerySet.as_manager()
     tags = TaggableManager(verbose_name=_("Tags"), blank=True)
 
-    @cached_property
-    def email(self):
-        return Email.objects.filter(office=self).order_by('default').first()
-
     def __str__(self):
         if not self.visible:
             return _("{name} (hidden)").format(name=self.name)
@@ -85,33 +80,3 @@ class Office(TimeStampedModel):
     class Meta:
         verbose_name = _("Office")
         verbose_name_plural = _("Offices")
-
-
-@python_2_unicode_compatible
-class Email(TimeStampedModel):
-    office = models.ForeignKey(Office, verbose_name=_("Office"))
-    email = models.EmailField(verbose_name=_("Address"))
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="office_email")
-    valid = models.BooleanField(default=True,
-                                verbose_name=_("Is valid?"),
-                                help_text=_("Identify if email is valid (still)."))
-    default = models.BooleanField(default=True,
-                                  verbose_name=_("Default"),
-                                  help_text=_("Use this e-mail as primary for office"))
-
-    class Meta:
-        verbose_name = _("E-mail address")
-        verbose_name_plural = _("E-mail addresses")
-
-    def __str__(self):
-        return self.email
-
-    def get_absolute_url(self):
-        return "%s?email=%d" % (reverse('cases:create'), self.pk)
-
-
-def undefault_other(sender, instance, **kwargs):
-    if instance.default:
-        Email.objects.exclude(pk=instance.pk).filter(office=instance.office).update(default=False)
-
-post_save.connect(undefault_other, sender=Email, dispatch_uid="update_undefault_other")

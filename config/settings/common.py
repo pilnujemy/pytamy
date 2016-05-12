@@ -58,6 +58,7 @@ LOCAL_APPS = (
     'foundation.main',
     'foundation.users',
     'foundation.offices',
+    'foundation.offices.emails',
     'foundation.teryt',
     'foundation.correspondence',
     'foundation.cases',

@@ -6,7 +6,7 @@ from atom.ext.crispy_forms.forms import HelperMixin, SingleButtonMixin
 from crispy_forms.layout import Submit
 from foundation.letters.models import Letter
 from .models import Case
-from foundation.offices.models import Email
+from foundation.offices.emails.models import Email
 from ckeditor.widgets import CKEditorWidget
 from foundation.letters.utils import can_send
 # from autocomplete_light import shortcuts as autocomplete_light

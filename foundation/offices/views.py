@@ -1,21 +1,19 @@
 from __future__ import absolute_import
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
-from django.utils.translation import ugettext_lazy as _
-from braces.views import (SelectRelatedMixin, LoginRequiredMixin, FormValidMessageMixin,
-                          UserFormKwargsMixin)
+
+from atom.views import DeleteMessageMixin
+from braces.views import FormValidMessageMixin, LoginRequiredMixin, SelectRelatedMixin, UserFormKwargsMixin
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
-from atom.views import DeleteMessageMixin, FormInitialMixin
-from .models import Office, Email
-from .forms import OfficeForm, EmailForm
+from extra_views import CreateWithInlinesView, InlineFormSet
+
 from foundation.letters.models import Letter
+from foundation.offices.emails.models import Email
+
 from .filters import OfficeFilter
-from django.http import HttpResponseRedirect
-from django.forms.models import inlineformset_factory
-from functools import wraps
-from django.utils.functional import curry
-from atom.ext.crispy_forms.forms import BaseTableFormSet
-from django.contrib import messages
+from .forms import OfficeForm
+from .models import Office
 
 
 class OfficeListView(SelectRelatedMixin, FilterView):
@@ -42,9 +40,6 @@ class OfficeDetailView(SelectRelatedMixin, DetailView):
         return context
 
 
-from extra_views import CreateWithInlinesView, InlineFormSet
-
-
 class EmailInline(InlineFormSet):
     model = Email
 
@@ -69,21 +64,3 @@ class OfficeDeleteView(LoginRequiredMixin, DeleteMessageMixin, DeleteView):
 
     def get_success_message(self):
         return _("{0} deleted!").format(self.object)
-
-
-class EmailCreateView(LoginRequiredMixin, UserFormKwargsMixin, FormValidMessageMixin,
-                      CreateView):
-    model = Email
-    form_class = EmailForm
-
-    def get_form_valid_message(self):
-        return _("{0} created!").format(self.object)
-
-
-class EmailUpdateView(LoginRequiredMixin, FormInitialMixin, UserFormKwargsMixin,
-                      FormValidMessageMixin, UpdateView):
-    model = Email
-    form_class = EmailForm
-
-    def get_form_valid_message(self):
-        return _("{0} updated!").format(self.object)

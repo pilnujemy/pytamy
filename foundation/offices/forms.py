@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from .models import Office, Email
+from .models import Office
 from braces.forms import UserKwargModelFormMixin
 from django.utils.translation import ugettext as _
 from atom.ext.crispy_forms.forms import SingleButtonMixin
@@ -44,16 +44,3 @@ class OfficeForm(SingleButtonMixin, UserKwargModelFormMixin,  forms.ModelForm):
         model = Office
         fields = OFFICE_FORM_FIELD
         autocomplete_names = {'jst': 'JSTCommunityAutocomplete'}
-
-
-class EmailForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(EmailForm, self).__init__(*args, **kwargs)
-        if not self.instance.pk:
-            self.instance.created_by = self.user
-        if not self.user.has_perm('offices.change_email'):
-            del self.fields['default']
-
-    class Meta:
-        model = Email
-        fields = ['email', 'default']
