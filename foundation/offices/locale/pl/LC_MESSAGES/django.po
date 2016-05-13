@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-05 04:10+0100\n"
-"PO-Revision-Date: 2016-01-05 04:10+0100\n"
+"POT-Creation-Date: 2016-05-13 01:59+0200\n"
+"PO-Revision-Date: 2016-05-13 01:59+0200\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -17,104 +17,118 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
-#: forms.py:13
-msgid "After creating the office, you can add another e-mail addresses."
-msgstr "Po utworzeniu urzędu, będziesz mógł dodać dodatkowe adresy e-mail."
+#: emails/models.py:15 models.py:77
+msgid "Office"
+msgstr "Urząd"
 
-#: forms.py:17 models.py:103
+#: emails/models.py:16
+msgid "Address"
+msgstr "Adres"
+
+#: emails/models.py:19
+msgid "Is valid?"
+msgstr "Czy poprawny?"
+
+#: emails/models.py:20
+msgid "Identify if email is valid (still)."
+msgstr "Identyfikuj jeżeli adres jest poprawny (wciąż)."
+
+#: emails/models.py:22
+msgid "Default"
+msgstr "Domyślny"
+
+#: emails/models.py:23
+msgid "Use this e-mail as primary for office"
+msgstr "Używaj tego adresu jako domyślnego dla urzędu"
+
+#: emails/models.py:26
 msgid "E-mail address"
 msgstr "Adres e-mail"
 
-#: forms.py:27
+#: emails/models.py:27
+msgid "E-mail addresses"
+msgstr "Adres e-mail"
+
+#: emails/views.py:18
+#, python-brace-format
+msgid "{0} created!"
+msgstr "{0} utworzony!"
+
+#: emails/views.py:27 views.py:70
+#, python-brace-format
+msgid "{0} updated!"
+msgstr "{0} zaktualizowany!"
+
+#: forms.py:14
+msgid "Voivodeship"
+msgstr "Województwo"
+
+#: forms.py:20
+msgid "County"
+msgstr "Powiat"
+
+#: forms.py:31
+msgid "Community"
+msgstr "Gmina"
+
+#: forms.py:34
 msgid "Identification"
 msgstr "Identyfikacja"
 
-#: forms.py:35
-msgid "Contacts"
-msgstr "Kontakt"
+#: forms.py:41
+msgid "Relations"
+msgstr "Relacje"
 
-#: forms.py:40
+#: forms.py:50
 msgid "Other"
 msgstr "Inne"
 
-#: models.py:17
+#: models.py:15
 msgid "Compatible with National Official Register of National Economy Entities"
 msgstr "Zgodny z rejestrem REGON"
 
-#: models.py:40 templates/offices/_office_list.html:5
+#: models.py:38 templates/offices/_office_list.html:5
 msgid "Name"
 msgstr "Nazwa"
 
-#: models.py:44
-msgid "Offices Supervisory"
-msgstr "Urzędy nadzorujące"
-
-#: models.py:46
+#: models.py:41
 msgid "Unit of administrative division"
 msgstr "Jednostka samorządu terytorialnego"
 
-#: models.py:49
+#: models.py:44
 msgid "Verified"
 msgstr "Zweryfikowany"
 
-#: models.py:53
+#: models.py:48
 msgid "Post code"
 msgstr "Kod pocztowy"
 
-#: models.py:58 templates/offices/_office_list.html:15
+#: models.py:53 templates/offices/_office_list.html:15
 msgid "REGON"
 msgstr "Kod REGON"
 
-#: models.py:64
+#: models.py:59
 msgid "Registration number"
 msgstr "Kod KRS"
 
-#: models.py:65
+#: models.py:60
 msgid "Compatible with Polish National Court Register"
-msgstr "Zgodny z rejestrem REGON"
+msgstr "Zgodny z rejestrem KRS"
 
-#: models.py:68
+#: models.py:63
 msgid "Tags"
 msgstr "Tagi"
 
-#: models.py:76
+#: models.py:67
 #, python-brace-format
 msgid "{name} (hidden)"
 msgstr "{name} (ukryty)"
 
-#: models.py:86 models.py:92
-msgid "Office"
-msgstr "Urząd"
-
-#: models.py:87
+#: models.py:78
 msgid "Offices"
 msgstr "Urzędy"
-
-#: models.py:93
-msgid "Address"
-msgstr "Adres"
-
-#: models.py:96
-msgid "Is valid?"
-msgstr "Czy poprawny?"
-
-#: models.py:97
-msgid "Identify if email is valid (still)."
-msgstr "Identyfikuj jeżeli adres jest poprawny (wciąż)."
-
-#: models.py:99
-msgid "Default"
-msgstr "Domyślny"
-
-#: models.py:100
-msgid "Use this e-mail as primary for office"
-msgstr "Używaj tego adresu jako domyślnego dla urzędu"
-
-#: models.py:104
-msgid "E-mail addresses"
-msgstr "Adres e-mail"
 
 #: templates/offices/_office_list.html:4
 msgid "ID"
@@ -136,25 +150,39 @@ msgstr "Liczba spraw"
 msgid "KRS"
 msgstr "KRS"
 
-#: templates/offices/office_detail.html:17
-msgid "Emails"
-msgstr "E-maile"
+#: templates/offices/office_detail.html:21
+msgid "Added by"
+msgstr "Dodany przez"
 
-#: templates/offices/office_detail.html:29
-msgid "add another"
+#: templates/offices/office_detail.html:27
+msgid "Add another"
 msgstr "dodaj następny"
 
-#: views.py:44 views.py:70
-#, python-brace-format
-msgid "{0} created!"
-msgstr "{0} utworzony!"
+#: templates/offices/office_detail.html:33
+msgid "Extra"
+msgstr "Extra"
 
-#: views.py:53 views.py:79
-#, python-brace-format
-msgid "{0} updated!"
-msgstr "{0} zaktualizowany!"
+#: templates/offices/office_form.html:21
+msgid "remove"
+msgstr "usuń"
 
-#: views.py:61
+#: templates/offices/office_form.html:22
+msgid "add another emails"
+msgstr "dodaj kolejny e-mail"
+
+#: views.py:78
 #, python-brace-format
 msgid "{0} deleted!"
 msgstr "{0} usunięty!"
+
+#~ msgid "After creating the office, you can add another e-mail addresses."
+#~ msgstr "Po utworzeniu urzędu, będziesz mógł dodać dodatkowe adresy e-mail."
+
+#~ msgid "Contacts"
+#~ msgstr "Kontakt"
+
+#~ msgid "Offices Supervisory"
+#~ msgstr "Urzędy nadzorujące"
+
+#~ msgid "Emails"
+#~ msgstr "E-maile"

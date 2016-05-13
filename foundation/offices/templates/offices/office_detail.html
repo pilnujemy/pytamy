@@ -23,7 +23,7 @@
             {% endfor %}
         </div>
         {% endif %}
-        <a href="{% url 'offices:email_create' %}?office={{object.pk}}" class="btn btn-primary">
+        <a href="{% url 'offices:emails:create' %}?office={{object.pk}}" class="btn btn-primary">
             {% trans 'Add another' %}
             {% if not request.user.is_authenticated %}
             <i class="fa fa-lock"></i>

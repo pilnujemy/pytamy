@@ -35,5 +35,5 @@ class Email(TimeStampedModel):
 
 def first_default(sender, instance, **kwargs):
     if not instance.pk:
-        instance.default = not Email.objects.filter(office=instance.email).exists()
+        instance.default = not Email.objects.filter(office=instance.office).exists()
 pre_save.connect(first_default, sender=Email, dispatch_uid="first_default")

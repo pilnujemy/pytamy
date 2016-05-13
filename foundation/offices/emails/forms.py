@@ -10,10 +10,12 @@ from atom.ext.crispy_forms.forms import SingleButtonMixin
 class EmailForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EmailForm, self).__init__(*args, **kwargs)
+        self.helper.form_tag = False
         if not self.instance.pk:
             self.instance.created_by = self.user
         if not self.user.has_perm('offices.change_email'):
             del self.fields['default']
+        self.fields['default'].help_text = None
 
     class Meta:
         model = Email

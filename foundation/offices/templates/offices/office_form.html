@@ -3,8 +3,24 @@
 {% block office_content %}
 <form method="POST">
 {% crispy form %}
-{% for inline in inlines %}
-{% crispy inline %}
-{% endfor %}
+<div id="form-emails">
+    {% crispy emails %}
+</div>
 </form>
+
+{% endblock %}
+
+{% block javascript %}
+{{block.super}}
+{{form.media}}
+<script type="text/javascript" src="https://cdn.rawgit.com/elo80ka/django-dynamic-formset/f1417a4dddd9c4904ae6d2f7b691ad7081efd49c/src/jquery.formset.js"></script>
+<script>
+$(function() {
+        $('#form-emails tbody tr').formset({
+            prefix: '{{ emails.prefix }}',
+            deleteText: '{% trans "remove" %}',
+            addText: '{% trans "add another emails" %}',
+        });
+});
+</script>
 {% endblock %}

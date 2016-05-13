@@ -9,7 +9,6 @@ from autoslug import AutoSlugField
 from django.utils.encoding import python_2_unicode_compatible
 from taggit.managers import TaggableManager
 from jsonfield import JSONField
-from cached_property import cached_property
 from pprint import pformat
 
 
@@ -38,9 +37,6 @@ class OfficeQuerySet(QuerySet):
 class Office(TimeStampedModel):
     name = models.CharField(max_length=150, verbose_name=_("Name"))
     slug = AutoSlugField(populate_from='name', unique=True)
-    parent = models.ManyToManyField(to='self',
-                                    blank=True,
-                                    verbose_name=_("Offices Supervisory"))
     jst = models.ForeignKey(to=JST,
                             verbose_name=_("Unit of administrative division"))
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
