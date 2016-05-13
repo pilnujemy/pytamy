@@ -1,46 +1,7 @@
-{% load humanize i18n letters_tags %}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <i class="fa fa-envelope"></i> 
-        <a href="{{letter.get_absolute_url}}">
-            {{letter}}
-        </a>
-        {% if not letter.outgoingletter.is_send and not letter.incomingletter %}
-        {% user_can_send request.user letter.case as can_send %}
-        <span class="badge">{% trans 'Draft' %}</span>
-        {% if can_send %}
-        <a href="{% url 'letters:send' slug=letter.slug%}" class="btn btn-xs btn-default"><i class="fa fa-paper-plane"></i> {% trans 'Send' %}</a>
-        {% else %}
-        {% endif %}
-        {% endif %}
-        {% if letter.attachment_count %}
-        <span class="badge"><i class="fa fa-download"></i> {{ letter.attachment_count }}</span>
-        {% endif %}
-    </div>
-    {% if not letter.incomingletter %}
-    <div class="panel-heading">
-    {% trans 'Recipient' %}:
-    <a href="{{letter.outgoingletter.office.get_absolute_url}}">{{letter.outgoingletter.office}}</a>
-    <code>@ {{letter.outgoingletter.email }}</code>
-    </div>
-    {% endif %}
-    <div class="panel-body">
-        {{letter.content | safe}}
-    </div>
-    <div class="panel-footer">
-        {% if not letter.incomingletter %}
-            {% blocktrans with author_url=letter.outgoingletter.author.get_absolute_url author=letter.outgoingletter.author realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
-            {% if not letter.outgoingletter.is_send %}
-                &bull; {% blocktrans with sender=letter.sender sender_url=letter.sender.get_absolute_url send_time=letter.send_at send_time_natural=letter.send_at|naturaltime %}Send by <a href="{{sender_url}}">{{sender}}</a> at <span title="{{send_time}}">{{send_time_natural}}</span>{% endblocktrans %}
-            {% endif %}
-        {% else %}
-            {% blocktrans with author_url=letter.incomingletter.sender.get_absolute_url author=letter.incomingletter.sender realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
-        {% endif %}
-        {% if letter.eml %}
-            &bull; {% blocktrans with eml_url=letter.eml.url %}<a href="{{eml_url}}"><i class="fa fa-download"></i> Download</a>{% endblocktrans %}
-        {% endif %}
-
-        &bull; <a href="{% url 'letters:reply' slug=letter.slug%}" class="btn btn-xs btn-primary">{% trans 'Reply'%}</a>
-
-    </div>
-</div>
+{% if letter.incomingletter %}
+{% include 'letters/_letter_item_incoming.html' with letter=letter %}
+{% elif letter.outgoingletter %}
+{% include 'letters/_letter_item_outgoing.html' with letter=letter %}
+{% else %}
+<h1>FAIL</h1>
+{% endif %}

@@ -1,0 +1,22 @@
+{% load humanize i18n letters_tags %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-envelope"></i> 
+        <a href="{{letter.get_absolute_url}}">
+            {{letter}}
+        </a>
+        {% if letter.attachment_count %}
+        <span class="badge"><i class="fa fa-download"></i> {{ letter.attachment_count }}</span>
+        {% endif %}
+    </div>
+    <div class="panel-body">
+        {{letter.content | safe}}
+    </div>
+    <div class="panel-footer">
+        {% blocktrans with author_url=letter.incomingletter.sender.get_absolute_url author=letter.incomingletter.sender realtime=letter.created naturaltime=letter.created|naturaltime %}Wrote by <a href="{{author_url}}">{{ author }}</a> <span title="{{realtime}}">{{naturaltime}}</span>{% endblocktrans %}
+        {% if letter.eml %}
+        &bull; {% blocktrans with eml_url=letter.eml.url %}<a href="{{eml_url}}"><i class="fa fa-download"></i> Download</a>{% endblocktrans %}
+        {% endif %}
+        &bull; <a href="{% url 'letters:reply' slug=letter.slug%}" class="btn btn-xs btn-primary">{% trans 'Reply'%}</a>
+    </div>
+</div>
