@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^$', views.OfficeListView.as_view(), name="list"),
     url(r'^emails/', include("foundation.offices.emails.urls", namespace="emails")),
     url(r'^~create$', views.OfficeCreateView.as_view(), name="create"),
-    url(r'^~autocomplete$', views.OfficeCreateView.as_view(), name="autocomplete"),
+    url(r'^~autocomplete$', views.OfficeAutocomplete.as_view(), name="autocomplete"),
     url(r'^(?P<slug>[\w-]+)$', views.OfficeDetailView.as_view(), name="detail"),
     url(r'^(?P<slug>[\w-]+)/~update$', views.OfficeUpdateView.as_view(),
         name="update"),

@@ -9,6 +9,6 @@ urlpatterns = [
         name="create"),
     url(r'^(?P<pk>[\w-]+)$', views.EmailUpdateView.as_view(),
         name="update"),
-    url(r'^~create$', views.EmailAutocomplete.as_view(),
+    url(r'^~autocomplete$', views.EmailAutocomplete.as_view(),
         name="autocomplete"),
 ]

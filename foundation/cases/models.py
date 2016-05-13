@@ -11,16 +11,23 @@ class CaseQuerySet(models.QuerySet):
     def by_rcv_email(self, email):
         return self.filter(receiving_email=email)
 
+    def with_letter_list(self):
+        Letter = self.model.letter_set.rel.related_model
+        qs = Letter.objects.for_list().all()
+        return self.prefetch_related(models.Prefetch(lookup='letter_set',
+                                                     queryset=qs,
+                                                     to_attr='letter_list'))
+
 
 class Case(TimeStampedModel):
     name = models.CharField(verbose_name=_("Name"), max_length=50)
     slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"), unique=True)
     office = models.ForeignKey('offices.Office')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
-    objects = CaseQuerySet.as_manager()
     receiving_email = models.CharField(max_length=150,
                                        verbose_name=_("Receiving email"),
                                        help_text=_("Address used to receiving emails."))
+    objects = CaseQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Case")

@@ -3,3 +3,8 @@
 {% block case_content %}
 {% crispy form %}
 {% endblock %}
+
+{% block javascript %}
+{{block.super}}
+{{form.media}}
+{% endblock %}

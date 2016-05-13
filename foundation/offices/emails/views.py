@@ -32,4 +32,8 @@ class EmailAutocomplete(autocomplete.Select2QuerySetView):
         qs = Email.objects.all()
         if self.q:
             qs = qs.filter(email__icontains=self.q)
+
+        office = self.forwarded.get('office', None)
+        if office:
+            return qs.filter(office=office)
         return qs
