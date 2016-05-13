@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 01:15+0100\n"
-"PO-Revision-Date: 2015-12-15 01:16+0100\n"
+"POT-Creation-Date: 2016-05-13 03:09+0200\n"
+"PO-Revision-Date: 2016-05-13 03:09+0200\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -17,59 +17,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
-#: filters.py:10 templates/cases/case_filter.html:11
-msgid "Office"
-msgstr "Urząd"
-
-#: filters.py:11
-#| msgid "Office"
-msgid "Office tags"
-msgstr "Tagi urzędowe"
-
-#: filters.py:15
-#| msgid "Created by"
+#: filters.py:14
 msgid "Maintained by"
 msgstr "Osoba prowadząca"
 
 #: forms.py:27
+msgid "Subject"
+msgstr "Temat"
+
+#: forms.py:29
 msgid "Inquire"
 msgstr "Zapytanie"
 
-#: forms.py:33
+#: forms.py:34
 msgid "Save"
 msgstr "Zapisz"
 
-#: forms.py:35
+#: forms.py:36
 msgid "Save & send"
 msgstr "Zapisz & wyślij"
 
-#: models.py:16 templates/cases/case_filter.html:10
+#: forms.py:40
+msgid "Identification"
+msgstr "Identyfikacja"
+
+#: forms.py:44
+msgid "Recipient"
+msgstr "Odbiorca"
+
+#: forms.py:53
+msgid "Content"
+msgstr "Treść"
+
+#: models.py:23 templates/cases/case_filter.html:10
 msgid "Name"
 msgstr "Tytuł"
 
-#: models.py:17
+#: models.py:24
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:22
+#: models.py:28
 msgid "Receiving email"
 msgstr "Adres odbierający"
 
-#: models.py:23
+#: models.py:29
 msgid "Address used to receiving emails."
 msgstr "Adres używany do odbierania wiadomości"
 
-#: models.py:26
+#: models.py:33
 msgid "Case"
 msgstr "SPrawa"
 
-#: models.py:27
+#: models.py:34
 msgid "Cases"
 msgstr "Sprawy"
 
-#: templates/cases/_milestone_item.html:2 templates/cases/case_detail.html:9
+#: templates/cases/_milestone_item.html:2
+#, python-format
+msgid ""
+"<a href=\"%(case_url)s\">%(case)s</a> <small>in <a href=\"%(office_url)s\">"
+"%(office)s</a></small>"
+msgstr ""
+"<a href=\"%(case_url)s\">%(case)s</a> <small> w <a href=\"%(office_url)s\">"
+"%(office)s</a></small>"
+
+#: templates/cases/case_detail.html:9
 #, python-format
 msgid "%(case)s <small>in <a href=\"%(office_url)s\">%(office)s</a></small>"
 msgstr "%(case)s <small>w <a href=\"%(office_url)s\">%(office)s</a></small>"
@@ -77,6 +92,10 @@ msgstr "%(case)s <small>w <a href=\"%(office_url)s\">%(office)s</a></small>"
 #: templates/cases/case_filter.html:9
 msgid "ID"
 msgstr "ID"
+
+#: templates/cases/case_filter.html:11
+msgid "Office"
+msgstr "Urząd"
 
 #: templates/cases/case_filter.html:12
 msgid "Created by"
@@ -86,17 +105,21 @@ msgstr "Utworzona przez"
 msgid "in"
 msgstr "w"
 
-#: views.py:40
+#: views.py:38
 #, python-brace-format
 msgid "{0} created!"
 msgstr "{0} utworzona!"
 
-#: views.py:49
+#: views.py:47
 #, python-brace-format
 msgid "{0} updated!"
 msgstr "{0} zaktualizowana!"
 
-#: views.py:57
+#: views.py:55
 #, python-brace-format
 msgid "{0} deleted!"
 msgstr "{0} usunięty!"
+
+#~| msgid "Office"
+#~ msgid "Office tags"
+#~ msgstr "Tagi urzędowe"

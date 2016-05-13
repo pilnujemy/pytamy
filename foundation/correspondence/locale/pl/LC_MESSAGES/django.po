@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-04 16:37+0200\n"
-"PO-Revision-Date: 2015-07-04 14:29+0100\n"
+"POT-Creation-Date: 2016-05-13 03:11+0200\n"
+"PO-Revision-Date: 2016-05-13 03:12+0200\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: pl_PL <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -17,94 +17,106 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
-#: models.py:10 templates/correspondence/contact_detail.html:26
+#: models.py:11 templates/correspondence/contact_detail.html:29
+#: templates/correspondence/contact_filter.html:19
 msgid "Name"
 msgstr "Nazwa"
 
-#: models.py:11 templates/correspondence/contact_detail.html:30
+#: models.py:15 templates/correspondence/contact_detail.html:33
 msgid "Street"
 msgstr "Ulica"
 
-#: models.py:12 templates/correspondence/contact_detail.html:34
+#: models.py:19 templates/correspondence/contact_detail.html:37
+#: templates/correspondence/contact_filter.html:21
 msgid "City"
 msgstr "Miejscowość"
 
-#: models.py:13 templates/correspondence/contact_detail.html:38
+#: models.py:21 templates/correspondence/contact_detail.html:41
 msgid "Post-code"
 msgstr "Kod pocztowy"
 
-#: models.py:14 templates/correspondence/contact_detail.html:42
+#: models.py:22 templates/correspondence/contact_detail.html:45
+#: templates/correspondence/contact_filter.html:20
 msgid "Comment"
 msgstr "Komentarz"
 
-#: models.py:16 models.py:41
+#: models.py:25 models.py:60
 msgid "Created by"
 msgstr "Utworzone przez"
 
-#: models.py:17 models.py:42
+#: models.py:27 models.py:62
 msgid "Created on"
 msgstr "Utworzone o"
 
-#: models.py:18 models.py:43
+#: models.py:29 models.py:64
 msgid "Modified by"
 msgstr "Zmodyfikowane przez"
 
-#: models.py:21 models.py:46
+#: models.py:35 models.py:70
 msgid "Modified on"
 msgstr "Zmodyfikowane o"
 
-#: models.py:24 models.py:36 templates/correspondence/letter_detail.html:28
+#: models.py:38 models.py:52 templates/correspondence/letter_detail.html:29
+#: templates/correspondence/letter_filter.html:23
 msgid "Contact"
 msgstr "Kontakt"
 
-#: models.py:25 templates/correspondence/contact_confirm_delete.html:4
+#: models.py:39 templates/correspondence/contact_confirm_delete.html:4
+#: templates/correspondence/contact_detail.html:7
+#: templates/correspondence/contact_filter.html:5
 #: templates/correspondence/contact_form.html:4
-#: templates/correspondence/contact_list.html:5
 msgid "Contacts"
 msgstr "Kontakty"
 
-#: models.py:35 templates/correspondence/letter_detail.html:24
+#: models.py:50 templates/correspondence/letter_detail.html:25
+#: templates/correspondence/letter_filter.html:21
 msgid "Outgoing"
 msgstr "Wychodząca"
 
-#: models.py:37 templates/correspondence/letter_detail.html:32
+#: models.py:53 templates/correspondence/letter_detail.html:33
+#: templates/correspondence/letter_filter.html:24
 msgid "Transfer on"
 msgstr "Przesłano o"
 
-#: models.py:38
+#: models.py:55
 msgid "Receive date for incoming, send date for outgoing"
 msgstr "Data odbioru dla przychodzących, data wysłania dla wychodzących"
 
-#: models.py:39 templates/correspondence/letter_detail.html:36
+#: models.py:57 templates/correspondence/letter_detail.html:37
+#: templates/correspondence/letter_filter.html:22
 msgid "Description"
 msgstr "Opis"
 
-#: models.py:49 models.py:60
+#: models.py:73 models.py:85
 msgid "Letter"
 msgstr "List"
 
-#: models.py:50
+#: models.py:74
 msgid "Letters"
 msgstr "Listy"
 
-#: models.py:53
+#: models.py:77
 #, python-format
 msgid "Letter #%s"
 msgstr "List #%s"
 
-#: models.py:67 templates/correspondence/letter_detail.html:51
+#: models.py:89
+msgid "Content protected"
+msgstr "Treść chroniona"
+
+#: models.py:90
+msgid "Unmark if safe for the rights of third parties"
+msgstr "Zaznacz, jeżeli wolne od praw osób trzecich"
+
+#: models.py:96 templates/correspondence/letter_detail.html:52
 msgid "Attachment"
 msgstr "Załącznik"
 
-#: models.py:68
+#: models.py:97
 msgid "Attachments"
 msgstr "Załączniki"
-
-#: tables.py:10
-msgid "Actions"
-msgstr "Akcje"
 
 #: templates/correspondence/_confirm_delete.html:5
 msgid "Delete confirmation "
@@ -120,8 +132,8 @@ msgid "Cancel"
 msgstr "Anuluj"
 
 #: templates/correspondence/_form.html:6
-#: templates/correspondence/contact_detail.html:10
-#: templates/correspondence/letter_detail.html:8
+#: templates/correspondence/contact_detail.html:13
+#: templates/correspondence/letter_detail.html:9
 msgid "Update"
 msgstr "Aktualizuj"
 
@@ -130,48 +142,71 @@ msgid "Create"
 msgstr "Utwórz"
 
 #: templates/correspondence/_link_add_letter.html:2
-#: templates/correspondence/letter_list.html:7
+#: templates/correspondence/contact_filter.html:32
+#: templates/correspondence/letter_filter.html:7
 msgid "Add letter"
 msgstr "Dodaj list"
 
 #: templates/correspondence/_list.html:16
+#: templates/correspondence/contact_filter.html:40
+#: templates/correspondence/letter_filter.html:39
 msgid "There is no rows. So sorry!"
 msgstr "Nie ma żadnych rekordów. Przepraszamy."
 
-#: templates/correspondence/base.html:5
+#: templates/correspondence/_list_meta.html:2
+#, python-format
+msgid "Created by %(user)s at %(time)s"
+msgstr "Utworzone przez %(user)s o %(time)s"
+
+#: templates/correspondence/_list_meta.html:3
+#, python-format
+msgid "Modiifed by %(user)s at %(time)s"
+msgstr "Zmodyfikowane przez %(user)s o %(time)s"
+
+#: templates/correspondence/_list_meta.html:3
+msgid "Meta"
+msgstr "Meta"
+
+#: templates/correspondence/base.html:4 templates/correspondence/base.html:9
 msgid "Correspondence"
 msgstr "Korespondencja"
 
-#: templates/correspondence/contact_detail.html:11
-#: templates/correspondence/letter_detail.html:9
+#: templates/correspondence/contact_detail.html:14
+#: templates/correspondence/letter_detail.html:10
 msgid "Delete"
 msgstr "Usuń"
 
-#: templates/correspondence/contact_detail.html:22
-#: templates/correspondence/letter_detail.html:20
+#: templates/correspondence/contact_detail.html:25
+#: templates/correspondence/letter_detail.html:21
+#: templates/correspondence/letter_filter.html:20
 msgid "ID"
 msgstr "ID"
 
-#: templates/correspondence/contact_detail.html:46
-#: templates/correspondence/letter_detail.html:40
+#: templates/correspondence/contact_detail.html:49
+#: templates/correspondence/letter_detail.html:41
 msgid "Created"
 msgstr "Utworzone"
 
-#: templates/correspondence/contact_detail.html:50
-#: templates/correspondence/letter_detail.html:45
+#: templates/correspondence/contact_detail.html:53
+#: templates/correspondence/letter_detail.html:46
 msgid "Modified"
 msgstr "Zmodyfikowane"
 
-#: templates/correspondence/contact_list.html:9
+#: templates/correspondence/contact_filter.html:9
 #: templates/correspondence/letter_form.html:14
 msgid "Add contact"
 msgstr "Dodaj kontakt"
 
-#: templates/correspondence/letter_list.html:4
+#: templates/correspondence/contact_filter.html:22
+#: templates/correspondence/letter_filter.html:25
+msgid "Actions"
+msgstr "Akcje"
+
+#: templates/correspondence/letter_filter.html:4
 msgid "Index"
 msgstr "Wykaz"
 
-#: templates/correspondence/letter_list.html:8
+#: templates/correspondence/letter_filter.html:8
 msgid "Contacts index"
 msgstr "Wykaz kontaktów"
 

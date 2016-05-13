@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-16 07:30+0100\n"
-"PO-Revision-Date: 2015-12-16 07:30+0100\n"
+"POT-Creation-Date: 2016-05-13 03:09+0200\n"
+"PO-Revision-Date: 2016-05-13 03:10+0200\n"
 "Last-Translator: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language-Team: Adam Dobrawy <naczelnik@jawnosc.tk>\n"
 "Language: pl_PL\n"
@@ -17,17 +17,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: filters.py:12
 msgid "Case maintained by"
 msgstr "Osoba prowadząca sprawę"
 
-#: forms.py:34
+#: forms.py:34 templates/letters/_letter_item.html:22
+msgid "Recipient"
+msgstr "Odbiorca"
+
+#: forms.py:42
+msgid "Content"
+msgstr "Treść"
+
+#: forms.py:49
 msgid "Save "
 msgstr "Zapisz"
 
-#: forms.py:36
+#: forms.py:51
 msgid "Save & send"
 msgstr "Zapisz & wyślij"
 
@@ -36,49 +44,51 @@ msgid "Is it a incoming message? Otherwise, it is outgoing."
 msgstr ""
 "Czy to jest przychodząca wiadomość? W przeciwnym razie - jest to wychodząca."
 
-#: models.py:55
+#: models.py:61
 msgid "Subject"
 msgstr "Tytuł"
 
-#: models.py:56
+#: models.py:62
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:63
+#: models.py:69
 msgid "Message registered by django_mailbox"
 msgstr "Wiadomość zarejestrowana przez django_mailbox"
 
-#: models.py:73
+#: models.py:79
 msgid "Letter"
 msgstr "Pismo"
 
-#: models.py:74
+#: models.py:80
 msgid "Letters"
 msgstr "Pisma"
 
-#: models.py:119
+#: models.py:92
+msgid "E-mail address"
+msgstr ""
+
+#: models.py:125
 msgid "Outgoing letter"
 msgstr "List wychodzący"
 
-#: models.py:120
+#: models.py:126
 msgid "Outgoing letters"
 msgstr "Listy wychodzące"
 
-#: models.py:125
+#: models.py:131
 msgid "From e-mail"
 msgstr "Adres e-mail nadawcy"
 
-#: models.py:128
+#: models.py:134
 msgid "Field valid only for incoming messages"
 msgstr "Pole poprawne tylko dla wiadomości przychodzących"
 
-#: models.py:134
-#| msgid "Incoming"
+#: models.py:140
 msgid "Incoming letter"
 msgstr "List przychodzący"
 
-#: models.py:135
-#| msgid "Incoming"
+#: models.py:141
 msgid "Incoming letters"
 msgstr "Listy przychodzące"
 
@@ -90,8 +100,8 @@ msgstr "Szkic"
 msgid "Send"
 msgstr "Wyślij"
 
-#: templates/letters/_letter_item.html:25
-#: templates/letters/_letter_item.html:30
+#: templates/letters/_letter_item.html:32
+#: templates/letters/_letter_item.html:37
 #, python-format
 msgid ""
 "Wrote by <a href=\"%(author_url)s\">%(author)s</a> <span title=\"%(realtime)s"
@@ -100,7 +110,7 @@ msgstr ""
 "Napisał/-a <a href=\"%(author_url)s\">%(author)s</a> <span title="
 "\"%(realtime)s\">%(naturaltime)s</span>"
 
-#: templates/letters/_letter_item.html:27
+#: templates/letters/_letter_item.html:34
 #, python-format
 msgid ""
 "Send by <a href=\"%(sender_url)s\">%(sender)s</a> at <span title="
@@ -109,12 +119,12 @@ msgstr ""
 "Wysłał/-a <a href=\"%(sender_url)s\">%(sender)s</a> <span title="
 "\"%(send_time)s\">%(send_time_natural)s</span>"
 
-#: templates/letters/_letter_item.html:33
+#: templates/letters/_letter_item.html:40
 #, python-format
 msgid "<a href=\"%(eml_url)s\"><i class=\"fa fa-download\"></i> Download</a>"
 msgstr "<a href=\"%(eml_url)s\"><i class=\"fa fa-download\"></i> Pobierz</a>"
 
-#: templates/letters/_letter_item.html:36
+#: templates/letters/_letter_item.html:43
 msgid "Reply"
 msgstr "Odpowiedź"
 
