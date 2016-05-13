@@ -9,8 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from foundation.letters.models import OutgoingLetter
 from foundation.letters.utils import can_send
-from foundation.offices.emails.models import Email
-
+from foundation.offices.emails.fields import EmailAutocompleteField
 from .models import Case
 
 
@@ -24,11 +23,7 @@ class CaseForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
 
 
 class NewCaseForm(HelperMixin, UserKwargModelFormMixin, forms.ModelForm):
-    email = forms.ModelChoiceField(
-        queryset=Email.objects.all(),
-        widget=autocomplete.ModelSelect2(url='offices:emails:autocomplete',
-                                         forward=['office'])
-    )
+    email = EmailAutocompleteField()
     subject = forms.CharField(max_length=250, label=_("Subject"))
     text = forms.CharField(widget=CKEditorWidget(),
                            label=_("Inquire"))

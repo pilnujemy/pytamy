@@ -96,10 +96,10 @@ class OutgoingLetter(Letter):
 
     def send(self, user):
         text = self.content.replace('{{EMAIL}}', self.case.receiving_email)
-        to = self.email.email
+        to = self.email
         # Construct MimeText instance
         context = dict(text=text,
-                       office=self.email.office,
+                       office=self.office,
                        case=self.case,
                        letter=self,
                        email=self.case.receiving_email,

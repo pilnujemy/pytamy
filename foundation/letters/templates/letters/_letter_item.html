@@ -17,6 +17,13 @@
         <span class="badge"><i class="fa fa-download"></i> {{ letter.attachment_count }}</span>
         {% endif %}
     </div>
+    {% if not letter.incomingletter %}
+    <div class="panel-heading">
+    {% trans 'Recipient' %}:
+    <a href="{{letter.outgoingletter.office.get_absolute_url}}">{{letter.outgoingletter.office}}</a>
+    <code>@ {{letter.outgoingletter.email }}</code>
+    </div>
+    {% endif %}
     <div class="panel-body">
         {{letter.content | safe}}
     </div>

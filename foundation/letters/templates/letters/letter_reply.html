@@ -1,5 +1,12 @@
 {% extends 'letters/letter_form.html' %}
 {% load i18n crispy_forms_tags %}
 {% block form_top %}
+
 {% include 'letters/_letter_item.html' with letter=object %}
+
+{% endblock %}
+
+{% block javascript %}
+{{block.super}}
+{{form.media}}
 {% endblock %}
