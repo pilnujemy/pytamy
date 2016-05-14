@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from test_plus.test import TestCase
-from .factories import OfficeFactory, EmailFactory
-from ..models import Office, Email
+from .factories import OfficeFactory
+from ..models import Office
 from foundation.users.tests.factories import UserFactory
 from foundation.teryt.tests.factories import JSTFactory
 from django.contrib.auth.models import Permission
@@ -38,7 +38,7 @@ class TestOffice(TestCase):
     def test_get_absolute_url(self):
         self.assertEqual(
             self.object.get_absolute_url(),
-            '/urzedy/urzad-testname'
+            '/urzedy/testname'
         )
 
 
@@ -80,22 +80,3 @@ class TestOfficeQuerySet(TestCase):
         b = JSTFactory()
         self._area_tester(b, a, False)
         self._area_tester(a, b, False)
-
-
-class EmailTest(TestCase):
-    def setUp(self):
-        self.object = EmailFactory(email="smith@example.com")
-
-    def test__str__(self):
-        self.assertEqual(self.object.__str__(), "smith@example.com")
-
-    def test_undefault_other(self):
-        a = EmailFactory(office=self.object.office, default=True)
-        self.assertTrue(Email.objects.filter(pk=a.pk).get().default)
-        b = EmailFactory(office=self.object.office, default=True)
-        self.assertTrue(Email.objects.filter(pk=b.pk).get().default)
-        self.assertFalse(Email.objects.filter(pk=a.pk).get().default)
-        c = EmailFactory(office=self.object.office, default=True)
-        self.assertTrue(Email.objects.filter(pk=c.pk).get().default)
-        self.assertFalse(Email.objects.filter(pk=a.pk).get().default)
-        self.assertFalse(Email.objects.filter(pk=b.pk).get().default)

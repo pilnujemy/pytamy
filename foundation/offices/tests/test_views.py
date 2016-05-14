@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from test_plus.test import TestCase
-from .factories import OfficeFactory, EmailFactory
+from .factories import OfficeFactory
+from foundation.offices.emails.tests.factories import EmailFactory
 
 
 class OfficeListViewTestCase(TestCase):

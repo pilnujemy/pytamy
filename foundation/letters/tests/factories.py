@@ -50,7 +50,8 @@ class IncomingLetterFactory(LetterFactory):
 
 class OutgoingLetterFactory(LetterFactory):
     author = factory.SubFactory('foundation.users.tests.factories.UserFactory')
-    email = factory.SubFactory('foundation.offices.tests.factories.EmailFactory')
+    office = factory.SubFactory('foundation.offices.tests.factories.OfficeFactory')
+    email = "office@example.com"
 
     class Meta:
         model = models.OutgoingLetter

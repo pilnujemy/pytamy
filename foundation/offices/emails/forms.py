@@ -13,10 +13,7 @@ class EmailForm(UserKwargModelFormMixin, SingleButtonMixin, forms.ModelForm):
         self.helper.form_tag = False
         if not self.instance.pk:
             self.instance.created_by = self.user
-        if not self.user.has_perm('offices.change_email'):
-            del self.fields['default']
-        self.fields['default'].help_text = None
 
     class Meta:
         model = Email
-        fields = ['email', 'default']
+        fields = ['email', ]

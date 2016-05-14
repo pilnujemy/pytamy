@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 from test_plus.test import TestCase
-from .factories import OfficeFactory, EmailFactory
-from ..models import Office, Email
+from .factories import OfficeFactory
 from foundation.users.tests.factories import UserFactory
 from foundation.teryt.tests.factories import JSTFactory
 from ..forms import OfficeForm
@@ -33,7 +32,6 @@ class OfficeFormTest(TestCase):
         obj = form.save()
         self.assertEqual(obj.name, "Turanga Leela")
         self.assertEqual(obj.jst.pk, str(jst.pk))
-        self.assertEqual(parent in list(obj.parent.all()), True)
         self.assertEqual(obj.created_by, self.user)
         # self.assertEqual(Email.objects.filter(office=obj).get().email, "leela@example.com")
 
