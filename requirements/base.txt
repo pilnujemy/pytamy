@@ -47,6 +47,6 @@ djmail==0.12.0.post1
 django-taggit==0.18.3
 django-ckeditor==5.0.3
 claw==1.3.0
-django-mailbox==4.4.8
+django-mailbox==4.4.9
 https://github.com/ad-m/django-basic-tinymce-flatpages/archive/master.zip
 
