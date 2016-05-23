@@ -30,7 +30,7 @@ pytz==2016.4
 # Views
 django-tables2==1.2.1
 django-filter==0.13.0
-django-autocomplete-light==3.1.5
+django-autocomplete-light==3.1.6
 django-extra-views==0.7.1
 
 # Your custom requirements go here
