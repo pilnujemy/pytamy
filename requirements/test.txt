@@ -1,4 +1,4 @@
 # Test dependencies go here.
 -r base.txt
 flake8==3.0.4
-django-test-plus==1.0.15
+django-test-plus==1.0.16
