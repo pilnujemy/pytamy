@@ -1,6 +1,6 @@
 # Pro-tip: Try not to put anything here. There should be no dependency in
 #	production that isn't in development.
-Django==1.8.16 # rq.filter: >=1.8,<1.9
+Django==1.8.17 # rq.filter: >=1.8,<1.9
 -r base.txt
 
 # WSGI Handler
