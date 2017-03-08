@@ -31,7 +31,7 @@ pytz==2016.10
 django-tables2==1.4.2
 django-filter==1.0.1
 django-autocomplete-light==3.2.1
-django-extra-views==0.8.0
+django-extra-views==0.9.0
 
 # Your custom requirements go here
 git+https://github.com/ad-m/django-atom.git@v0.11.0#egg=django-atom
