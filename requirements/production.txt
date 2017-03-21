@@ -6,5 +6,5 @@ Django==1.8.17 # rq.filter: >=1.8,<1.9
 # WSGI Handler
 # ------------------------------------------------
 gevent==1.2.1
-gunicorn==19.7.0
+gunicorn==19.7.1
 raven==6.0.0
