@@ -43,7 +43,7 @@ cached-property==1.4.2
 django-localflavor==2.0
 jsonfield==2.0.2
 django-bleach==0.3.0
-djmail==1.0.1
+djmail==1.1.0
 django-taggit==0.22.2
 django-ckeditor==5.4.0
 claw==1.3.0
