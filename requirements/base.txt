@@ -45,7 +45,7 @@ jsonfield==2.0.2
 django-bleach==0.3.0
 djmail==1.1.0
 django-taggit==0.22.2
-django-ckeditor==5.4.0
+django-ckeditor==5.5.0
 claw==1.3.0
 django-mailbox==4.7.1
 https://github.com/ad-m/django-basic-tinymce-flatpages/archive/master.zip
